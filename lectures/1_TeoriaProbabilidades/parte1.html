@@ -178,7 +178,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Regresión Lineal</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../5_linear_regression/part1.html">15. Introducción a la Regresión Lineal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../5_linear_regression/part2.html">16. Regresión Lineal Multivariada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5_linear_regression/part2.html">16. Regresión Lineal Múltiple</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../5_linear_regression/part3.html">17. Regresión lineal con funciones base y Regularización</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../7_RegresionesRespDiscreta/Regresiones_RespuestaDiscreta.html">18. Regresiones para Respuestas Discretas</a></li>
 </ul>
@@ -376,11 +376,32 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="elementos-basicos-de-teoria-de-probabilidades">
 <h1><span class="section-number">1. </span>Elementos Básicos de Teoría de Probabilidades<a class="headerlink" href="#elementos-basicos-de-teoria-de-probabilidades" title="Permalink to this heading">#</a></h1>
-<p><strong>Teoría de Probabilidades</strong></p>
+<p><strong>Estadística</strong></p>
 <ul class="simple">
-<li><p>Modelamiento de fenómenos aleatorios (por ejemplo, lanzamiento de un dado, el tiempo)
-<a class="reference internal" href="../../_images/daos.jpg"><img alt="../../_images/daos.jpg" src="../../_images/daos.jpg" style="width: 200px;" /></a></p></li>
-<li><p>Fundamento de la <strong>estadística</strong> que es la recolección, organización, análisis, interpretación y presentación de datos.</p></li>
+<li><p>La recolección, organización, análisis, interpretación y presentación de datos</p></li>
+<li><p>IA basada en reglas vs. IA estadística (machine learning)</p></li>
+<li><p>Uno de los primeros usos: En siglo V A.C., los atenienses calcularon la altura de las escaleras haciendo que varios soldados contaran los ladrillos y multiplicando el recuento más frecuente (la moda) por la altura de un ladrillo.</p></li>
+</ul>
+<p><strong>Teoría de la probabilidad</strong></p>
+<a class="reference internal image-reference" href="../../_images/daos.jpg"><img alt="../../_images/daos.jpg" src="../../_images/daos.jpg" style="width: 200px;" /></a>
+<ul class="simple">
+<li><p>Estudio de la incertidumbre, modelamiento de fenómenos aleatorios</p></li>
+<li><p>La teoría moderna de la probabilidad surgió en los juegos de apuestas con dados en Francia en 1654 <strong><a class="reference external" href="https://www3.cs.stonybrook.edu/~skiena/jaialai/excerpts/node12.html#:~:text=Probability%20deals%20with%20predicting%20the,the%20consequences%20of%20mathematical%20definitions.">(historia)</a></strong></p></li>
+<li><p>Fundamento de la estadística</p></li>
+</ul>
+<p><strong>Estadística vs. probabilidad</strong></p>
+<p>Tenmos dos tipos de preguntas:</p>
+<ul class="simple">
+<li><p>¿Si tiro dos dados de seis caras, ¿qué probabilidad hay de que me salgan dos seises?</p></li>
+<li><p>¿Si mi amigo tira dos veces un dado de seis caras y obtiene dos seises, ¿es justo el dado?</p></li>
+</ul>
+<p>¿Cuál es la pregunta de probabilidad? ¿Cuál es la de estadística? ¿Cuál es la diferencia?</p>
+<p>Veamos otro ejemplo:</p>
+<ul>
+<li><a class="reference internal image-reference" href="../../_images/GoT_Data2.png"><img alt="../../_images/GoT_Data2.png" src="../../_images/GoT_Data2.png" style="width: 400px;" /></a>
+</li>
+<li><a class="reference internal image-reference" href="../../_images/GoT_Data1.png"><img alt="../../_images/GoT_Data1.png" src="../../_images/GoT_Data1.png" style="width: 400px;" /></a>
+</li>
 </ul>
 <p><strong>Experimento, Espacio Muestral, Evento, Elemento</strong></p>
 <ul class="simple">
@@ -446,7 +467,7 @@ document.write(`
 &amp;A \to P(A)
 \end{array}\)</span></p>
 <ul class="simple">
-<li><p>(es decir, <span class="math notranslate nohighlight">\(P\)</span> asigna a cada evento <span class="math notranslate nohighlight">\(A\)</span> (cualquier subconjunto de <span class="math notranslate nohighlight">\(\Omega\)</span>) en el espacial muestral <span class="math notranslate nohighlight">\(\Omega\)</span> un número real entre 0 y 1 <span class="math notranslate nohighlight">\(P(A)\)</span>.)</p></li>
+<li><p>Es decir, <span class="math notranslate nohighlight">\(P\)</span> asigna a cada evento <span class="math notranslate nohighlight">\(A\)</span> (cualquier subconjunto de <span class="math notranslate nohighlight">\(\Omega\)</span>) en el espacial muestral <span class="math notranslate nohighlight">\(\Omega\)</span> un número real entre 0 y 1 <span class="math notranslate nohighlight">\(P(A)\)</span>.</p></li>
 </ul>
 <p>que cumple lo siguiente (tres axiomas de Kolmogórov):</p>
 <p><span class="math notranslate nohighlight">\(\begin{array}{ll} 1. &amp; \forall A \subset \Omega, P(A) \geq 0 \quad \text{(axioma 1)}\\
