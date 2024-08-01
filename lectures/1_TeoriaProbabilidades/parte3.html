@@ -354,20 +354,20 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#esperanza">3.1. Esperanza</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#varianza-covarianza-y-correlacion">3.2. Varianza, covarianza y correlación</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#varianza">3.2.1. Varianza</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#desviacion-estandar">3.2.2. Desviación estándar</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#covarianza">3.2.3. Covarianza</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corelacion">3.2.4. Corelación</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-en-el-caso-de-independencia">3.2.5. Propiedades en el caso de independencia</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#otras-medidas-de-tendencia-central">3.2. Otras medidas de tendencia central</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#varianza-covarianza-y-correlacion">3.3. Varianza, covarianza y correlación</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#varianza">3.3.1. Varianza</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#desviacion-estandar">3.3.2. Desviación estándar</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#covarianza">3.3.3. Covarianza</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corelacion">3.3.4. Corelación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-en-el-caso-de-independencia">3.3.5. Propiedades en el caso de independencia</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#asimetria-y-curtosis">3.3. Asimetría y curtosis</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asimetria-skewness">3.3.1. Asimetría (skewness)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#curtosis">3.3.2. Curtosis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#asimetria-y-curtosis">3.4. Asimetría y curtosis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asimetria-skewness">3.4.1. Asimetría (skewness)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#curtosis">3.4.2. Curtosis</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mediana-y-moda">3.4. Mediana y moda</a></li>
 </ul>
             </nav>
         </div>
@@ -424,10 +424,22 @@ E[aX+b] &amp; = &amp; aE[X] + b \\
 E[X + Y] &amp; = &amp; E[X] + E[Y]\\
 \end{array}\)</span></p>
 </section>
+<section id="otras-medidas-de-tendencia-central">
+<h2><span class="section-number">3.2. </span>Otras medidas de tendencia central<a class="headerlink" href="#otras-medidas-de-tendencia-central" title="Permalink to this heading">#</a></h2>
+<p>La <strong>mediana</strong> es el valor de la variable de posición central en un conjunto de datos ordenados.</p>
+<p>La <strong>moda</strong> es el valor que aparece con mayor <strong>frecuencia</strong> en un conjunto de datos.</p>
+<p>Ambas son otras medidas de tendencia central.</p>
+<a class="reference internal image-reference" href="../../_images/mediana_moda.png"><img alt="../../_images/mediana_moda.png" src="../../_images/mediana_moda.png" style="width: 550px;" /></a>
+<p>Figura: Mediana, moda y media de diferentes distribuciones (<a class="reference external" href="https://epamatematicas.blogspot.com/2019/08/relacion-entre-la-media-la-mediana-y-la.html">fuente</a>)</p>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>De menudo se usa la media para informar la tendencia central. Pero no es una estadística robusta: está muy influida por los valores atípicos (outliers). En las distribuciones asimétricas, la mediana proporciona una mejor descripción de la tendencia central.</p>
+</div>
+</section>
 <section id="varianza-covarianza-y-correlacion">
-<h2><span class="section-number">3.2. </span>Varianza, covarianza y correlación<a class="headerlink" href="#varianza-covarianza-y-correlacion" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">3.3. </span>Varianza, covarianza y correlación<a class="headerlink" href="#varianza-covarianza-y-correlacion" title="Permalink to this heading">#</a></h2>
 <section id="varianza">
-<h3><span class="section-number">3.2.1. </span>Varianza<a class="headerlink" href="#varianza" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">3.3.1. </span>Varianza<a class="headerlink" href="#varianza" title="Permalink to this heading">#</a></h3>
 <p>La <strong>varianza</strong> (<span class="math notranslate nohighlight">\(\sigma^2\)</span>) mide la variación de la v.a. en torno a la esperanza o media (<span class="math notranslate nohighlight">\(E[X]\)</span> o <span class="math notranslate nohighlight">\(\mu\)</span>). Es una medida de dispersión. Se define como</p>
 <p><span class="math notranslate nohighlight">\(\begin{array}{lll}
 Var(X) = E[(X-\mu)^2] &amp; = &amp; 
@@ -443,11 +455,11 @@ Var(aX+b) = a^2 Var(X)
 \end{array}\)</span></p>
 </section>
 <section id="desviacion-estandar">
-<h3><span class="section-number">3.2.2. </span>Desviación estándar<a class="headerlink" href="#desviacion-estandar" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">3.3.2. </span>Desviación estándar<a class="headerlink" href="#desviacion-estandar" title="Permalink to this heading">#</a></h3>
 <p>Se define además la <strong>desviación estándar</strong> <span class="math notranslate nohighlight">\(\sigma = \sqrt{Var(X)}\)</span> (mantiene la unidad de X)</p>
 </section>
 <section id="covarianza">
-<h3><span class="section-number">3.2.3. </span>Covarianza<a class="headerlink" href="#covarianza" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">3.3.3. </span>Covarianza<a class="headerlink" href="#covarianza" title="Permalink to this heading">#</a></h3>
 <p>La <strong>covarianza</strong> mide la relación (lineal) que hay entre dos v.a. <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span>. Si denotamos <span class="math notranslate nohighlight">\(\mu_X = E[X]\)</span> y <span class="math notranslate nohighlight">\( \mu_Y= E[Y]\)</span> entonces:</p>
 <p><span class="math notranslate nohighlight">\(\begin{array}{lll}
 Cov(X,Y) &amp; = &amp; E[(X-\mu_X)(Y-\mu_y)] \\ 
@@ -468,14 +480,24 @@ Var(\sum_i \limits X_i) &amp; = &amp;
 \end{array}\)</span></p>
 </section>
 <section id="corelacion">
-<h3><span class="section-number">3.2.4. </span>Corelación<a class="headerlink" href="#corelacion" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">3.3.4. </span>Corelación<a class="headerlink" href="#corelacion" title="Permalink to this heading">#</a></h3>
 <p>La <strong>correlación</strong> es una medida normalizada de la covarianza que tiene valor entre -1 y 1:</p>
 <p><span class="math notranslate nohighlight">\(\begin{array}{lll}
 \rho(X,Y) &amp; = &amp; \frac{Cov(X,Y)}{\sigma_x(X) \sigma_y(Y)}
 \end{array}\)</span></p>
-<p>Lo anterior define la <strong>correlación de Pearson</strong> que mide correlación lineal  entre variables. Cuano se aplica a una población, generalmente usamos <span class="math notranslate nohighlight">\(\rho\)</span> para denotarla; cuando se aplica a un muestra, generalmente usamos <span class="math notranslate nohighlight">\(r\)</span> para denotarla. La siguiente figura muestra algunos ejemoplos para yudar a entender cómo mide la correlación lineal. Hay otros tipos de correlación que pueden medir la correlación no lineal (<a class="reference external" href="https://es.wikipedia.org/wiki/Coeficiente_de_correlaci%C3%B3n_de_Spearman">Spearman</a>, <a class="reference external" href="https://es.wikipedia.org/wiki/Coeficiente_de_correlaci%C3%B3n_de_rango_de_Kendall">Kendall</a>).</p>
+<p>Lo anterior define la <strong>correlación de Pearson</strong> que mide correlación lineal  entre variables.</p>
+<ul class="simple">
+<li><p>Cuando se aplica a una población, generalmente usamos <span class="math notranslate nohighlight">\(\rho\)</span> para denotarla;</p></li>
+<li><p>Cuando se aplica a un muestra, generalmente usamos <span class="math notranslate nohighlight">\(r\)</span> para denotarla.</p></li>
+</ul>
+<p>La siguiente figura muestra algunos ejemoplos para yudar a entender cómo mide la correlación lineal.</p>
 <a class="reference internal image-reference" href="../../_images/PearsonCorrelation.png"><img alt="../../_images/PearsonCorrelation.png" src="../../_images/PearsonCorrelation.png" style="width: 600px;" /></a>
 <p>Figura: Ejemoplos para la correlación de Pearson (<a class="reference external" href="https://stats.libretexts.org/Bookshelves/Introductory_Statistics/Introductory_Statistics_(Shafer_and_Zhang)/10%3A_Correlation_and_Regression/10.02%3A_The_Linear_Correlation_Coefficient">fuente</a>)</p>
+<p>Hay otros tipos de correlación que pueden medir la correlación no lineal:</p>
+<ul class="simple">
+<li><p><strong>Correlación de <a class="reference external" href="https://es.wikipedia.org/wiki/Coeficiente_de_correlaci%C3%B3n_de_rango_de_Kendall">Kendall</a></strong>. En la práctica, se utiliza mucho esta correlación.</p></li>
+<li><p><strong>Correlación de <a class="reference external" href="https://es.wikipedia.org/wiki/Coeficiente_de_correlaci%C3%B3n_de_Spearman">Spearman</a></strong></p></li>
+</ul>
 <p><strong>Corelación y Independencia</strong></p>
 <p>En la última imagen, <span class="math notranslate nohighlight">\(r = 0\)</span>, pero los dos v.a. tienen una relación no lineal y no son independentes. Por ejemplo, <span class="math notranslate nohighlight">\(P(X=x)=\frac{1}{3}\)</span> para <span class="math notranslate nohighlight">\(X\)</span>=-1, 0, o 1, y <span class="math notranslate nohighlight">\(Y=-X^2\)</span>.</p>
 <p>Cuál es la relación entre zero corelación y independencia?</p>
@@ -486,7 +508,7 @@ Var(\sum_i \limits X_i) &amp; = &amp;
 <p>Cuál es el diagrama de Venn de ellos?</p>
 </section>
 <section id="propiedades-en-el-caso-de-independencia">
-<h3><span class="section-number">3.2.5. </span>Propiedades en el caso de independencia<a class="headerlink" href="#propiedades-en-el-caso-de-independencia" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">3.3.5. </span>Propiedades en el caso de independencia<a class="headerlink" href="#propiedades-en-el-caso-de-independencia" title="Permalink to this heading">#</a></h3>
 <p>Si <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span> son v.a. independientes, entonces:</p>
 <p><span class="math notranslate nohighlight">\(\begin{array}{lll} 
 E[XY] &amp; = &amp; E[X]E[Y] \\
@@ -496,9 +518,9 @@ Var(X+Y) &amp; = &amp; Var(X) + Var(Y)\\
 </section>
 </section>
 <section id="asimetria-y-curtosis">
-<h2><span class="section-number">3.3. </span>Asimetría y curtosis<a class="headerlink" href="#asimetria-y-curtosis" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">3.4. </span>Asimetría y curtosis<a class="headerlink" href="#asimetria-y-curtosis" title="Permalink to this heading">#</a></h2>
 <section id="asimetria-skewness">
-<h3><span class="section-number">3.3.1. </span>Asimetría (skewness)<a class="headerlink" href="#asimetria-skewness" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">3.4.1. </span>Asimetría (skewness)<a class="headerlink" href="#asimetria-skewness" title="Permalink to this heading">#</a></h3>
 <p>Las medidas de asimetría son indicadores que permiten establecer el grado de simetría (o asimetría). La asimetría es el tercer momento estándar de una distribución.</p>
 <p><span class="math notranslate nohighlight">\(\begin{array}{lll}
 \text{ Asimetría (skewness) } &amp; = &amp; E[(\frac{X-\mu}{\sigma})^3] = \frac{E[(X-\mu)^3]}{\sigma^3} = \frac{E[X^3]-3\mu\sigma^2 - \mu^3}{\sigma^3}\\
@@ -507,8 +529,8 @@ Var(X+Y) &amp; = &amp; Var(X) + Var(Y)\\
 <p>Figura: Asimetría (<a class="reference external" href="https://www.probabilidadyestadistica.net/asimetria-estadistica/">fuente</a>)</p>
 </section>
 <section id="curtosis">
-<h3><span class="section-number">3.3.2. </span>Curtosis<a class="headerlink" href="#curtosis" title="Permalink to this heading">#</a></h3>
-<p>La curtosis es una medida de que tan gruesa la cola y plano está una distribución, respecto a la distribución normal. La curtosis es el cuarto momento estándar de una distribución.</p>
+<h3><span class="section-number">3.4.2. </span>Curtosis<a class="headerlink" href="#curtosis" title="Permalink to this heading">#</a></h3>
+<p>La curtosis es una medida de que tan <strong>gruesa la cola</strong> y <strong>plano</strong> está una distribución, respecto a la distribución normal. La curtosis es el cuarto momento estándar de una distribución.</p>
 <p><span class="math notranslate nohighlight">\(\begin{array}{lll}
 \text{ Curtosis } &amp; = &amp;E[(\frac{X-\mu}{\sigma})^4] = \frac{E[(X-\mu)^4]}{\sigma^4} = \frac{E[X^4] - 4\mu E[X^3] + 6\mu^2\sigma^2 + 3\mu^4}{\sigma^4}\\
 \text{ Exceso de curtosis } &amp; = &amp; Curtosis - 3\\
@@ -523,25 +545,13 @@ Var(X+Y) &amp; = &amp; Var(X) + Var(Y)\\
 <p class="admonition-title">Advertencia</p>
 <p>Hay varios conceptos erróneos comunes sobre la curtosis en materiales en línea y libros de texto. Aquí están los entendimientos correctos:</p>
 <ul class="simple">
-<li><p>La curtosis <strong>no solo implica que tan puntiaguda</strong> está la distribución, también implica que tan gruesa la cola principalmente.</p></li>
-<li><p>Una mayor curtosis implica colas <strong>más gruesas</strong> no menos gruesa, y a menudo más puntiaguda, respecto a la normal.</p></li>
-<li><p>Una mayor curtosis <strong>no implica una mayor varianza</strong>, ni viceversa. La curtosis se escala con respecto a la varianza, por lo que no se ve afectada por ella.</p></li>
+<li><p>La curtosis no solo implica que <em>tan puntiaguda</em> está la distribución, también implica que <em>tan gruesa</em> la cola principalmente.</p></li>
+<li><p>Una mayor curtosis implica colas <em>más gruesas</em> no menos gruesa, y a menudo más puntiaguda, respecto a la normal.</p></li>
+<li><p>Una mayor curtosis <em>no implica una mayor varianza</em>, ni viceversa. La curtosis se escala con respecto a la varianza, por lo que no se ve afectada por ella.</p></li>
 </ul>
 <p>Más detalles se pueden encontrar <a class="reference external" href="http://www.columbia.edu/~ld208/psymeth97.pdf">aquí</a>.</p>
 </div>
 </section>
-</section>
-<section id="mediana-y-moda">
-<h2><span class="section-number">3.4. </span>Mediana y moda<a class="headerlink" href="#mediana-y-moda" title="Permalink to this heading">#</a></h2>
-<p>La <strong>mediana</strong> es el valor de la variable de posición central en un conjunto de datos ordenados.</p>
-<p>La <strong>moda</strong> es el valor que aparece con mayor <strong>frecuencia</strong> en un conjunto de datos.</p>
-<p>Ambas son otras medidas de tendencia central.</p>
-<a class="reference internal image-reference" href="../../_images/mediana_moda.png"><img alt="../../_images/mediana_moda.png" src="../../_images/mediana_moda.png" style="width: 550px;" /></a>
-<p>Figura: Mediana, moda y media de diferentes distribuciones (<a class="reference external" href="https://epamatematicas.blogspot.com/2019/08/relacion-entre-la-media-la-mediana-y-la.html">fuente</a>)</p>
-<div class="admonition warning">
-<p class="admonition-title">Advertencia</p>
-<p>De menudo se usa la media para informar la tendencia central. Pero no es una estadística robusta: está muy influida por los valores atípicos (outliers). En las distribuciones asimétricas, la mediana proporciona una mejor descripción de la tendencia central.</p>
-</div>
 </section>
 </section>
 
@@ -554,16 +564,16 @@ Var(X+Y) &amp; = &amp; Var(X) + Var(Y)\\
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "r"
         },
         kernelOptions: {
-            name: "python3",
+            name: "ir",
             path: "./lectures/1_TeoriaProbabilidades"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'ir'</script>
 
                 </article>
               
@@ -613,20 +623,20 @@ Var(X+Y) &amp; = &amp; Var(X) + Var(Y)\\
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#esperanza">3.1. Esperanza</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#varianza-covarianza-y-correlacion">3.2. Varianza, covarianza y correlación</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#varianza">3.2.1. Varianza</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#desviacion-estandar">3.2.2. Desviación estándar</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#covarianza">3.2.3. Covarianza</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corelacion">3.2.4. Corelación</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-en-el-caso-de-independencia">3.2.5. Propiedades en el caso de independencia</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#otras-medidas-de-tendencia-central">3.2. Otras medidas de tendencia central</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#varianza-covarianza-y-correlacion">3.3. Varianza, covarianza y correlación</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#varianza">3.3.1. Varianza</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#desviacion-estandar">3.3.2. Desviación estándar</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#covarianza">3.3.3. Covarianza</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#corelacion">3.3.4. Corelación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-en-el-caso-de-independencia">3.3.5. Propiedades en el caso de independencia</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#asimetria-y-curtosis">3.3. Asimetría y curtosis</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asimetria-skewness">3.3.1. Asimetría (skewness)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#curtosis">3.3.2. Curtosis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#asimetria-y-curtosis">3.4. Asimetría y curtosis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asimetria-skewness">3.4.1. Asimetría (skewness)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#curtosis">3.4.2. Curtosis</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mediana-y-moda">3.4. Mediana y moda</a></li>
 </ul>
   </nav></div>
 

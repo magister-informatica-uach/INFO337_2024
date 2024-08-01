@@ -378,7 +378,8 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="variables-aleatorias">
 <h1><span class="section-number">2. </span>Variables Aleatorias<a class="headerlink" href="#variables-aleatorias" title="Permalink to this heading">#</a></h1>
-<p>Una <strong>variable aleatoria</strong> <span class="math notranslate nohighlight">\(X\)</span> es una función que asigna un número a cada elemento <span class="math notranslate nohighlight">\(\omega\)</span> en el espacio muestral de un experimento aleatorio.</p>
+<p>Una <strong>variable aleatoria (v.a.)</strong> <span class="math notranslate nohighlight">\(X\)</span> es una función que asigna un número a cada elemento <span class="math notranslate nohighlight">\(\omega\)</span> en el espacio muestral de un experimento aleatorio.</p>
+<p><a class="reference internal" href="../../_images/rand_var_disc.png"><img alt="../../_images/rand_var_disc.png" src="../../_images/rand_var_disc.png" style="width: 450px;" /></a> (<a class="reference external" href="https://www.javatpoint.com/random-variable-definition">Fuente</a>)</p>
 <p>Se denomina <strong>Variable Aleatoria Discreta</strong> si los valores son enteros:</p>
 <p><span class="math notranslate nohighlight">\(\begin{array}{cc} X:&amp; \Omega \to \mathbb{Z} 
 \end{array}\)</span></p>
@@ -400,6 +401,25 @@ X:&amp; \Omega \to \{0,1\}\\
 &amp;\omega \to X(\omega)= t \\
 \end{array}\)</span></p>
 <p>donde <span class="math notranslate nohighlight">\(t\)</span> es el tiempo de falla de una máquina y <span class="math notranslate nohighlight">\(\omega\)</span> es el evento de falla con todas sus características no necesariamente observables.</p>
+<p>Así que decimos que tenemos dos tipos de v.a. (o datos):</p>
+<ul class="simple">
+<li><p>Discreto</p></li>
+<li><p>Continuo</p></li>
+</ul>
+<p>En la práctica de la ciencia de datos, también vemos la clasificación de los tipos de datos de la siguiente manera:</p>
+<ul class="simple">
+<li><p>Categórico (o categórico nominal, nominal, cualitativo): e.g., sexo</p>
+<ul>
+<li><p>Caso especial: binario</p></li>
+</ul>
+</li>
+<li><p>Ordinal (o categórico ordinal, categórico ordenado): e.g., nivel de educación</p></li>
+<li><p>Continuo</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Una variable categórico u ordinal puede convertirse a varias variables discretas (binarias)  o una variable discreta. Hay que tener cuidado de que las diferencias entre las categorías puedan reflejarse correctamente en las diferencias entre los números.</p>
+</div>
 <section id="funcion-de-probabilidad-puntual-masa-de-probabilidad-span">
 <h2><span class="section-number">2.1. </span>Función de probabilidad puntual (masa de probabilidad)</span><a class="headerlink" href="#funcion-de-probabilidad-puntual-masa-de-probabilidad-span" title="Permalink to this heading">#</a></h2>
 <p>En el caso de variables aleatorias discretas, la probabilidades se definen mediante una <strong>función de probabilidad puntual</strong>, o <strong>función de masa de probabilidad</strong>:</p>
@@ -463,7 +483,7 @@ X:&amp; \Omega \to \{0,1\}\\
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(f(x)\)</span> no es una probabilidad! <span class="math notranslate nohighlight">\(f(x)\)</span> podría ser mayor que 1. Describe qué tan relativamente posible es que una variable aleatoria continua tome un valor específico en comparación con otros valores (relative likelihood).</p></li>
+<li><p><span class="math notranslate nohighlight">\(f(x)\)</span> no es una probabilidad! <span class="math notranslate nohighlight">\(f(x)\)</span> podría ser mayor que 1, y tiene la restricción de que el área bajo la curva <span class="math notranslate nohighlight">\(f(x)\)</span> es 1. Describe qué tan relativamente posible es que una variable aleatoria continua tome un valor específico en comparación con otros valores (relative likelihood).</p></li>
 <li><p><span class="math notranslate nohighlight">\(P(X = x) = 0\)</span>. Es decir, la probabilidad de que una variable aleatoria continua tome cualquier valor específico es 0 (absolute likelihood). Para obtener una probabilidad significativa para una variable aleatoria continua, calculamos el área bajo la curva fdp para un rango de x.</p></li>
 </ul>
 </div>
@@ -668,12 +688,13 @@ f: &amp;\mathbb R^k \to \mathbb{R}
 <p><span class="math notranslate nohighlight">\(f_{Y|X}(y|x) = \frac{f_{X, Y}(x, y)}{f_X(x)} \quad\)</span> siempre que <span class="math notranslate nohighlight">\(f_X(x) &gt; 0\)</span>.</p>
 <p>De manera similar, la distribución condicional de la v.a. <span class="math notranslate nohighlight">\(X\)</span>, dado que <span class="math notranslate nohighlight">\(Y = y\)</span>, es</p>
 <p><span class="math notranslate nohighlight">\(f_{X|Y}(x|y) = \frac{f_{X, Y}(x, y)}{f_Y(y)} \quad\)</span> siempre que <span class="math notranslate nohighlight">\(f_Y(y) &gt; 0\)</span>.</p>
+<p>También, podemos deducir que <span class="math notranslate nohighlight">\(f_{X, Y}(x, y) = f_X(x)f_{Y|X}(y|x) = f_Y(y) f_{X|Y}(x|y)\)</span>.</p>
 </section>
 <section id="independencia-estadistica">
 <h3><span class="section-number">2.5.4. </span>Independencia estadística<a class="headerlink" href="#independencia-estadistica" title="Permalink to this heading">#</a></h3>
 <p><strong>Definición</strong>: Sean <span class="math notranslate nohighlight">\(X\)</span> y <span class="math notranslate nohighlight">\(Y\)</span> dos v.a., discretas o continuas, con distribución de probabilidad conjunta <span class="math notranslate nohighlight">\(f_{X, Y}(x, y)\)</span> y distribuciones marginales <span class="math notranslate nohighlight">\(f_X(x)\)</span> y <span class="math notranslate nohighlight">\(f_Y(y)\)</span>, respectivamente. Se dice que las v.a. <span class="math notranslate nohighlight">\(X\)</span> y <span class="math notranslate nohighlight">\(Y\)</span> son <strong>estadísticamente independientes</strong> si y sólo si</p>
 <p><span class="math notranslate nohighlight">\(f_{X, Y}(x, y) = f_X(x) f_Y(y)\)</span></p>
-<p>para <strong>toda</strong> <span class="math notranslate nohighlight">\((x,y)\)</span> dentro de sus rangos.</p>
+<p>para <strong>todos los pares <span class="math notranslate nohighlight">\((x,y)\)</span></strong> dentro de sus rangos.</p>
 </section>
 </section>
 <section id="regla-de-bayes">

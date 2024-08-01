@@ -386,6 +386,7 @@ Var(X) &amp; = &amp; p(1-p)\\
 Asimetria(X) &amp; = &amp; \frac{1-2p}{\sqrt{p(1-p)}} = \frac{q-p}{\sqrt{pq}} (q=1-p)\\
 Curtosis(X) &amp; = &amp; \frac{1-3p+3p^2}{p(1-p)} = \frac{1-3pq}{pq} (q=1-p)\\
 \end{array}\)</span></p>
+<p>¿Se te ocurre algún ejemplo de esta distribución?</p>
 </section>
 <section id="distribucion-binomial">
 <h2><span class="section-number">4.2. </span>Distribución Binomial<a class="headerlink" href="#distribucion-binomial" title="Permalink to this heading">#</a></h2>
@@ -421,6 +422,7 @@ Curtosis(X) &amp; = &amp; \frac{1-3p(1-p)}{np(1-p)} = \frac{1-3pq}{npq} (q=1-p)\
 <img alt="../../_images/09c5d2a0ce66eca89892ed94cf8d00311e15b743c6ca0eaf11acfe952f842bb4.png" src="../../_images/09c5d2a0ce66eca89892ed94cf8d00311e15b743c6ca0eaf11acfe952f842bb4.png" />
 </div>
 </div>
+<p>¿Se te ocurre algún ejemplo de esta distribución?</p>
 </section>
 <section id="distribucion-exponencial">
 <h2><span class="section-number">4.3. </span>Distribución Exponencial<a class="headerlink" href="#distribucion-exponencial" title="Permalink to this heading">#</a></h2>
@@ -464,11 +466,11 @@ Curtosis(X) &amp; = &amp; 9 \\
 <img alt="../../_images/c8f0a11a604c5c579b952ff044c51a541a0e41889179a27f0daa8a4033501565.png" src="../../_images/c8f0a11a604c5c579b952ff044c51a541a0e41889179a27f0daa8a4033501565.png" />
 </div>
 </div>
-<p>Ejemplos:</p>
+<p>¿Crees que lo siguiente puede modelarse mediante una función exponencial?</p>
 <ul class="simple">
-<li><p>La cantidad de dinero que los clientes gastan en un viaje al supermercado (es decir, hay más personas que gastan pequeñas cantidades de dinero y menos personas que gastan grandes cantidades de dinero)</p></li>
-<li><p>El valor del cambio que tienes en tu bolsillo o bolso</p></li>
-<li><p>La cantidad de tiempo (en meses) que dura una batería de automóvil</p></li>
+<li><p>La cantidad de dinero que la gente gasta en un viaje al supermercado (es decir, hay más personas que gastan pequeñas cantidades de dinero y menos personas que gastan grandes cantidades de dinero)</p></li>
+<li><p>El valor del cambio que la gente tiene en su bolsillo o bolso</p></li>
+<li><p>El tiempo que dura una batería de tu móvil</p></li>
 </ul>
 </section>
 <section id="distribucion-normal-o-gaussiana">
@@ -488,7 +490,7 @@ Curtosis(X) &amp; = &amp; 3 \\
 </ul>
 <p>¿Cómo se verifica que una v.a. sigue una distribución normal?</p>
 <ul class="simple">
-<li><p>Test de normalidad de Shapiro-Wilk, K-S, Q-Q plot</p></li>
+<li><p>Test de normalidad de Shapiro-Wilk, K-S, Q-Q plot, asimetría y curtosis</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -534,7 +536,7 @@ Var(X)&amp; =&amp;1\\
 \end{array}\)</span></p>
 <p>Usualmente, la densidad de probabilidad f(x) y la distribución acumulativa F(x) de Normal estándar se denominan <span class="math notranslate nohighlight">\(\phi(z)\)</span> y <span class="math notranslate nohighlight">\(\Phi(z)\)</span>.</p>
 <p>Si <span class="math notranslate nohighlight">\(X \sim \cal{N}(\mu,\sigma^2)\)</span>, entonces <span class="math notranslate nohighlight">\(Z = \frac{X-\mu}{\sigma} \sim \cal{N}(0,1)\)</span></p>
-<p>Esta transformación se denomina “Z-score” y se utiliza incluso si la v.a. no cumple el supuesto de normalidad. Se suele denominar estandarización (o normalización, aunque normalización a menudo refiere a otra transformación <span class="math notranslate nohighlight">\(\frac{X — X_{min}}{X_{max}-X_{min}}\)</span> que da un valor entre 0 y 1).</p>
+<p>Esta transformación se denomina “Z-score” y se utiliza incluso si la v.a. no cumple el supuesto de normalidad. Se suele denominar <strong>estandarización</strong> (o normalización, aunque normalización a menudo refiere a otra transformación <span class="math notranslate nohighlight">\(\frac{X — X_{min}}{X_{max}-X_{min}}\)</span> que da un valor entre 0 y 1).</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
 <ul class="simple">
