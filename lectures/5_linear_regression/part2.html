@@ -373,7 +373,15 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-conclusion">16.4.9. Resumen &amp; conclusión</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notas-finales">16.5. Notas finales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notas-finales-del-pipeline-basico">16.5. Notas finales del pipeline básico</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-categoricas">16.6. Variables categóricas ®</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tratarlo-como-numerico">16.6.1. Tratarlo como numérico</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tratarlo-como-tipo-factor">16.6.2. Tratarlo como tipo <em>factor</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tratarlo-como-tipo-factor-con-nivel-basico-especifico">16.6.3. Tratarlo como tipo <em>factor</em> con nivel básico específico</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interaccion">16.7. Interacción ®</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-de-efectos-mixtos">16.8. Modelo de efectos mixtos ®</a></li>
 </ul>
             </nav>
         </div>
@@ -392,26 +400,26 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">holoviews</span> <span class="k">as</span> <span class="nn">hv</span>
-<span class="n">hv</span><span class="o">.</span><span class="n">extension</span><span class="p">(</span><span class="s1">&#39;bokeh&#39;</span><span class="p">)</span>
-<span class="n">hv</span><span class="o">.</span><span class="n">opts</span><span class="o">.</span><span class="n">defaults</span><span class="p">(</span><span class="n">hv</span><span class="o">.</span><span class="n">opts</span><span class="o">.</span><span class="n">Curve</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">),</span>
-                 <span class="n">hv</span><span class="o">.</span><span class="n">opts</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span>
-                 <span class="n">hv</span><span class="o">.</span><span class="n">opts</span><span class="o">.</span><span class="n">Histogram</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">),</span>
-                 <span class="n">hv</span><span class="o">.</span><span class="n">opts</span><span class="o">.</span><span class="n">Slope</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">line_dash</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">),</span>
-                 <span class="n">hv</span><span class="o">.</span><span class="n">opts</span><span class="o">.</span><span class="n">HLine</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">line_dash</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">))</span>   
-<span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">show</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">import</span> <span class="n">holoviews</span> <span class="n">as</span> <span class="n">hv</span>
+<span class="nf">hv.extension</span><span class="p">(</span><span class="s">&#39;bokeh&#39;</span><span class="p">)</span>
+<span class="nf">hv.opts.defaults</span><span class="p">(</span><span class="nf">hv.opts.Curve</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="m">500</span><span class="p">),</span>
+                 <span class="nf">hv.opts.Scatter</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="m">500</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="m">4</span><span class="p">),</span>
+                 <span class="nf">hv.opts.Histogram</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="m">500</span><span class="p">),</span>
+                 <span class="nf">hv.opts.Slope</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;k&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="m">0.5</span><span class="p">,</span> <span class="n">line_dash</span><span class="o">=</span><span class="s">&#39;dashed&#39;</span><span class="p">),</span>
+                 <span class="nf">hv.opts.HLine</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">&#39;k&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="m">0.5</span><span class="p">,</span> <span class="n">line_dash</span><span class="o">=</span><span class="s">&#39;dashed&#39;</span><span class="p">))</span>   
+<span class="n">from</span> <span class="n">bokeh.plotting</span> <span class="n">import</span> <span class="n">show</span>
+<span class="n">import</span> <span class="n">pandas</span> <span class="n">as</span> <span class="n">pd</span>
+<span class="n">import</span> <span class="n">numpy</span> <span class="n">as</span> <span class="n">np</span>
+<span class="n">import</span> <span class="n">scipy.stats</span>
 
-<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
-<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
-<span class="kn">from</span> <span class="nn">statsmodels.stats.anova</span> <span class="kn">import</span> <span class="n">anova_lm</span>
-<span class="kn">from</span> <span class="nn">statsmodels.stats.outliers_influence</span> <span class="kn">import</span> <span class="n">variance_inflation_factor</span>
+<span class="n">import</span> <span class="n">statsmodels.api</span> <span class="n">as</span> <span class="n">sm</span>
+<span class="n">import</span> <span class="n">statsmodels.formula.api</span> <span class="n">as</span> <span class="n">smf</span>
+<span class="n">from</span> <span class="n">statsmodels.stats.anova</span> <span class="n">import</span> <span class="n">anova_lm</span>
+<span class="n">from</span> <span class="n">statsmodels.stats.outliers_influence</span> <span class="n">import</span> <span class="n">variance_inflation_factor</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;NumPy versión: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Scipy versión: </span><span class="si">{</span><span class="n">scipy</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;StatsModels versión: </span><span class="si">{</span><span class="n">sm</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">f</span><span class="s">&quot;NumPy versión: {np.__version__}&quot;</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">f</span><span class="s">&quot;Scipy versión: {scipy.__version__}&quot;</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">f</span><span class="s">&quot;StatsModels versión: {sm.__version__}&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2762,10 +2770,10 @@ Demostración<div class="sd-summary-down docutils">
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/ice_cream.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Consumption&#39;</span><span class="p">,</span> <span class="s1">&#39;Income&#39;</span><span class="p">,</span> <span class="s1">&#39;Price&#39;</span><span class="p">,</span> <span class="s1">&#39;Temperature&#39;</span><span class="p">]</span>
-<span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
-<span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="nf">pd.read_csv</span><span class="p">(</span><span class="s">&#39;data/ice_cream.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="m">0</span><span class="p">)</span>
+<span class="n">df.columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Consumption&#39;</span><span class="p">,</span> <span class="s">&#39;Income&#39;</span><span class="p">,</span> <span class="s">&#39;Price&#39;</span><span class="p">,</span> <span class="s">&#39;Temperature&#39;</span><span class="p">]</span>
+<span class="nf">display</span><span class="p">(</span><span class="nf">df.head</span><span class="p">())</span>
+<span class="nf">df.describe</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2919,10 +2927,10 @@ Demostración<div class="sd-summary-down docutils">
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="s2">&quot;#unique:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span>
-    <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">for</span> <span class="n">col</span> <span class="n">in</span> <span class="n">df.columns</span><span class="o">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="s">&quot;#unique:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="nf">.nunique</span><span class="p">())</span>
+    <span class="n">if</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="nf">.nunique</span><span class="p">()</span> <span class="o">&lt;</span> <span class="m">6</span><span class="o">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="nf">.value_counts</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -2937,7 +2945,7 @@ Temperature #unique: 23
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span> <span class="c1">#pearson</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">df.corr</span><span class="p">()</span> <span class="c1">#pearson</span>
 <span class="c1">#df.corr(method=&#39;kendall&#39;)</span>
 </pre></div>
 </div>
@@ -3002,7 +3010,7 @@ Temperature #unique: 23
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">scatter_matrix</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">pd.plotting.scatter_matrix</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="m">6</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -3037,8 +3045,8 @@ Temperature #unique: 23
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_st</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">-</span><span class="n">df</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">/</span><span class="n">df</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
-<span class="n">df_st</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">df_st</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">-</span><span class="nf">df.mean</span><span class="p">())</span><span class="o">/</span><span class="nf">df.std</span><span class="p">()</span>
+<span class="nf">df_st.describe</span><span class="p">()</span><span class="nf">.round</span><span class="p">(</span><span class="m">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3157,11 +3165,11 @@ Temperature #unique: 23
 <p>El objeto creado tiene un método llamado <a class="reference external" href="https://www.statsmodels.org/dev/generated/statsmodels.regression.linear_model.OLS.fit.html#statsmodels.regression.linear_model.OLS.fit"><code class="docutils literal notranslate"><span class="pre">fit</span></code></a> que aplica mínimos cuadrados ordinarios (máxima verosimilitud bajo ciertos supuestos) para obtener los parámetros del regresor lineal:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Consumption&quot;</span><span class="p">]</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">df_st</span><span class="p">[[</span><span class="s2">&quot;Income&quot;</span><span class="p">,</span> <span class="s2">&quot;Price&quot;</span><span class="p">,</span> <span class="s2">&quot;Temperature&quot;</span><span class="p">]]</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">&quot;Consumption&quot;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df_st</span><span class="p">[[</span><span class="s">&quot;Income&quot;</span><span class="p">,</span> <span class="s">&quot;Price&quot;</span><span class="p">,</span> <span class="s">&quot;Temperature&quot;</span><span class="p">]]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="nf">sm.add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
-<span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="nf">sm.OLS</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span><span class="nf">.fit</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -3176,7 +3184,7 @@ Temperature #unique: 23
 <p>Necesitamos generar las respuestas predichas para examinar los residuos. Para predecir utilizamos el método <a class="reference external" href="https://www.statsmodels.org/dev/generated/statsmodels.regression.linear_model.OLS.predict.html#statsmodels.regression.linear_model.OLS.predict"><code class="docutils literal notranslate"><span class="pre">predict</span></code></a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hatY</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">hatY</span> <span class="o">=</span> <span class="nf">model.predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="n">resid</span> <span class="o">=</span> <span class="n">Y</span> <span class="o">-</span> <span class="n">hatY</span>
 </pre></div>
 </div>
@@ -3190,8 +3198,8 @@ Temperature #unique: 23
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span> <span class="o">=</span> <span class="n">hv</span><span class="o">.</span><span class="n">Scatter</span><span class="p">((</span><span class="n">hatY</span><span class="p">,</span> <span class="n">resid</span><span class="p">),</span> <span class="s1">&#39;Predicted&#39;</span><span class="p">,</span> <span class="s1">&#39;Residuals&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">opts</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">330</span><span class="p">)</span> <span class="o">*</span> <span class="n">hv</span><span class="o">.</span><span class="n">HLine</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">show</span><span class="p">(</span><span class="n">hv</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">plot</span><span class="p">))</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span> <span class="o">=</span> <span class="nf">hv.Scatter</span><span class="p">((</span><span class="n">hatY</span><span class="p">,</span> <span class="n">resid</span><span class="p">),</span> <span class="s">&#39;Predicted&#39;</span><span class="p">,</span> <span class="s">&#39;Residuals&#39;</span><span class="p">)</span><span class="nf">.opts</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="m">330</span><span class="p">)</span> <span class="o">*</span> <span class="nf">hv.HLine</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+<span class="nf">show</span><span class="p">(</span><span class="nf">hv.render</span><span class="p">(</span><span class="n">plot</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -3224,11 +3232,17 @@ Temperature #unique: 23
   }
 })(window);</script></div>
 </div>
-<p><strong>Histograma, Q-Q plot, y Shapiro-Wilk test</strong></p>
-<p>Aquí solo hacemos el Shapiro-Wilk test. <strong>Tienes que hacer histograma, Q-Q plot (debes estandarizar los residuos primero) y Shapiro-Wilk test e interpretarlos en tu tarea</strong>.</p>
+<p><strong>Normalidad</strong></p>
+<p>Aquí solo hacemos el Shapiro-Wilk test. Para un proceso completo, tienes que hacer</p>
+<ul class="simple">
+<li><p>histograma/densidad plot</p></li>
+<li><p>Q-Q plot (debes estandarizar los residuos primero) y</p></li>
+<li><p>Shapiro-Wilk test (mejor para <span class="math notranslate nohighlight">\(N&lt;50\)</span>) o  Kolmogorov–Smirnov test (mejor para  <span class="math notranslate nohighlight">\(N \ge 50\)</span>)</p></li>
+</ul>
+<p>e interpretarlos en tu tarea.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">shapiro</span><span class="p">(</span><span class="n">resid</span><span class="p">))</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="nf">scipy.stats.shapiro</span><span class="p">(</span><span class="n">resid</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -3247,11 +3261,11 @@ Temperature #unique: 23
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">var_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;Income&quot;</span><span class="p">,</span> <span class="s2">&quot;Price&quot;</span><span class="p">,</span> <span class="s2">&quot;Temperature&quot;</span><span class="p">]:</span>
-    <span class="n">p</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hv</span><span class="o">.</span><span class="n">Scatter</span><span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">Y</span> <span class="o">-</span> <span class="n">hatY</span><span class="p">),</span> <span class="n">var_name</span><span class="p">,</span> <span class="s1">&#39;Residuals&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">opts</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">330</span><span class="p">)</span> <span class="o">*</span> <span class="n">hv</span><span class="o">.</span><span class="n">HLine</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-<span class="n">plot</span> <span class="o">=</span> <span class="n">hv</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">cols</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">opts</span><span class="p">(</span><span class="n">hv</span><span class="o">.</span><span class="n">opts</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">280</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">))</span>
-<span class="n">show</span><span class="p">(</span><span class="n">hv</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">plot</span><span class="p">))</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">for</span> <span class="n">var_name</span> <span class="n">in</span> <span class="p">[</span><span class="s">&quot;Income&quot;</span><span class="p">,</span> <span class="s">&quot;Price&quot;</span><span class="p">,</span> <span class="s">&quot;Temperature&quot;</span><span class="p">]</span><span class="o">:</span>
+    <span class="nf">p.append</span><span class="p">(</span><span class="nf">hv.Scatter</span><span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span><span class="n">.values</span><span class="p">,</span> <span class="n">Y</span> <span class="o">-</span> <span class="n">hatY</span><span class="p">),</span> <span class="n">var_name</span><span class="p">,</span> <span class="s">&#39;Residuals&#39;</span><span class="p">)</span><span class="nf">.opts</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="m">330</span><span class="p">)</span> <span class="o">*</span> <span class="nf">hv.HLine</span><span class="p">(</span><span class="m">0</span><span class="p">))</span>
+<span class="n">plot</span> <span class="o">=</span> <span class="nf">hv.Layout</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="nf">.cols</span><span class="p">(</span><span class="m">3</span><span class="p">)</span><span class="nf">.opts</span><span class="p">(</span><span class="nf">hv.opts.Scatter</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="m">280</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="m">250</span><span class="p">))</span>
+<span class="nf">show</span><span class="p">(</span><span class="nf">hv.render</span><span class="p">(</span><span class="n">plot</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -3293,13 +3307,13 @@ Temperature #unique: 23
 <p>Según nuestra pregunta 2, tenemos que examinar VIF. La calculación de VIF requiere un constante (ya tenemos).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Fuente: https://towardsdatascience.com/targeting-multicollinearity-with-python-3bd3b4088d0b </span>
-<span class="n">vif</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-<span class="n">vif</span><span class="p">[</span><span class="s2">&quot;Variable&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span>
-<span class="n">vif</span><span class="p">[</span><span class="s2">&quot;VIF&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">variance_inflation_factor</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
-<span class="n">vif</span> <span class="o">=</span> <span class="n">vif</span><span class="p">[</span><span class="n">vif</span><span class="p">[</span><span class="s1">&#39;Variable&#39;</span><span class="p">]</span><span class="o">!=</span><span class="s1">&#39;intercept&#39;</span><span class="p">]</span>
-<span class="n">vif</span> <span class="o">=</span> <span class="n">vif</span><span class="p">[</span><span class="n">vif</span><span class="p">[</span><span class="s1">&#39;Variable&#39;</span><span class="p">]</span><span class="o">!=</span><span class="s1">&#39;const&#39;</span><span class="p">]</span>
-<span class="n">display</span><span class="p">(</span><span class="n">vif</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1">#Fuente: https://towardsdatascience.com/targeting-multicollinearity-with-python-3bd3b4088d0b </span>
+<span class="n">vif</span> <span class="o">=</span> <span class="nf">pd.DataFrame</span><span class="p">()</span>
+<span class="n">vif</span><span class="p">[</span><span class="s">&quot;Variable&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X.columns</span>
+<span class="n">vif</span><span class="p">[</span><span class="s">&quot;VIF&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nf">variance_inflation_factor</span><span class="p">(</span><span class="n">X.values</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="n">for</span> <span class="n">i</span> <span class="n">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">X.shape</span><span class="p">[</span><span class="m">1</span><span class="p">])]</span>
+<span class="n">vif</span> <span class="o">=</span> <span class="n">vif</span><span class="p">[</span><span class="n">vif</span><span class="p">[</span><span class="s">&#39;Variable&#39;</span><span class="p">]</span><span class="o">!=</span><span class="s">&#39;intercept&#39;</span><span class="p">]</span>
+<span class="n">vif</span> <span class="o">=</span> <span class="n">vif</span><span class="p">[</span><span class="n">vif</span><span class="p">[</span><span class="s">&#39;Variable&#39;</span><span class="p">]</span><span class="o">!=</span><span class="s">&#39;const&#39;</span><span class="p">]</span>
+<span class="nf">display</span><span class="p">(</span><span class="n">vif</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3360,8 +3374,8 @@ Temperature #unique: 23
 <p>Podemos empezar mirando la gráfica de dispersión entre <span class="math notranslate nohighlight">\(Y\)</span> y <span class="math notranslate nohighlight">\(\hat Y\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span> <span class="o">=</span> <span class="n">hv</span><span class="o">.</span><span class="n">Scatter</span><span class="p">((</span><span class="n">Y</span><span class="p">,</span> <span class="n">hatY</span><span class="p">),</span> <span class="s1">&#39;Real&#39;</span><span class="p">,</span> <span class="s1">&#39;Predicted&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">opts</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">330</span><span class="p">)</span> <span class="o">*</span> <span class="n">hv</span><span class="o">.</span><span class="n">Slope</span><span class="p">(</span><span class="n">slope</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y_intercept</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">show</span><span class="p">(</span><span class="n">hv</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">plot</span><span class="p">))</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span> <span class="o">=</span> <span class="nf">hv.Scatter</span><span class="p">((</span><span class="n">Y</span><span class="p">,</span> <span class="n">hatY</span><span class="p">),</span> <span class="s">&#39;Real&#39;</span><span class="p">,</span> <span class="s">&#39;Predicted&#39;</span><span class="p">)</span><span class="nf">.opts</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="m">330</span><span class="p">)</span> <span class="o">*</span> <span class="nf">hv.Slope</span><span class="p">(</span><span class="n">slope</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">y_intercept</span><span class="o">=</span><span class="m">0</span><span class="p">)</span>
+<span class="nf">show</span><span class="p">(</span><span class="nf">hv.render</span><span class="p">(</span><span class="n">plot</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -3397,7 +3411,7 @@ Temperature #unique: 23
 <p>Formalmente, tenemos que utilizar las métricas de fitness, y los tests de hipótesis. Podemos verlos en el atributo <code class="docutils literal notranslate"><span class="pre">summary</span></code> de la estructura retornada por el método <code class="docutils literal notranslate"><span class="pre">fit</span></code> de OLS:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">model.summary</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -3481,10 +3495,10 @@ Temperature #unique: 23
 <p>Usando los p-values de t-tests arriba, podemos eliminar “price”:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X3</span> <span class="o">=</span> <span class="n">df_st</span><span class="p">[[</span><span class="s2">&quot;Income&quot;</span><span class="p">,</span> <span class="s2">&quot;Temperature&quot;</span><span class="p">]]</span>
-<span class="n">X3</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X3</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">X3</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">X3</span> <span class="o">=</span> <span class="n">df_st</span><span class="p">[[</span><span class="s">&quot;Income&quot;</span><span class="p">,</span> <span class="s">&quot;Temperature&quot;</span><span class="p">]]</span>
+<span class="n">X3</span> <span class="o">=</span> <span class="nf">sm.add_constant</span><span class="p">(</span><span class="n">X3</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="nf">sm.OLS</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">X3</span><span class="p">)</span><span class="nf">.fit</span><span class="p">()</span>
+<span class="nf">model.summary</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -3570,12 +3584,12 @@ Temperature #unique: 23
 <p>Aquí, también te muestramos cómo usar <a class="reference external" href="https://www.statsmodels.org/stable/example_formulas.html"><code class="docutils literal notranslate"><span class="pre">statsmodels.formula.api</span></code></a> para entrenar (ajustar) los modelos:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_new</span> <span class="o">=</span> <span class="n">df_st</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">df_new</span><span class="p">[</span><span class="s2">&quot;Consumption&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Consumption&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">m1</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;Consumption~Income+Temperature&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_new</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">m2</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;Consumption~Income+Price+Temperature&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_new</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">anovaResults</span> <span class="o">=</span> <span class="n">anova_lm</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">anovaResults</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">df_new</span> <span class="o">=</span> <span class="nf">df_st.copy</span><span class="p">()</span>
+<span class="n">df_new</span><span class="p">[</span><span class="s">&quot;Consumption&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">&quot;Consumption&quot;</span><span class="p">]</span><span class="nf">.copy</span><span class="p">()</span>
+<span class="n">m1</span> <span class="o">=</span> <span class="nf">smf.ols</span><span class="p">(</span><span class="s">&#39;Consumption~Income+Temperature&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_new</span><span class="p">)</span><span class="nf">.fit</span><span class="p">()</span>
+<span class="n">m2</span> <span class="o">=</span> <span class="nf">smf.ols</span><span class="p">(</span><span class="s">&#39;Consumption~Income+Price+Temperature&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_new</span><span class="p">)</span><span class="nf">.fit</span><span class="p">()</span>
+<span class="n">anovaResults</span> <span class="o">=</span> <span class="nf">anova_lm</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">)</span>
+<span class="nf">display</span><span class="p">(</span><span class="n">anovaResults</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3656,8 +3670,8 @@ Temperature #unique: 23
 </div>
 </section>
 </section>
-<section id="notas-finales">
-<h2><span class="section-number">16.5. </span>Notas finales<a class="headerlink" href="#notas-finales" title="Permalink to this heading">#</a></h2>
+<section id="notas-finales-del-pipeline-basico">
+<h2><span class="section-number">16.5. </span>Notas finales del pipeline básico<a class="headerlink" href="#notas-finales-del-pipeline-basico" title="Permalink to this heading">#</a></h2>
 <p>Terminamos el pipeline básico, pero tu viaje comienza aquí :)</p>
 <p>Si solo te importa el rendimiento de predición y no te importan si el modelo tiene sentido, el valor o la significancia de los coeficiente, a menudo basta con comprobar algunas métricas de fitness o predictiveness (e.g., <span class="math notranslate nohighlight">\(R^2\)</span>, <span class="math notranslate nohighlight">\(R_{adj}^2\)</span>, AIC, BIC, RMSE, AUC).</p>
 <p>Si tienes preguntas más abiertas, el pipeline se vuelve más complejo. Por ejemplo, para la pregunta</p>
@@ -3670,13 +3684,353 @@ Temperature #unique: 23
 <li><p>Tenemos que considerar <strong>teoría</strong> relevante sobre las variables. Con mucha frecuencia preferimos un modelo teóricamente sólido y razonable que un modelo más predictivo.</p></li>
 <li><p>Si el valor o la significancia de los coeficientes nos importan (e.g., para explicar/entender un fenómeno), tenemos que examinar VIF y evitar multicolinealidad también.</p></li>
 </ul>
-<p>Además de los modelos mencionados brevemente en “Supuestos y requisitos para regresión lineal”, hay otros tópicos utiles sobre regresión lineal y te animamos a aprender:</p>
-<ul class="simple">
+<p>Además de los modelos mencionados brevemente en “Supuestos y requisitos para regresión lineal”, hay otros tópicos muy utiles sobre regresión lineal:</p>
+<ol class="arabic simple">
 <li><p>Regresión con variables categóricas</p></li>
 <li><p>Regresión con interacción</p></li>
+<li><p>Modelo de efectos mixtos</p></li>
 <li><p>Regresicón polinómica</p></li>
-</ul>
+</ol>
 <p>Más adelante, veamos regresión lineal con funciones base y regularización y regresiones para respuestas discretas!</p>
+<p>Ahora, veamos algunos tópicos específicos (1, 2, 3), y usaremos R!</p>
+</section>
+<section id="variables-categoricas">
+<h2><span class="section-number">16.6. </span>Variables categóricas ®<a class="headerlink" href="#variables-categoricas" title="Permalink to this heading">#</a></h2>
+<p>¿Qué pasa si tenemos variables categóricas? Veamos el Movie dataset de <a class="reference external" href="https://www.kaggle.com/datasets/nichen301/movie-data/data">Kaggle</a>!</p>
+<p><em>About dataset</em>: The data set is comprised of 651 randomly sampled movies produced and released before 2016.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">rm</span><span class="p">(</span><span class="n">list</span> <span class="o">=</span> <span class="nf">ls</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">vtable</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span>
+
+<span class="nf">load</span><span class="p">(</span><span class="s">&quot;data/movies.RData&quot;</span><span class="p">)</span>
+<span class="nf">ls</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">'movies'</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">&lt;-</span> <span class="n">movies</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;imdb_rating&quot;</span><span class="p">,</span> <span class="s">&quot;genre&quot;</span><span class="p">)]</span>
+<span class="nf">str</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="m">5</span><span class="p">)</span>
+<span class="n">vtable</span><span class="o">::</span><span class="nf">st</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">add.median</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="s">&#39;kable&#39;</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="m">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tibble [651 x 2] (S3: tbl_df/tbl/data.frame)
+ $ imdb_rating: num [1:651] 5.5 7.3 7.6 7.2 5.1 7.8 7.2 5.5 7.5 6.6 ...
+ $ genre      : Factor w/ 11 levels &quot;Action &amp; Adventure&quot;,..: 6 6 4 6 7 5 6 6 5 6 ...
+</pre></div>
+</div>
+<div class="output text_html"><table class="dataframe">
+<caption>A tibble: 5 x 2</caption>
+<thead>
+	<tr><th scope=col>imdb_rating</th><th scope=col>genre</th></tr>
+	<tr><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;fct&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>5.5</td><td>Drama </td></tr>
+	<tr><td>7.3</td><td>Drama </td></tr>
+	<tr><td>7.6</td><td>Comedy</td></tr>
+	<tr><td>7.2</td><td>Drama </td></tr>
+	<tr><td>5.1</td><td>Horror</td></tr>
+</tbody>
+</table>
+</div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Table: Summary Statistics
+
+|Variable                      |N   |Mean  |Std. Dev. |Min |Pctl. 25 |Pctl. 50 |Pctl. 75 |Max |
+|:-----------------------------|:---|:-----|:---------|:---|:--------|:--------|:--------|:---|
+|imdb_rating                   |651 |6.49  |1.08      |1.9 |5.9      |6.6      |7.3      |9   |
+|genre                         |651 |      |          |    |         |         |         |    |
+|... Action &amp; Adventure        |65  |10%   |          |    |         |         |         |    |
+|... Animation                 |9   |1.4%  |          |    |         |         |         |    |
+|... Art House &amp; International |14  |2.2%  |          |    |         |         |         |    |
+|... Comedy                    |87  |13.4% |          |    |         |         |         |    |
+|... Documentary               |52  |8%    |          |    |         |         |         |    |
+|... Drama                     |305 |46.9% |          |    |         |         |         |    |
+|... Horror                    |23  |3.5%  |          |    |         |         |         |    |
+|... Musical &amp; Performing Arts |12  |1.8%  |          |    |         |         |         |    |
+|... Mystery &amp; Suspense        |59  |9.1%  |          |    |         |         |         |    |
+|... Other                     |16  |2.5%  |          |    |         |         |         |    |
+|... Science Fiction &amp; Fantasy |9   |1.4%  |          |    |         |         |         |    |
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Variable dependiente (DV)</span>
+<span class="nf">hist</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">imdb_rating</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/4663b1ad9c0e52490e23c60599f35426638a8df5e7d30f8c904cb0b32a312fb4.png" src="../../_images/4663b1ad9c0e52490e23c60599f35426638a8df5e7d30f8c904cb0b32a312fb4.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Predictor</span>
+<span class="n">df</span> <span class="o">%&gt;%</span> <span class="nf">group_by</span><span class="p">(</span><span class="n">genre</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+   <span class="nf">summarise</span><span class="p">(</span><span class="n">n_rows</span><span class="o">=</span><span class="nf">length</span><span class="p">(</span><span class="n">genre</span><span class="p">),</span> 
+            <span class="n">M_rating</span><span class="o">=</span><span class="nf">mean</span><span class="p">(</span><span class="n">imdb_rating</span><span class="p">),</span> <span class="c1">#media</span>
+            <span class="n">Mdn_rating</span><span class="o">=</span><span class="nf">median</span><span class="p">(</span><span class="n">imdb_rating</span><span class="p">),</span><span class="c1">#mediana</span>
+            <span class="n">SD_rating</span><span class="o">=</span><span class="nf">sd</span><span class="p">(</span><span class="n">imdb_rating</span><span class="p">)</span>
+            <span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A tibble: 11 x 5</caption>
+<thead>
+	<tr><th scope=col>genre</th><th scope=col>n_rows</th><th scope=col>M_rating</th><th scope=col>Mdn_rating</th><th scope=col>SD_rating</th></tr>
+	<tr><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td><span style=white-space:pre-wrap>Action &amp; Adventure       </span></td><td> 65</td><td>5.970769</td><td>6.00</td><td>1.2065865</td></tr>
+	<tr><td>Animation                </td><td>  9</td><td>5.900000</td><td>6.40</td><td>1.4924812</td></tr>
+	<tr><td>Art House &amp; International</td><td> 14</td><td>6.614286</td><td>6.50</td><td>0.9180725</td></tr>
+	<tr><td>Comedy                   </td><td> 87</td><td>5.744828</td><td>5.70</td><td>1.1797476</td></tr>
+	<tr><td>Documentary              </td><td> 52</td><td>7.648077</td><td>7.60</td><td>0.4103993</td></tr>
+	<tr><td>Drama                    </td><td>305</td><td>6.673443</td><td>6.80</td><td>0.8798454</td></tr>
+	<tr><td>Horror                   </td><td> 23</td><td>5.760870</td><td>5.90</td><td>0.8742473</td></tr>
+	<tr><td>Musical &amp; Performing Arts</td><td> 12</td><td>7.300000</td><td>7.55</td><td>0.6741999</td></tr>
+	<tr><td><span style=white-space:pre-wrap>Mystery &amp; Suspense       </span></td><td> 59</td><td>6.479661</td><td>6.50</td><td>0.8262461</td></tr>
+	<tr><td>Other                    </td><td> 16</td><td>6.631250</td><td>6.80</td><td>1.1388408</td></tr>
+	<tr><td>Science Fiction &amp; Fantasy</td><td><span style=white-space:pre-wrap>  9</span></td><td>5.755556</td><td>5.90</td><td>1.7299647</td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<section id="tratarlo-como-numerico">
+<h3><span class="section-number">16.6.1. </span>Tratarlo como numérico<a class="headerlink" href="#tratarlo-como-numerico" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">$</span><span class="n">genre.num</span> <span class="o">&lt;-</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">genre</span><span class="p">)</span>
+<span class="n">df</span><span class="o">$</span><span class="n">genre.num</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>6</li><li>6</li><li>4</li><li>6</li><li>7</li><li>5</li><li>6</li><li>6</li><li>5</li><li>6</li><li>1</li><li>6</li><li>4</li><li>4</li><li>4</li><li>6</li><li>6</li><li>6</li><li>7</li><li>6</li><li>6</li><li>5</li><li>6</li><li>6</li><li>5</li><li>4</li><li>6</li><li>7</li><li>3</li><li>8</li><li>9</li><li>2</li><li>11</li><li>9</li><li>5</li><li>1</li><li>6</li><li>6</li><li>1</li><li>6</li><li>6</li><li>6</li><li>6</li><li>4</li><li>6</li><li>4</li><li>6</li><li>6</li><li>6</li><li>6</li><li>5</li><li>6</li><li>9</li><li>6</li><li>6</li><li>6</li><li>6</li><li>6</li><li>9</li><li>9</li><li>4</li><li>6</li><li>5</li><li>5</li><li>9</li><li>2</li><li>5</li><li>8</li><li>6</li><li>6</li><li>6</li><li>4</li><li>9</li><li>4</li><li>7</li><li>6</li><li>2</li><li>6</li><li>4</li><li>6</li><li>6</li><li>4</li><li>1</li><li>1</li><li>6</li><li>6</li><li>6</li><li>6</li><li>6</li><li>4</li><li>6</li><li>1</li><li>9</li><li>4</li><li>6</li><li>6</li><li>6</li><li>9</li><li>4</li><li>5</li><li>6</li><li>6</li><li>6</li><li>6</li><li>4</li><li>6</li><li>6</li><li>6</li><li>1</li><li>4</li><li>10</li><li>6</li><li>6</li><li>4</li><li>9</li><li>6</li><li>8</li><li>1</li><li>1</li><li>5</li><li>6</li><li>6</li><li>6</li><li>4</li><li>6</li><li>4</li><li>7</li><li>4</li><li>6</li><li>6</li><li>5</li><li>6</li><li>4</li><li>5</li><li>6</li><li>6</li><li>4</li><li>6</li><li>1</li><li>4</li><li>4</li><li>6</li><li>6</li><li>6</li><li>6</li><li>10</li><li>1</li><li>6</li><li>6</li><li>6</li><li>1</li><li>8</li><li>9</li><li>6</li><li>1</li><li>1</li><li>6</li><li>4</li><li>6</li><li>6</li><li>6</li><li>6</li><li>1</li><li>6</li><li>6</li><li>5</li><li>6</li><li>4</li><li>6</li><li>7</li><li>7</li><li>6</li><li>10</li><li>6</li><li>5</li><li>1</li><li>6</li><li>6</li><li>6</li><li>1</li><li>6</li><li>6</li><li>4</li><li>6</li><li>6</li><li>6</li><li>1</li><li>4</li><li>6</li><li>6</li><li>6</li><li>6</li><li>6</li><li>6</li><li>6</li><li>6</li><li>4</li><li>5</li><li>6</li><li>1</li><li>...</li><li>10</li><li>9</li><li>9</li><li>4</li><li>4</li><li>6</li><li>6</li><li>7</li><li>9</li><li>1</li><li>6</li><li>8</li><li>6</li><li>6</li><li>3</li><li>3</li><li>2</li><li>6</li><li>6</li><li>2</li><li>4</li><li>6</li><li>6</li><li>6</li><li>4</li><li>6</li><li>6</li><li>6</li><li>6</li><li>1</li><li>9</li><li>4</li><li>4</li><li>6</li><li>6</li><li>6</li><li>1</li><li>4</li><li>6</li><li>6</li><li>4</li><li>5</li><li>3</li><li>6</li><li>1</li><li>6</li><li>9</li><li>1</li><li>4</li><li>6</li><li>5</li><li>11</li><li>4</li><li>4</li><li>6</li><li>6</li><li>9</li><li>1</li><li>1</li><li>6</li><li>5</li><li>6</li><li>7</li><li>6</li><li>9</li><li>4</li><li>6</li><li>6</li><li>4</li><li>11</li><li>6</li><li>9</li><li>6</li><li>6</li><li>9</li><li>4</li><li>6</li><li>6</li><li>10</li><li>4</li><li>5</li><li>5</li><li>6</li><li>9</li><li>7</li><li>6</li><li>1</li><li>6</li><li>6</li><li>6</li><li>6</li><li>5</li><li>6</li><li>6</li><li>1</li><li>9</li><li>7</li><li>4</li><li>6</li><li>9</li><li>5</li><li>6</li><li>6</li><li>8</li><li>6</li><li>4</li><li>9</li><li>6</li><li>6</li><li>6</li><li>9</li><li>6</li><li>9</li><li>6</li><li>4</li><li>4</li><li>6</li><li>1</li><li>6</li><li>9</li><li>4</li><li>6</li><li>5</li><li>6</li><li>6</li><li>6</li><li>6</li><li>6</li><li>9</li><li>6</li><li>4</li><li>10</li><li>6</li><li>4</li><li>6</li><li>6</li><li>4</li><li>9</li><li>6</li><li>5</li><li>5</li><li>9</li><li>6</li><li>6</li><li>6</li><li>1</li><li>10</li><li>2</li><li>1</li><li>3</li><li>5</li><li>7</li><li>1</li><li>7</li><li>8</li><li>6</li><li>6</li><li>6</li><li>6</li><li>5</li><li>6</li><li>6</li><li>6</li><li>5</li><li>6</li><li>4</li><li>6</li><li>6</li><li>6</li><li>1</li><li>4</li><li>5</li><li>6</li><li>4</li><li>6</li><li>7</li><li>9</li><li>1</li><li>2</li><li>6</li><li>9</li><li>6</li><li>6</li><li>6</li><li>6</li><li>6</li><li>9</li><li>6</li><li>6</li><li>2</li><li>8</li><li>6</li><li>9</li><li>6</li><li>6</li><li>6</li><li>4</li><li>1</li><li>1</li><li>4</li></ol>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="nf">lm</span><span class="p">(</span><span class="n">imdb_rating</span> <span class="o">~</span> <span class="n">genre.num</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Call:
+lm(formula = imdb_rating ~ genre.num, data = df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.4826 -0.5971  0.1320  0.7744  2.2598 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  6.09651    0.11270  54.094  &lt; 2e-16 ***
+genre.num    0.07152    0.01885   3.793 0.000163 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 1.074 on 649 degrees of freedom
+Multiple R-squared:  0.02169,	Adjusted R-squared:  0.02018 
+F-statistic: 14.39 on 1 and 649 DF,  p-value: 0.0001626
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tratarlo-como-tipo-factor">
+<h3><span class="section-number">16.6.2. </span>Tratarlo como tipo <em>factor</em><a class="headerlink" href="#tratarlo-como-tipo-factor" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">str</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">genre</span><span class="p">)</span>
+<span class="nf">levels</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">genre</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Factor w/ 11 levels &quot;Action &amp; Adventure&quot;,..: 6 6 4 6 7 5 6 6 5 6 ...
+</pre></div>
+</div>
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>'Action &amp; Adventure'</li><li>'Animation'</li><li>'Art House &amp; International'</li><li>'Comedy'</li><li>'Documentary'</li><li>'Drama'</li><li>'Horror'</li><li>'Musical &amp; Performing Arts'</li><li>'Mystery &amp; Suspense'</li><li>'Other'</li><li>'Science Fiction &amp; Fantasy'</li></ol>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">imdb_rating</span> <span class="o">~</span> <span class="n">genre</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Call:
+lm(formula = imdb_rating ~ genre, data = df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.9734 -0.4734  0.0552  0.6234  2.5203 
+
+Coefficients:
+                               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                     5.97077    0.11913  50.120  &lt; 2e-16 ***
+genreAnimation                 -0.07077    0.34160  -0.207  0.83594    
+genreArt House &amp; International  0.64352    0.28299   2.274  0.02330 *  
+genreComedy                    -0.22594    0.15746  -1.435  0.15181    
+genreDocumentary                1.67731    0.17869   9.386  &lt; 2e-16 ***
+genreDrama                      0.70267    0.13121   5.355 1.19e-07 ***
+genreHorror                    -0.20990    0.23302  -0.901  0.36805    
+genreMusical &amp; Performing Arts  1.32923    0.30177   4.405 1.24e-05 ***
+genreMystery &amp; Suspense         0.50889    0.17270   2.947  0.00333 ** 
+genreOther                      0.66048    0.26804   2.464  0.01400 *  
+genreScience Fiction &amp; Fantasy -0.21521    0.34160  -0.630  0.52890    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 0.9605 on 640 degrees of freedom
+Multiple R-squared:  0.2281,	Adjusted R-squared:  0.216 
+F-statistic: 18.91 on 10 and 640 DF,  p-value: &lt; 2.2e-16
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>No se cumple la normalidad de residual  (véase más abajo). El modelo debe modificarse. Por ahora, nos detenemos aquí sólo para aprender a procesar variables categóricas.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">&lt;-</span> <span class="nf">resid</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="nf">density</span><span class="p">(</span><span class="n">res</span><span class="p">))</span>
+<span class="nf">qqnorm</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+<span class="nf">qqline</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+<span class="nf">ks.test</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="s">&quot;pnorm&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/9f9e586238dfc59089aaabc4765dc7a5aabc268f83b5aa6638644e208487d66e.png" src="../../_images/9f9e586238dfc59089aaabc4765dc7a5aabc268f83b5aa6638644e208487d66e.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in ks.test.default(res, &quot;pnorm&quot;):
+&quot;ties should not be present for the Kolmogorov-Smirnov test&quot;
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>	Asymptotic one-sample Kolmogorov-Smirnov test
+
+data:  res
+D = 0.072165, p-value = 0.002271
+alternative hypothesis: two-sided
+</pre></div>
+</div>
+<img alt="../../_images/90311216607168dfd02a7e4ad2bf156798f425cea351e8c587d8546a76066cec.png" src="../../_images/90311216607168dfd02a7e4ad2bf156798f425cea351e8c587d8546a76066cec.png" />
+</div>
+</div>
+</section>
+<section id="tratarlo-como-tipo-factor-con-nivel-basico-especifico">
+<h3><span class="section-number">16.6.3. </span>Tratarlo como tipo <em>factor</em> con nivel básico específico<a class="headerlink" href="#tratarlo-como-tipo-factor-con-nivel-basico-especifico" title="Permalink to this heading">#</a></h3>
+<p>Si nos interesan los índices (ratings) de otros tipos de películas en comparación con el Drama, ¿qué hacemos?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">levels</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">genre</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>'Action &amp; Adventure'</li><li>'Animation'</li><li>'Art House &amp; International'</li><li>'Comedy'</li><li>'Documentary'</li><li>'Drama'</li><li>'Horror'</li><li>'Musical &amp; Performing Arts'</li><li>'Mystery &amp; Suspense'</li><li>'Other'</li><li>'Science Fiction &amp; Fantasy'</li></ol>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">new_levels</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Drama&quot;</span><span class="p">),</span> <span class="nf">levels</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">genre</span><span class="p">)[</span><span class="m">-6</span><span class="p">])</span>
+<span class="n">df</span><span class="o">$</span><span class="n">genre.drama</span> <span class="o">&lt;-</span> <span class="nf">factor</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">genre</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">new_levels</span><span class="p">)</span>
+<span class="nf">levels</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">genre.drama</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>'Drama'</li><li>'Action &amp; Adventure'</li><li>'Animation'</li><li>'Art House &amp; International'</li><li>'Comedy'</li><li>'Documentary'</li><li>'Horror'</li><li>'Musical &amp; Performing Arts'</li><li>'Mystery &amp; Suspense'</li><li>'Other'</li><li>'Science Fiction &amp; Fantasy'</li></ol>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="nf">lm</span><span class="p">(</span><span class="n">imdb_rating</span> <span class="o">~</span> <span class="n">genre.drama</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Call:
+lm(formula = imdb_rating ~ genre.drama, data = df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.9734 -0.4734  0.0552  0.6234  2.5203 
+
+Coefficients:
+                                     Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                           6.67344    0.05500 121.346  &lt; 2e-16 ***
+genre.dramaAction &amp; Adventure        -0.70267    0.13121  -5.355 1.19e-07 ***
+genre.dramaAnimation                 -0.77344    0.32484  -2.381  0.01756 *  
+genre.dramaArt House &amp; International -0.05916    0.26252  -0.225  0.82178    
+genre.dramaComedy                    -0.92862    0.11674  -7.955 8.16e-15 ***
+genre.dramaDocumentary                0.97463    0.14410   6.764 3.04e-11 ***
+genre.dramaHorror                    -0.91257    0.20768  -4.394 1.30e-05 ***
+genre.dramaMusical &amp; Performing Arts  0.62656    0.28266   2.217  0.02700 *  
+genre.dramaMystery &amp; Suspense        -0.19378    0.13660  -1.419  0.15650    
+genre.dramaOther                     -0.04219    0.24633  -0.171  0.86405    
+genre.dramaScience Fiction &amp; Fantasy -0.91789    0.32484  -2.826  0.00487 ** 
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 0.9605 on 640 degrees of freedom
+Multiple R-squared:  0.2281,	Adjusted R-squared:  0.216 
+F-statistic: 18.91 on 10 and 640 DF,  p-value: &lt; 2.2e-16
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="interaccion">
+<h2><span class="section-number">16.7. </span>Interacción ®<a class="headerlink" href="#interaccion" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="modelo-de-efectos-mixtos">
+<h2><span class="section-number">16.8. </span>Modelo de efectos mixtos ®<a class="headerlink" href="#modelo-de-efectos-mixtos" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -3689,16 +4043,16 @@ Temperature #unique: 23
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "r"
         },
         kernelOptions: {
-            name: "python3",
+            name: "ir",
             path: "./lectures/5_linear_regression"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'ir'</script>
 
                 </article>
               
@@ -3767,7 +4121,15 @@ Temperature #unique: 23
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-conclusion">16.4.9. Resumen &amp; conclusión</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notas-finales">16.5. Notas finales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notas-finales-del-pipeline-basico">16.5. Notas finales del pipeline básico</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-categoricas">16.6. Variables categóricas ®</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tratarlo-como-numerico">16.6.1. Tratarlo como numérico</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tratarlo-como-tipo-factor">16.6.2. Tratarlo como tipo <em>factor</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tratarlo-como-tipo-factor-con-nivel-basico-especifico">16.6.3. Tratarlo como tipo <em>factor</em> con nivel básico específico</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interaccion">16.7. Interacción ®</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-de-efectos-mixtos">16.8. Modelo de efectos mixtos ®</a></li>
 </ul>
   </nav></div>
 
