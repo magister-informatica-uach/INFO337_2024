@@ -376,7 +376,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notas-finales-del-pipeline-basico">16.5. Notas finales del pipeline básico</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-categoricas">16.6. Variables categóricas ®</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tratarlo-como-numerico">16.6.1. Tratarlo como numérico</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tratarlo-como-tipo-factor">16.6.2. Tratarlo como tipo <em>factor</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tratarlo-como-tipo-factor-con-variables-dummy">16.6.2. Tratarlo como tipo <em>factor</em> con variables dummy</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tratarlo-como-tipo-factor-con-nivel-basico-especifico">16.6.3. Tratarlo como tipo <em>factor</em> con nivel básico específico</a></li>
 </ul>
 </li>
@@ -3696,22 +3696,19 @@ Temperature #unique: 23
 </section>
 <section id="variables-categoricas">
 <h2><span class="section-number">16.6. </span>Variables categóricas ®<a class="headerlink" href="#variables-categoricas" title="Permalink to this heading">#</a></h2>
-<p>¿Qué pasa si tenemos variables categóricas? Veamos el Movie dataset de <a class="reference external" href="https://www.kaggle.com/datasets/nichen301/movie-data/data">Kaggle</a>!</p>
-<p><em>About dataset</em>: The data set is comprised of 651 randomly sampled movies produced and released before 2016.</p>
+<p>¿Qué pasa si tenemos variables categóricas? Veamos el <code class="docutils literal notranslate"><span class="pre">Movie</span> <span class="pre">dataset</span></code> de <a class="reference external" href="https://www.kaggle.com/datasets/nichen301/movie-data/data">Kaggle</a>! Este dataset se compone de 651 películas de muestra aleatoria producidas y entrenadas antes de 2016.</p>
+<p>Siempre empezamos por examinar tipos de variables, las estadísticas descriptivas, el análisis exploratorio de datos.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">rm</span><span class="p">(</span><span class="n">list</span> <span class="o">=</span> <span class="nf">ls</span><span class="p">())</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">vtable</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
-<span class="nf">library</span><span class="p">(</span><span class="n">vtable</span><span class="p">)</span>
-<span class="nf">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span>
-
-<span class="nf">load</span><span class="p">(</span><span class="s">&quot;data/movies.RData&quot;</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">load</span><span class="p">(</span><span class="s">&quot;data/movies.RData&quot;</span><span class="p">)</span>
 <span class="nf">ls</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -3819,8 +3816,8 @@ Temperature #unique: 23
 <h3><span class="section-number">16.6.1. </span>Tratarlo como numérico<a class="headerlink" href="#tratarlo-como-numerico" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">$</span><span class="n">genre.num</span> <span class="o">&lt;-</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">genre</span><span class="p">)</span>
-<span class="n">df</span><span class="o">$</span><span class="n">genre.num</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">$</span><span class="n">genre_num</span> <span class="o">&lt;-</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">genre</span><span class="p">)</span>
+<span class="n">df</span><span class="o">$</span><span class="n">genre_num</span>
 </pre></div>
 </div>
 </div>
@@ -3835,13 +3832,13 @@ Temperature #unique: 23
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="nf">lm</span><span class="p">(</span><span class="n">imdb_rating</span> <span class="o">~</span> <span class="n">genre.num</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">))</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="nf">lm</span><span class="p">(</span><span class="n">imdb_rating</span> <span class="o">~</span> <span class="n">genre_num</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Call:
-lm(formula = imdb_rating ~ genre.num, data = df)
+lm(formula = imdb_rating ~ genre_num, data = df)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
@@ -3850,7 +3847,7 @@ Residuals:
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)    
 (Intercept)  6.09651    0.11270  54.094  &lt; 2e-16 ***
-genre.num    0.07152    0.01885   3.793 0.000163 ***
+genre_num    0.07152    0.01885   3.793 0.000163 ***
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
@@ -3862,8 +3859,8 @@ F-statistic: 14.39 on 1 and 649 DF,  p-value: 0.0001626
 </div>
 </div>
 </section>
-<section id="tratarlo-como-tipo-factor">
-<h3><span class="section-number">16.6.2. </span>Tratarlo como tipo <em>factor</em><a class="headerlink" href="#tratarlo-como-tipo-factor" title="Permalink to this heading">#</a></h3>
+<section id="tratarlo-como-tipo-factor-con-variables-dummy">
+<h3><span class="section-number">16.6.2. </span>Tratarlo como tipo <em>factor</em> con variables dummy<a class="headerlink" href="#tratarlo-como-tipo-factor-con-variables-dummy" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">str</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">genre</span><span class="p">)</span>
@@ -3883,6 +3880,10 @@ F-statistic: 14.39 on 1 and 649 DF,  p-value: 0.0001626
 <ol class=list-inline><li>'Action &amp; Adventure'</li><li>'Animation'</li><li>'Art House &amp; International'</li><li>'Comedy'</li><li>'Documentary'</li><li>'Drama'</li><li>'Horror'</li><li>'Musical &amp; Performing Arts'</li><li>'Mystery &amp; Suspense'</li><li>'Other'</li><li>'Science Fiction &amp; Fantasy'</li></ol>
 </div></div>
 </div>
+<p>Aquí, un variable de tipo <em>factor</em> en R es un conjunto de variables dummy. Una <strong>variable dummy</strong> es una variable binaria (1 o 0) para representar el efecto de una variable categórica. Para una variable categórica con <span class="math notranslate nohighlight">\(n\)</span> niveles, utilizamos <span class="math notranslate nohighlight">\(n-1\)</span> variables dummy. Por ejemplo, para una variable categórica SES (social economic status), creamos dos variables dummy, y el nivel que tiene 0s en todas las variables dummy es el grupo de referencia.</p>
+<p><a class="reference internal" href="../../_images/dummy.png"><img alt="../../_images/dummy.png" src="../../_images/dummy.png" style="width: 150px;" /></a> (<a class="reference external" href="https://www.youtube.com/watch?v=2Z8fhhs69N0">Fuente</a>)</p>
+<p>¿Por qué utilizamos <span class="math notranslate nohighlight">\(n-1\)</span> en lugar de <span class="math notranslate nohighlight">\(n\)</span> variables dummy?</p>
+<p>¿Cuántas variables dummy tenemos en el movie dataset?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">imdb_rating</span> <span class="o">~</span> <span class="n">genre</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
@@ -4028,6 +4029,306 @@ F-statistic: 18.91 on 10 and 640 DF,  p-value: &lt; 2.2e-16
 </section>
 <section id="interaccion">
 <h2><span class="section-number">16.7. </span>Interacción ®<a class="headerlink" href="#interaccion" title="Permalink to this heading">#</a></h2>
+<p>A veces, el efecto de un predictor depende en otro(s) predictor(es). En este caso, utilizamos interacciones en la regresión lineal, donde construimos términos de interacción multiplicando predictores (e.g., predictor1 x predictor2)<sup>[1]</sup>. Un término de interacción puede tener muchos predictores (e.g., predictor1 x predictor2 x predictor3 …). En esta lección, sólo consideramos “two-way interaction” (i.e., con dos predictores), y hay 3 casos en los que varián sus tipos de variable:</p>
+<ol class="arabic simple">
+<li><p>Categórica x Categórica</p></li>
+<li><p>Categórica x Continua</p></li>
+<li><p>Continua x Continua</p></li>
+</ol>
+<p>En esta lección, sólo analizamos el primer caso.</p>
+<p>[1] En sentido estricto, multiplicamos las variables dummy de los predictores.</p>
+<p>Veamos un ejemplo de un estudio hipotético sobre <a class="reference external" href="https://stats.oarc.ucla.edu/r/seminars/interactions-r/">pérdida de peso</a>. En este estudio, 900 personas participaron en un estudio de un año sobre el efecto de 3 programas en la pérdida de peso: jogging, natación, lectura. El program de lectura es el grupo de control.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">vtable</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">emmeans</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;https://stats.idre.ucla.edu/wp-content/uploads/2019/03/exercise.csv&quot;</span><span class="p">)</span>
+<span class="nf">str</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">vtable</span><span class="o">::</span><span class="nf">st</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">add.median</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="s">&#39;kable&#39;</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="m">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;data.frame&#39;:	900 obs. of  6 variables:
+ $ id    : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ loss  : num  18.02 10.19 19.75 1.88 14.24 ...
+ $ hours : num  1.84 2.39 2.36 2.52 1.89 ...
+ $ effort: num  37.7 26.7 36.3 20.7 24.7 ...
+ $ gender: int  1 1 1 1 1 1 1 1 1 1 ...
+ $ prog  : int  1 1 1 1 1 1 1 1 1 1 ...
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Table: Summary Statistics
+
+|Variable |N   |Mean |Std. Dev. |Min   |Pctl. 25 |Pctl. 50 |Pctl. 75 |Max  |
+|:--------|:---|:----|:---------|:-----|:--------|:--------|:--------|:----|
+|id       |900 |450  |260       |1     |226      |450      |675      |900  |
+|loss     |900 |10   |14.1      |-17.1 |-1.74    |7.88     |20       |54.2 |
+|hours    |900 |2    |0.495     |0.175 |1.68     |2.01     |2.34     |4.07 |
+|effort   |900 |29.7 |5.14      |12.9  |26.3     |29.6     |33.1     |44.1 |
+|gender   |900 |1.5  |0.5       |1     |1        |1.5      |2        |2    |
+|prog     |900 |2    |0.817     |1     |1        |2        |3        |3    |
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">loss</span></code>: la pérdida de peso (continua): positivo = pérdida de peso, negativo = aumento de peso</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hours</span></code>: horas dedicadas al ejercicio (continua)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">effort</span></code>: esfuerzo durante el ejercicio (continua): 0 = esfuerzo físico mínimo, 50 = esfuerzo máximo</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prog</span></code>: programa de ejercicio (categórica): 1 = jogging (jogging), 2 = swimming (natación), 3 = reading (lectura)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gender</span></code>: género del participante (categórica y binaria): 1 = male (hombre), 2 = female (mujer)</p></li>
+</ul>
+<p>Aquí, las variables <code class="docutils literal notranslate"><span class="pre">prog</span></code> y <code class="docutils literal notranslate"><span class="pre">gender</span></code> son categóticas conceptualmente, pero los datos cargados en R no son de tipo <em>factor</em>. Tenemos que convertirlas en este tipo y especificar el grupo (nivel) de referencia. (También cambiamos el nombre de la variable <code class="docutils literal notranslate"><span class="pre">loss</span></code>.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">$</span><span class="n">prog</span> <span class="o">&lt;-</span> <span class="nf">factor</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">prog</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">),</span> <span class="n">labels</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;jog&quot;</span><span class="p">,</span> <span class="s">&quot;swim&quot;</span><span class="p">,</span> <span class="s">&quot;read&quot;</span><span class="p">))</span>
+<span class="n">df</span><span class="o">$</span><span class="n">gender</span> <span class="o">&lt;-</span> <span class="nf">factor</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">gender</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span> <span class="n">labels</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;male&quot;</span><span class="p">,</span> <span class="s">&quot;female&quot;</span><span class="p">))</span>
+<span class="nf">levels</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">prog</span><span class="p">)</span>
+<span class="nf">levels</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">gender</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">$</span><span class="n">prog</span> <span class="o">&lt;-</span> <span class="nf">relevel</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">prog</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="s">&quot;read&quot;</span><span class="p">)</span> 
+<span class="n">df</span><span class="o">$</span><span class="n">gender</span> <span class="o">&lt;-</span> <span class="nf">relevel</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">gender</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="s">&quot;female&quot;</span><span class="p">)</span> 
+<span class="nf">levels</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">prog</span><span class="p">)</span>
+<span class="nf">levels</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">gender</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>'jog'</li><li>'swim'</li><li>'read'</li></ol>
+</div><div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>'male'</li><li>'female'</li></ol>
+</div><div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>'read'</li><li>'jog'</li><li>'swim'</li></ol>
+</div><div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>'female'</li><li>'male'</li></ol>
+</div></div>
+</div>
+<p>Siempre empezamos examinando primero los modelo sin interacción, y empezamos por examinar las estadísticas descriptivas.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">%&gt;%</span> <span class="nf">group_by</span><span class="p">(</span><span class="n">prog</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+   <span class="nf">summarise</span><span class="p">(</span><span class="n">n_rows</span><span class="o">=</span><span class="nf">length</span><span class="p">(</span><span class="n">loss</span><span class="p">),</span> 
+            <span class="n">M_loss</span><span class="o">=</span><span class="nf">mean</span><span class="p">(</span><span class="n">loss</span><span class="p">),</span> 
+            <span class="n">SD_loss</span><span class="o">=</span><span class="nf">sd</span><span class="p">(</span><span class="n">loss</span><span class="p">))</span> 
+
+<span class="n">df</span> <span class="o">%&gt;%</span> <span class="nf">group_by</span><span class="p">(</span><span class="n">gender</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+   <span class="nf">summarise</span><span class="p">(</span><span class="n">n_rows</span><span class="o">=</span><span class="nf">length</span><span class="p">(</span><span class="n">loss</span><span class="p">),</span> 
+            <span class="n">M_loss</span><span class="o">=</span><span class="nf">mean</span><span class="p">(</span><span class="n">loss</span><span class="p">),</span>
+            <span class="n">SD_loss</span><span class="o">=</span><span class="nf">sd</span><span class="p">(</span><span class="n">loss</span><span class="p">))</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A tibble: 3 x 4</caption>
+<thead>
+	<tr><th scope=col>prog</th><th scope=col>n_rows</th><th scope=col>M_loss</th><th scope=col>SD_loss</th></tr>
+	<tr><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>read</td><td>300</td><td>-3.787878</td><td>4.114563</td></tr>
+	<tr><td>jog </td><td>300</td><td> 8.030355</td><td>7.452667</td></tr>
+	<tr><td>swim</td><td>300</td><td>25.820037</td><td>8.919916</td></tr>
+</tbody>
+</table>
+</div><div class="output text_html"><table class="dataframe">
+<caption>A tibble: 2 x 4</caption>
+<thead>
+	<tr><th scope=col>gender</th><th scope=col>n_rows</th><th scope=col>M_loss</th><th scope=col>SD_loss</th></tr>
+	<tr><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>female</td><td>450</td><td> 9.928741</td><td>15.41056</td></tr>
+	<tr><td>male  </td><td>450</td><td>10.112935</td><td>12.67177</td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="nf">lm</span><span class="p">(</span><span class="n">loss</span><span class="o">~</span><span class="n">prog</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Call:
+lm(formula = loss ~ prog, data = df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-22.4700  -4.6636  -0.0762   4.1810  28.3304 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  -3.7879     0.4110  -9.216   &lt;2e-16 ***
+progjog      11.8182     0.5813  20.332   &lt;2e-16 ***
+progswim     29.6079     0.5813  50.938   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 7.119 on 897 degrees of freedom
+Multiple R-squared:  0.7457,	Adjusted R-squared:  0.7451 
+F-statistic:  1315 on 2 and 897 DF,  p-value: &lt; 2.2e-16
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="nf">lm</span><span class="p">(</span><span class="n">loss</span><span class="o">~</span><span class="n">gender</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Call:
+lm(formula = loss ~ gender, data = df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-27.067 -11.788  -2.156   9.977  44.222 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   9.9287     0.6650  14.929   &lt;2e-16 ***
+gendermale    0.1842     0.9405   0.196    0.845    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 14.11 on 898 degrees of freedom
+Multiple R-squared:  4.271e-05,	Adjusted R-squared:  -0.001071 
+F-statistic: 0.03835 on 1 and 898 DF,  p-value: 0.8448
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ahora, veamos la estadísticas descriptivas relacionadas con la combinación de programa y género.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">dplyr.summarise.inform</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="c1">#suppress group_by warning message</span>
+
+<span class="n">df</span> <span class="o">%&gt;%</span> <span class="nf">group_by</span><span class="p">(</span><span class="n">prog</span><span class="p">,</span> <span class="n">gender</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+   <span class="nf">summarise</span><span class="p">(</span><span class="n">n_rows</span><span class="o">=</span><span class="nf">length</span><span class="p">(</span><span class="n">loss</span><span class="p">),</span> 
+            <span class="n">M_loss</span><span class="o">=</span><span class="nf">mean</span><span class="p">(</span><span class="n">loss</span><span class="p">),</span> <span class="c1">#media</span>
+            <span class="n">Mdn_loss</span><span class="o">=</span><span class="nf">median</span><span class="p">(</span><span class="n">loss</span><span class="p">),</span><span class="c1">#mediana</span>
+            <span class="n">SD_loss</span><span class="o">=</span><span class="nf">sd</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+            <span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A grouped_df: 6 x 6</caption>
+<thead>
+	<tr><th scope=col>prog</th><th scope=col>gender</th><th scope=col>n_rows</th><th scope=col>M_loss</th><th scope=col>Mdn_loss</th><th scope=col>SD_loss</th></tr>
+	<tr><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>read</td><td>female</td><td>150</td><td>-3.620149</td><td>-3.205774</td><td>4.095709</td></tr>
+	<tr><td>read</td><td>male  </td><td>150</td><td>-3.955606</td><td>-4.151879</td><td>4.140218</td></tr>
+	<tr><td>jog </td><td>female</td><td>150</td><td> 4.288681</td><td> 4.574300</td><td>6.885004</td></tr>
+	<tr><td>jog </td><td>male  </td><td>150</td><td>11.772028</td><td>11.756875</td><td>5.988807</td></tr>
+	<tr><td>swim</td><td>female</td><td>150</td><td>29.117691</td><td>29.146642</td><td>7.996907</td></tr>
+	<tr><td>swim</td><td>male  </td><td>150</td><td>22.522383</td><td>20.667851</td><td>8.591756</td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Parece el efecto del programa depende del género, aunque el género por sí mismo no tiene efecto.</p>
+<p>Construimos un modelo con interacción entre program y género:</p>
+<p><span class="math notranslate nohighlight">\(\hat{loss} = b_0 + b_1 D_{male} + b_2 D_{jog} + b_3 D_{swim} + b_4 D_{male} * D_{jog} + b_5 D_{male} * D_{swim}\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">loss</span><span class="o">~</span><span class="n">gender</span><span class="o">*</span><span class="n">prog</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Call:
+lm(formula = loss ~ gender * prog, data = df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-19.1723  -4.1894  -0.0994   3.7506  27.6939 
+
+Coefficients:
+                    Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)          -3.6201     0.5322  -6.802 1.89e-11 ***
+gendermale           -0.3355     0.7527  -0.446    0.656    
+progjog               7.9088     0.7527  10.507  &lt; 2e-16 ***
+progswim             32.7378     0.7527  43.494  &lt; 2e-16 ***
+gendermale:progjog    7.8188     1.0645   7.345 4.63e-13 ***
+gendermale:progswim  -6.2599     1.0645  -5.881 5.77e-09 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 6.519 on 894 degrees of freedom
+Multiple R-squared:  0.7875,	Adjusted R-squared:  0.7863 
+F-statistic: 662.5 on 5 and 894 DF,  p-value: &lt; 2.2e-16
+</pre></div>
+</div>
+</div>
+</div>
+<p>¿Qué significa el coeficiente -6.2599 de <code class="docutils literal notranslate"><span class="pre">gendermale:progswim</span></code>?</p>
+<p>¿Qué significa el coeficiente -0.3355 de <code class="docutils literal notranslate"><span class="pre">gendermale</span></code>?</p>
+<p>¡Dibujemoss el gráfico de interración para entenderlo mejor!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">obj</span> <span class="o">&lt;-</span> <span class="n">emmeans</span><span class="o">::</span><span class="nf">emmip</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">prog</span> <span class="o">~</span> <span class="n">gender</span><span class="p">,</span> <span class="n">CIs</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">plotit</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+<span class="n">obj</span>
+<span class="nf">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">gender</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">yvar</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">prog</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">prog</span><span class="p">))</span> <span class="o">+</span> <span class="nf">geom_line</span><span class="p">()</span> <span class="o">+</span> <span class="nf">geom_point</span><span class="p">()</span> <span class="o">+</span> 
+        <span class="nf">geom_errorbar</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">ymax</span><span class="o">=</span><span class="n">UCL</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=</span><span class="n">LCL</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="m">0.2</span><span class="p">))</span> <span class="o">+</span> 
+        <span class="nf">labs</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">&quot;Gender&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">&quot;Weight loss&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&quot;Program&quot;</span><span class="p">)</span> <span class="o">+</span> 
+        <span class="nf">theme</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="nf">element_text</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="m">20</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A summary_emm: 6 x 9</caption>
+<thead>
+	<tr><th></th><th scope=col>prog</th><th scope=col>gender</th><th scope=col>yvar</th><th scope=col>SE</th><th scope=col>df</th><th scope=col>LCL</th><th scope=col>UCL</th><th scope=col>tvar</th><th scope=col>xvar</th></tr>
+	<tr><th></th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;fct&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>1</th><td>read</td><td>female</td><td>-3.620149</td><td>0.5322428</td><td>894</td><td>-4.664740</td><td>-2.575559</td><td>read</td><td>female</td></tr>
+	<tr><th scope=row>2</th><td>jog </td><td>female</td><td> 4.288681</td><td>0.5322428</td><td>894</td><td> 3.244091</td><td> 5.333272</td><td>jog </td><td>female</td></tr>
+	<tr><th scope=row>3</th><td>swim</td><td>female</td><td>29.117691</td><td>0.5322428</td><td>894</td><td>28.073100</td><td>30.162282</td><td>swim</td><td>female</td></tr>
+	<tr><th scope=row>4</th><td>read</td><td>male  </td><td>-3.955606</td><td>0.5322428</td><td>894</td><td>-5.000197</td><td>-2.911016</td><td>read</td><td>male  </td></tr>
+	<tr><th scope=row>5</th><td>jog </td><td>male  </td><td>11.772028</td><td>0.5322428</td><td>894</td><td>10.727437</td><td>12.816619</td><td>jog </td><td>male  </td></tr>
+	<tr><th scope=row>6</th><td>swim</td><td>male  </td><td>22.522383</td><td>0.5322428</td><td>894</td><td>21.477792</td><td>23.566974</td><td>swim</td><td>male  </td></tr>
+</tbody>
+</table>
+</div><img alt="../../_images/47463800e93cd818685726eb9d89b549ee9a8de54824ddafbd550a19c5bb0fe6.png" src="../../_images/47463800e93cd818685726eb9d89b549ee9a8de54824ddafbd550a19c5bb0fe6.png" />
+</div>
+</div>
+<p>¿Cómo interpreta y describe esta interración?</p>
 </section>
 <section id="modelo-de-efectos-mixtos">
 <h2><span class="section-number">16.8. </span>Modelo de efectos mixtos ®<a class="headerlink" href="#modelo-de-efectos-mixtos" title="Permalink to this heading">#</a></h2>
@@ -4124,7 +4425,7 @@ F-statistic: 18.91 on 10 and 640 DF,  p-value: &lt; 2.2e-16
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notas-finales-del-pipeline-basico">16.5. Notas finales del pipeline básico</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-categoricas">16.6. Variables categóricas ®</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tratarlo-como-numerico">16.6.1. Tratarlo como numérico</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tratarlo-como-tipo-factor">16.6.2. Tratarlo como tipo <em>factor</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tratarlo-como-tipo-factor-con-variables-dummy">16.6.2. Tratarlo como tipo <em>factor</em> con variables dummy</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tratarlo-como-tipo-factor-con-nivel-basico-especifico">16.6.3. Tratarlo como tipo <em>factor</em> con nivel básico específico</a></li>
 </ul>
 </li>
