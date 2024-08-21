@@ -2749,7 +2749,7 @@ TS = \frac{MSB}{MSE} = \frac{\frac{SS_B}{(m-1)}}{\frac{SS_W}{(nm-m)}}
 </section>
 <section id="supuestos-y-requisitos-para-regresicon-lineal">
 <h2><span class="section-number">16.3. </span>Supuestos y requisitos para regresicón lineal<a class="headerlink" href="#supuestos-y-requisitos-para-regresicon-lineal" title="Permalink to this heading">#</a></h2>
-<p>Tenemos uno o dos requisitos:</p>
+<p><strong>Requisitos</strong>:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(Y\)</span> es continuo.</p></li>
 <li><p><span class="math notranslate nohighlight">\(X\)</span> no tiene el problema de <strong>multicolinealidad</strong> (multicollinearity), si el valor o la significancia de los coeficientes de los coeficientes te importan.</p>
@@ -2759,16 +2759,20 @@ TS = \frac{MSB}{MSE} = \frac{\frac{SS_B}{(m-1)}}{\frac{SS_W}{(nm-m)}}
 </ul>
 </li>
 </ul>
-<p>Tenemos cuatro supuestos (“<a class="reference external" href="https://online.stat.psu.edu/stat501/lesson/7/7.3">LINE</a>” usando íngles):</p>
+<p><strong>Supuestos</strong> (“<a class="reference external" href="https://online.stat.psu.edu/stat501/lesson/7/7.3">LINE</a>” usando íngles):</p>
 <ul class="simple">
-<li><p><strong>L</strong>inear function: La relación entre <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span> es lineal: la media de la respuesta <span class="math notranslate nohighlight">\(E[y_i]\)</span>, en cada conjunto de valores de los predictores <span class="math notranslate nohighlight">\(\bf{x_i}\)</span> <span class="math notranslate nohighlight">\((x_{i1}, x_{i2} ... x_{iD})\)</span>, es una función lineal de los predictores.</p></li>
-<li><p>Cada error <span class="math notranslate nohighlight">\(e_i \sim \mathcal{N}(0, \sigma^2)\)</span>, <span class="math notranslate nohighlight">\(e_i\)</span> es independiente de <span class="math notranslate nohighlight">\(\bf{x_i}\)</span>, y los errores <span class="math notranslate nohighlight">\(e_i\)</span> son independientes entre sí mismos. Es decir, <span class="math notranslate nohighlight">\(\bf e \sim \mathcal{N_D}(0, \bf{I}\)</span> <span class="math notranslate nohighlight">\(\sigma^2)\)</span>. Se puede descomponer esto en tres supuestos:</p>
+<li><p><strong>L</strong>inear function: La relación entre <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span> es lineal: la media de la respuesta <span class="math notranslate nohighlight">\(E[y_i]\)</span>, en cada conjunto de valores de los predictores <span class="math notranslate nohighlight">\(\bf{x_i}\)</span> <span class="math notranslate nohighlight">\((x_{i1}, x_{i2} ... x_{iD})\)</span>, es una función lineal de los predictores.</p>
 <ul>
+<li><p>Esto equivale a tener media 0 sobre los residuos <span class="math notranslate nohighlight">\(e_i\)</span> en cada <span class="math notranslate nohighlight">\(\bf{x_i}\)</span>.</p></li>
+</ul>
+</li>
 <li><p><strong>I</strong>ndependent: Los errores <span class="math notranslate nohighlight">\(e_i\)</span> son independientes entre sí mismos, y cada error <span class="math notranslate nohighlight">\(e_i\)</span> es independiente de <span class="math notranslate nohighlight">\(\bf{x_i}\)</span>.</p></li>
 <li><p><strong>N</strong>ormally distributed: Cada error <span class="math notranslate nohighlight">\(e_i \sim \mathcal{N}(0, \sigma^2)\)</span>. Es decir, cada error <span class="math notranslate nohighlight">\(e_i\)</span> en cada <span class="math notranslate nohighlight">\(\bf{x_i}\)</span> tiene una distribución normal con media 0.</p></li>
 <li><p><strong>E</strong>qual variances: Los errores tienen la misma varianza <span class="math notranslate nohighlight">\(\sigma^2\)</span>. Es decir, Los errores <span class="math notranslate nohighlight">\(e_i\)</span> en cada <span class="math notranslate nohighlight">\(\bf{x_i}\)</span> tienen la misma varianza <span class="math notranslate nohighlight">\(\sigma^2\)</span>.</p></li>
 </ul>
-</li>
+<p>Estos cuatro supuestos son equivalentes a esto:</p>
+<ul class="simple">
+<li><p>Cada error <span class="math notranslate nohighlight">\(e_i \sim \mathcal{N}(0, \sigma^2)\)</span>, <span class="math notranslate nohighlight">\(e_i\)</span> es independiente de <span class="math notranslate nohighlight">\(\bf{x_i}\)</span>, y los errores <span class="math notranslate nohighlight">\(e_i\)</span> son independientes entre sí mismos. Es decir, <span class="math notranslate nohighlight">\(\bf e \sim \mathcal{N_D}(0, \bf{I}\)</span> <span class="math notranslate nohighlight">\(\sigma^2)\)</span>.</p></li>
 </ul>
 <p><strong>¿Cómo examinar estos supuestos y supuestos?</strong></p>
 <p>Antes de ajustar el modelo, usamos:</p>
@@ -2808,7 +2812,7 @@ TS = \frac{MSB}{MSE} = \frac{\frac{SS_B}{(m-1)}}{\frac{SS_W}{(nm-m)}}
 <li><p>Si se violan, hay varias optiones: tranforma el predictor (e.g., <span class="math notranslate nohighlight">\(x^2\)</span>), transforma la respuesta (e.g., <span class="math notranslate nohighlight">\(logY\)</span>), etc.</p></li>
 </ul>
 </li>
-<li><p>Histograma, Q-Q plot, y Shapiro-Wilk test:</p>
+<li><p>Q-Q plot, (histograma/plot de densidad), Shapiro-Wilk test (normalmente para N <span class="math notranslate nohighlight">\(&lt;\)</span> 50) o Kolmogorov–Smirnov test (normalmente para N <span class="math notranslate nohighlight">\(\geq\)</span> 50):</p>
 <ul>
 <li><p>Estos son para ver si los residuos siguien una distribución normal con la media 0.</p></li>
 </ul>
@@ -4590,6 +4594,85 @@ F-statistic: 662.5 on 5 and 894 DF,  p-value: &lt; 2.2e-16
 </section>
 <section id="modelo-de-efectos-mixtos">
 <h2><span class="section-number">16.8. </span>Modelo de efectos mixtos<a class="headerlink" href="#modelo-de-efectos-mixtos" title="Permalink to this heading">#</a></h2>
+<p>(!!! Trabajo en curso, por favor sáltese esta sección por ahora !!!)</p>
+<p><strong>Fixed, random and mixed effects</strong></p>
+<ul class="simple">
+<li><p>fixed effects: b is some unknown (constant) coefficient vector</p></li>
+<li><p>random effects: random variables in the population; Typically assume that random effects are zero-mean Gaussian; Typically want to estimate the variance parameter(s)</p></li>
+<li><p>mixed-effects model: Models with fixed and random effects are called mixed-effects models</p></li>
+</ul>
+<p><strong>Why random effects?</strong>
+Some advantages/reasons:</p>
+<ul class="simple">
+<li><p>Model correlated data: Random effects relate to assumed correlation structure for data;</p></li>
+<li><p>Allow fine-grained hypothesese of correlation structure:</p>
+<ul>
+<li><p>including different combinations of random effects can account for different correlation structures present in the data</p></li>
+<li><p>the mixed-e↵ect model allows for fine-grained hypotheses about the randome↵ects structure of the data</p></li>
+</ul>
+</li>
+<li><p>Allow generalization to unseen levels: a fitted mixed model provides straightforward predictions for unseen levels of random-e↵ect factors.</p></li>
+<li><p>Mixed-effect models are better able to directly model heteroskedasticity.</p></li>
+<li><p>mixed-e↵ect models tend to be better able to detect e↵ects as significant, without giving rise to inflated Type I error rates (see, e.g., Baayen, Davidson &amp; Bates, 2008).</p></li>
+</ul>
+<p>When to use random factor vs. fixed factor?</p>
+<p><strong>Parameters of mixed effect model</strong></p>
+<ul class="simple">
+<li><p>fixed effects parameters (e.g., b)</p></li>
+<li><p>random effects variance parameters (including covariance)</p></li>
+</ul>
+<p><strong>Case 1: random intercept model</strong>
+vi iid ∼ N(0, σ2 v ) is an unobserved random variable
+eij iid ∼ N(0, σ2 e) is an unobserved random variable
+Vi and eij are independent of one another
+b0 and b1 are unknown constants
+(yij |xij ) ∼ N(b0 + b1xij , σ2 Y ) where σ2 Y = σ2 v + σ2</p>
+<p>vi allows each subject to have unique regression intercept.</p>
+<p>Assumed covariance structure:</p>
+<p><strong>Case 2: random intercept and slope model</strong></p>
+<p>(yij |xij ) ∼ N(b0 + b1xij , σ2 Yij ) where σ2 Yij = σ2 0 + 2σ01xij + σ2 1x2 ij + σ2</p>
+<p><strong>Two estimation methods</strong></p>
+<ul class="simple">
+<li><p>There are two types of maximum likelihood (ML) estimation: Standard ML underestimates variance components ML Restricted ML (REML) provides consistent estimates</p></li>
+<li><p>The conventional wisdom seems to be that ML produces more accurate estimates of fixed regression parameters, whereas REML produces more accurate estimates of random variances (Twisk, 2006). &lt;- From DiscoverR</p></li>
+</ul>
+<p>Likelihood ratio test</p>
+<ul class="simple">
+<li><p>if you want to compare models you must use ML (REML=False)</p></li>
+</ul>
+<p><strong>Assumptions of mixed-effect model (for diagnosis)</strong></p>
+<ul class="simple">
+<li><p>Independence (different from fixed-effect regression)</p>
+<ul>
+<li><p>The assumption is relaxed to observations are independent of the other observations except where there is correlation specified by the random variable groups.  (e.g., data from different subjects are assumed independent.)</p></li>
+<li><p>There is also a new independence assumption for mixed models. This is the effects associated with the random variable groups are uncorrelated with the means of the fixed effect from the random variable groups. (??)</p></li>
+</ul>
+</li>
+</ul>
+<p>All other assumptions for mixed models are the same as the assumptions of the underlying model</p>
+<ul class="simple">
+<li><p>Linear: Y and X (set of predictors)</p></li>
+<li><p>Normal: Residual normal (examined at each combination of input x):</p>
+<ul>
+<li><p>Caution: the subscript may change meanings!</p></li>
+<li><p>~ N()…</p></li>
+</ul>
+</li>
+<li><p>Equal variance: (expressed above)</p></li>
+</ul>
+<p><strong>How to check assumptions</strong></p>
+<ul class="simple">
+<li><p>Linear: residual vs. fitted (mean at 0)</p></li>
+<li><p>Independence: ??</p></li>
+<li><p>Normal: residual vs. fitted; residual QQ plot</p></li>
+<li><p>Equal variance: residual vs. fitted</p></li>
+</ul>
+<p><strong>Ejemplo</strong></p>
+<p><strong>Reference</strong></p>
+<ul class="simple">
+<li><p>Theoretical: 1) U of Minnesota   2) R. Harald Baayen (for advantage)</p></li>
+<li><p>Data: 1) <a class="reference external" href="https://ladal.edu.au/regression.html#2_Mixed-Effects_Regression">https://ladal.edu.au/regression.html#2_Mixed-Effects_Regression</a>  2) additional on diagnostic: <a class="reference external" href="https://www.ssc.wisc.edu/sscc/pubs/MM/MM_DiagInfer.html">https://www.ssc.wisc.edu/sscc/pubs/MM/MM_DiagInfer.html</a></p></li>
+</ul>
 </section>
 </section>
 
@@ -4602,16 +4685,16 @@ F-statistic: 662.5 on 5 and 894 DF,  p-value: &lt; 2.2e-16
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "r"
         },
         kernelOptions: {
-            name: "python3",
+            name: "ir",
             path: "./lectures/6_linear_regression"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'ir'</script>
 
                 </article>
               
