@@ -480,6 +480,11 @@ document.write(`
 <p><span class="math notranslate nohighlight">\(\forall A,B \subseteq \Omega\)</span>,</p>
 <ol class="arabic simple">
 <li><p><span class="math notranslate nohighlight">\(P(A) = 1 - P(A^C)\)</span> <span class="math notranslate nohighlight">\(\qquad\)</span> (regla del complemento)</p></li>
+</ol>
+<ul class="simple">
+<li><p>(<span class="math notranslate nohighlight">\(A^C\)</span> o <span class="math notranslate nohighlight">\(A'\)</span> es el complemento de <span class="math notranslate nohighlight">\(A\)</span> (en <span class="math notranslate nohighlight">\(U\)</span>) que es el conjunto de todos los miembros de <span class="math notranslate nohighlight">\(U\)</span> que no son miembros de <span class="math notranslate nohighlight">\(A\)</span>. <span class="math notranslate nohighlight">\(U\)</span> se denomina el conjunto universal, y aquí <span class="math notranslate nohighlight">\(U\)</span> es <span class="math notranslate nohighlight">\(\Omega\)</span>.)</p></li>
+</ul>
+<ol class="arabic simple" start="2">
 <li><p><span class="math notranslate nohighlight">\( P(\phi) = 0\)</span>  <span class="math notranslate nohighlight">\(\qquad\)</span> (probabilidad del conjunto vacío)</p></li>
 <li><p>Si  <span class="math notranslate nohighlight">\(A \subseteq B =&gt; P(A) \leq P(B)\)</span> <span class="math notranslate nohighlight">\(\qquad\)</span> (monotonía)</p></li>
 <li><p><span class="math notranslate nohighlight">\( P(A) \leq 1 \)</span> <span class="math notranslate nohighlight">\(\qquad\)</span> (límite numérico)</p></li>
@@ -523,24 +528,26 @@ P(A\cap B \cap C)&amp; = &amp;P(A)P(B\mid A) P(C\mid A \cap B)
 <li><p><span class="math notranslate nohighlight">\(P(A\mid B \cap C) =  P(A \mid C)\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(P(B\mid A \cap C)  =  P(B \mid C)\)</span></p></li>
 </ol>
-<p>se dice que <span class="math notranslate nohighlight">\(A\)</span> es independiente de <span class="math notranslate nohighlight">\(B\)</span> condicionalmente a <span class="math notranslate nohighlight">\(C\)</span>, o <span class="math notranslate nohighlight">\(A\)</span> y <span class="math notranslate nohighlight">\(B\)</span> son condicionalmente independiente dado <span class="math notranslate nohighlight">\(C\)</span>.</p>
+<p>se dice que <span class="math notranslate nohighlight">\(A\)</span> es independiente de <span class="math notranslate nohighlight">\(B\)</span> condicionalmente a <span class="math notranslate nohighlight">\(C\)</span>, o <span class="math notranslate nohighlight">\(A\)</span> y <span class="math notranslate nohighlight">\(B\)</span> son independientes condicionalmente dado <span class="math notranslate nohighlight">\(C\)</span>.</p>
 <p>Ejemplo: Altura, Vocabulario y Edad</p>
 </section>
 <section id="ley-de-las-probabilidades-totales">
 <h3><span class="section-number">1.3.5. </span>Ley de las probabilidades totales<a class="headerlink" href="#ley-de-las-probabilidades-totales" title="Permalink to this heading">#</a></h3>
-<p>Consideremos ahora una partición del espacio muestral <span class="math notranslate nohighlight">\(\{B_i\}_{i=1,..n}\)</span>, es decir:</p>
+<p>Consideremos ahora una <strong>partición</strong> del espacio muestral <span class="math notranslate nohighlight">\(\{B_i\}_{i=1,..n}\)</span>, es decir:</p>
 <p><span class="math notranslate nohighlight">\(\begin{array}{lll}
 \bigcup_{i=1}^n \limits  B_i = \Omega, &amp; &amp; B_i\cap B_j = \phi \qquad \forall i,j=1,..n, i\neq j
 \end{array}\)</span></p>
 <p>entonces:</p>
 <p><span class="math notranslate nohighlight">\(\begin{array}{lll}
-P(A) &amp; = &amp; \sum_{i=1}^n \limits P(A\mid B_i) P(B_i)
+P(A) &amp; = &amp; \sum_{i=1}^n \limits P(A \cap B_i) &amp; = &amp; \sum_{i=1}^n \limits P(A\mid B_i) P(B_i)
 \end{array}\)</span></p>
 <p>Ejemplo: Sea</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(A\)</span> = {Pedro acepta un trabajo informática en Chile después del Magíster en Informática}</p></li>
-<li><p><span class="math notranslate nohighlight">\(B_i\)</span> = {Oferta de un trabajo informática para Pedro en region <span class="math notranslate nohighlight">\(i\)</span> }, <span class="math notranslate nohighlight">\(i=1,...,15\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(B_i\)</span> = {Oferta de un trabajo informática para Pedro en region <span class="math notranslate nohighlight">\(i\)</span> en Chile }, <span class="math notranslate nohighlight">\(i=1,...,15\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(C_i\)</span> = {La novia de Pedro acepta un trabajo en region <span class="math notranslate nohighlight">\(i\)</span> en Chile }, <span class="math notranslate nohighlight">\(i=1,...,15\)</span></p></li>
 </ul>
+<p>¿Cuál es la probabilidad de A?</p>
 <a class="reference internal image-reference" href="../../_images/chile.png"><img alt="../../_images/chile.png" src="../../_images/chile.png" style="width: 600px;" /></a>
 </section>
 <section id="regla-de-bayes">
@@ -548,19 +555,19 @@ P(A) &amp; = &amp; \sum_{i=1}^n \limits P(A\mid B_i) P(B_i)
 <p>A partir de la defición de probabilidades condicionales se puede deducir la regla de Bayes:</p>
 <p>Sean <span class="math notranslate nohighlight">\(A, B \subseteq \Omega\)</span> tales que <span class="math notranslate nohighlight">\(P(A),P(B)&gt;0\)</span>, entonces</p>
 <p><span class="math notranslate nohighlight">\(\begin{array}{llll}
-P(B\mid A)&amp; = &amp; \frac{P(A\cap B)}{P(A)} = &amp; \frac{P(A\mid B) P(B)}{P(A)}
+P(B\mid A)&amp; = &amp; \cfrac{P(B\cap A)}{P(A)} = &amp; \cfrac{P(B) P(A\mid B) }{P(A)} = &amp; P(B) \cfrac{P(A\mid B)}{P(A)}
 \end{array}\)</span></p>
 <p><span class="math notranslate nohighlight">\(P(B)\)</span> se denomina probabilidad a priori, <span class="math notranslate nohighlight">\(P(B \mid A)\)</span> probabilidad a posteriori</p>
-<p>(Esta regla a veces también se denomina teorema de Bayes.)</p>
+<p>(Esta regla a veces también se denomina teorema de Bayes. Pero la llamamos regla de Bayes en este curso.)</p>
 </section>
 <section id="teorema-de-bayes">
 <h3><span class="section-number">1.3.7. </span>Teorema de Bayes<a class="headerlink" href="#teorema-de-bayes" title="Permalink to this heading">#</a></h3>
-<p>Consideremos una partición del espacio muestral <span class="math notranslate nohighlight">\(\{B_i\}_{i=1,..n}\)</span>, entonces:</p>
+<p>Consideremos una <strong>partición</strong> del espacio muestral <span class="math notranslate nohighlight">\(\{B_i\}_{i=1,..n}\)</span>, entonces:</p>
 <p><span class="math notranslate nohighlight">\(\begin{array}{llll}
-P(B_i \mid A) &amp; = &amp; \frac{P(A\cap B_i)}{P(A)} = &amp; \frac{P(A\mid B_i) P(B_i)}{P(A)}
-&amp; = &amp; \frac{P(A\mid B_i) P(B_i)}{\sum_{i=1}^n \limits P(A\mid B_i) P(B_i)}
+P(B_i \mid A) &amp; = &amp; \cfrac{P(B_i \cap A)}{P(A)} = &amp; \cfrac{P(B_i) P(A\mid B_i) }{P(A)}
+&amp; = &amp; \cfrac{P(A\mid B_i) P(B_i)}{\sum_{i=1}^n \limits P(A\mid B_i) P(B_i)}
 \end{array}\)</span></p>
-<p>(Este teorema a veces también se denomina regla de Bayes.)</p>
+<p>(Este teorema a veces también se denomina regla de Bayes. Pero lo llamamos teorema de Bayes en este curso.)</p>
 </section>
 </section>
 </section>
