@@ -389,7 +389,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interaccion">16.7. Interacción</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-de-efectos-mixtos">16.8. Modelo de efectos mixtos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-de-regresion-de-efectos-mixtos-mixed-effects-regression-model">16.8. Modelo de regresión de efectos mixtos (mixed-effects regression model)</a></li>
 </ul>
             </nav>
         </div>
@@ -2432,7 +2432,7 @@ StatsModels versión: 0.13.2
 <p>Veremos primero el formalismo matemático del método de Mínimos Cuadrados Ordinarios y luego como implementarlo en Python.</p>
 <section id="derivacion-matematica-del-metodo-de-minimos-cuadrados-ordinarios-ols">
 <h2><span class="section-number">16.1. </span>Derivación matemática del método de mínimos cuadrados ordinarios (OLS)<a class="headerlink" href="#derivacion-matematica-del-metodo-de-minimos-cuadrados-ordinarios-ols" title="Permalink to this heading">#</a></h2>
-<p>Consideremos el dataset <span class="math notranslate nohighlight">\(\{\bf{x_i},\)</span> <span class="math notranslate nohighlight">\(y_i\}_{i=1,\ldots,N}\)</span> con observaciones <em>i.i.d.</em> donde <span class="math notranslate nohighlight">\(y_i \in \mathbb{R}\)</span> y <span class="math notranslate nohighlight">\(\bf{x_i}\)</span> <span class="math notranslate nohighlight">\(\in \mathbb{R}^D\)</span>, con <span class="math notranslate nohighlight">\(D&gt;1\)</span>. Queremos encontrar <span class="math notranslate nohighlight">\(\bf b\)</span>  tal que:</p>
+<p>Consideremos el dataset <span class="math notranslate nohighlight">\(\{\bf{x_i},\)</span> <span class="math notranslate nohighlight">\(y_i\}_{i=1,\ldots,N}\)</span> con observaciones donde <span class="math notranslate nohighlight">\(y_i \in \mathbb{R}\)</span> y <span class="math notranslate nohighlight">\(\bf{x_i}\)</span> <span class="math notranslate nohighlight">\(\in \mathbb{R}^D\)</span>, con <span class="math notranslate nohighlight">\(D&gt;1\)</span>, y <span class="math notranslate nohighlight">\(\bf{x_i}\)</span> se considera dado. Queremos encontrar <span class="math notranslate nohighlight">\(\bf b\)</span> tal que:</p>
 <div class="math notranslate nohighlight">
 \[
 y_i \approx b_0 + \sum_{j=1}^D b_j x_{ij}, \quad \forall i
@@ -2445,7 +2445,11 @@ L = \sum_{i=1}^N (y_i - b_0 - \sum_{j=1}^D b_j x_{ij})^2,
 <p>Y queremos minimizar <span class="math notranslate nohighlight">\(L\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[\min_{\bf b} L\]</div>
-<p>pero en este caso lo expresaremos en forma matricial:</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Desde un punto de vista estadístico, este criterio es razonable si las observaciones de entrenamiento (<span class="math notranslate nohighlight">\(\bf{x_i}\)</span>, <span class="math notranslate nohighlight">\(y_i\)</span>) representan extracciones aleatorias independientes de su población. Pero, aunque las <span class="math notranslate nohighlight">\(\bf{x_i}\)</span> no se hayan extraído aleatoriamente, el criterio sigue siendo válido si las <strong><span class="math notranslate nohighlight">\(y_i\)</span> son condicionalmente independientes dadas las entradas <span class="math notranslate nohighlight">\(\bf{x_i}\)</span></strong>.</p>
+</div>
+<p>Pero en este caso lo expresaremos en forma matricial:</p>
 <div class="math notranslate nohighlight">
 \[
 L = \| \bf y - \bf X \bf b \|^2 = (\bf y - \bf X \bf b)^T (\bf y - \bf X \bf b),
@@ -2491,18 +2495,22 @@ L = \| \bf y - \bf X \bf b \|^2 = (\bf y - \bf X \bf b)^T (\bf y - \bf X \bf b),
 <section id="conexion-con-mle">
 <h3><span class="section-number">16.2.1. </span>Conexión con MLE<a class="headerlink" href="#conexion-con-mle" title="Permalink to this heading">#</a></h3>
 <p>En la demonstración arriba, no usamos ningún supuesto distribucional ni <strong>máxima verosimilitud (MLE)</strong> que esta diseñado para estimar parámetros. Vamos aplicarlo aquí!</p>
-<p>Digamos que se tienen <span class="math notranslate nohighlight">\(\{\bf x_i,\)</span> <span class="math notranslate nohighlight">\(y_i\}_{i=1,\ldots,N}\)</span> observaciones <em>i.i.d.</em> de una variable dependiente unidimensional <span class="math notranslate nohighlight">\(Y\)</span> y una variable independiente <strong>D-dimensional</strong> <span class="math notranslate nohighlight">\(X\)</span>. Asumiremos que las mediciones <span class="math notranslate nohighlight">\(Y\)</span> corresponden a una combinación aditiva de un modelo y ruido con distribución Gaussiana centrado en cero, es decir:</p>
+<p>Digamos que se tienen <span class="math notranslate nohighlight">\(\{\bf x_i,\)</span> <span class="math notranslate nohighlight">\(y_i\}_{i=1,\ldots,N}\)</span> observaciones de una variable dependiente unidimensional <span class="math notranslate nohighlight">\(Y\)</span> y una variable independiente <strong>D-dimensional</strong> <span class="math notranslate nohighlight">\(X\)</span>, y <span class="math notranslate nohighlight">\(X\)</span> se considera dado. Asumiremos que las mediciones <span class="math notranslate nohighlight">\(Y\)</span> corresponden a una combinación aditiva de un modelo y ruido con distribución Gaussiana centrado en cero, es decir:</p>
 <p><span class="math notranslate nohighlight">\(y_i = b_0 + \sum_{j=1}^D b_j x_{ij} + e_i = g_b(\bf{x_i})\)</span> + <span class="math notranslate nohighlight">\(e_i\)</span></p>
 <p>Y tenemos los siguientes supuestos importantes sobre <span class="math notranslate nohighlight">\(e_i \)</span>:</p>
 <div class="admonition important">
 <p class="admonition-title">Importante</p>
-<p>Cada error <span class="math notranslate nohighlight">\(e_i \sim \mathcal{N}(0, \sigma^2)\)</span>, <span class="math notranslate nohighlight">\(e_i\)</span> es independiente de <span class="math notranslate nohighlight">\(\bf{x_i}\)</span>, y los <span class="math notranslate nohighlight">\(e_i\)</span> son independientes entre sí mismos. <span class="math notranslate nohighlight">\(e_i=y_i - g_b(\bf x_i)\)</span>=<span class="math notranslate nohighlight">\(y_i -\hat y_i\)</span> también se llama <strong>residuo</strong>.</p>
+<p>Los <span class="math notranslate nohighlight">\(e_i\)</span> <strong>son i.i.d</strong>. Cada <span class="math notranslate nohighlight">\(e_i \sim \mathcal{N}(0, \sigma^2)\)</span>, <span class="math notranslate nohighlight">\(e_i\)</span> es independiente de <span class="math notranslate nohighlight">\(\bf{x_i}\)</span>, y los <strong><span class="math notranslate nohighlight">\(e_i\)</span> son independientes entre sí mismos</strong>.</p>
 </div>
+<p><span class="math notranslate nohighlight">\(e_i=y_i - g_b(\bf x_i)\)</span>=<span class="math notranslate nohighlight">\(y_i -\hat y_i\)</span> también se llama <strong>residuo</strong>.</p>
 <p>Así que</p>
-<p><span class="math notranslate nohighlight">\(y_i - g_b(\bf x_i)\)</span> <span class="math notranslate nohighlight">\(= e_i \sim \mathcal{N}(0, \sigma^2), \qquad \text{dado } g_b(\bf x_i)\)</span></p>
-<p>Aquí, no hacemos supuestos sobre la distribucion de <span class="math notranslate nohighlight">\( \bf x_i\)</span> (podría ser arbitrario), y consideramos que <span class="math notranslate nohighlight">\( \bf x_i\)</span> es <strong>dado</strong>. Así que:</p>
-<p><span class="math notranslate nohighlight">\(y_i \sim \mathcal{N}(g_b(\bf x_i)\)</span> <span class="math notranslate nohighlight">\(, \sigma^2), \qquad \text{dado } g_b(\bf x_i)\)</span></p>
-<p>y consideramos la <strong>distribución condicional de <span class="math notranslate nohighlight">\(y_i\)</span> dado <span class="math notranslate nohighlight">\(\bf x_i\)</span></strong> en todos pasos aquí bajo la perspectiva estadística:</p>
+<p><span class="math notranslate nohighlight">\(\text{dado } \bf x_i, \qquad y_i - g_b(\bf x_i) \)</span> <span class="math notranslate nohighlight">\(= e_i \sim \mathcal{N}(0, \sigma^2) \)</span></p>
+<p>Aquí, no hacemos supuestos sobre la distribucion de <span class="math notranslate nohighlight">\(\bf x_i\)</span> (podría ser arbitrario), y consideramos que <span class="math notranslate nohighlight">\( \bf x_i\)</span> es <strong>dado</strong>. Así que:</p>
+<p><span class="math notranslate nohighlight">\(y_i | \bf x_i \sim \mathcal{N}(g_b(\bf x_i)\)</span> <span class="math notranslate nohighlight">\(, \sigma^2)\)</span></p>
+<blockquote>
+<div><p>Los <span class="math notranslate nohighlight">\(y_i\)</span> tienen que ser i.i.d.? Los <span class="math notranslate nohighlight">\(\bf x_i\)</span> tienen que ser i.i.d.?</p>
+</div></blockquote>
+<p>Consideramos la <strong>distribución condicional de <span class="math notranslate nohighlight">\(y_i\)</span> dado <span class="math notranslate nohighlight">\(\bf x_i\)</span></strong> en todos pasos aquí bajo la perspectiva estadística:</p>
 <p><span class="math notranslate nohighlight">\(f(y_i | \bf x_i) \)</span> <span class="math notranslate nohighlight">\(= \mathcal{N}(g_b(\bf x_i)\)</span> <span class="math notranslate nohighlight">\(, \sigma^2)\)</span></p>
 <p>Por lo tanto, escribimos la <strong>verosimilitud</strong> usando la distribución condicional de <span class="math notranslate nohighlight">\(y_i\)</span>:</p>
 <p><span class="math notranslate nohighlight">\(\mathcal{L}(\bf b)\)</span> <span class="math notranslate nohighlight">\(= \prod_{i=1}^N f(y_i |  \bf x_i; \bf b) \)</span> <span class="math notranslate nohighlight">\(= \prod_{i=1}^N \mathcal{N}(g_b(\bf x_i)\)</span>, <span class="math notranslate nohighlight">\(\sigma^2)\)</span></p>
@@ -2766,7 +2774,7 @@ TS = \frac{MSB}{MSE} = \frac{\frac{SS_B}{(m-1)}}{\frac{SS_W}{(nm-m)}}
 <li><p>Esto equivale a tener media 0 sobre los residuos <span class="math notranslate nohighlight">\(e_i\)</span> en cada <span class="math notranslate nohighlight">\(\bf{x_i}\)</span>.</p></li>
 </ul>
 </li>
-<li><p><strong>I</strong>ndependent: Los errores <span class="math notranslate nohighlight">\(e_i\)</span> son independientes entre sí mismos, y cada error <span class="math notranslate nohighlight">\(e_i\)</span> es independiente de <span class="math notranslate nohighlight">\(\bf{x_i}\)</span>.</p></li>
+<li><p><strong>I</strong>ndependent: Los errores <span class="math notranslate nohighlight">\(e_i\)</span> son independientes entre sí mismos, y cada error <span class="math notranslate nohighlight">\(e_i\)</span> es independiente de <span class="math notranslate nohighlight">\(\bf{x_i}\)</span></p></li>
 <li><p><strong>N</strong>ormally distributed: Cada error <span class="math notranslate nohighlight">\(e_i \sim \mathcal{N}(0, \sigma^2)\)</span>. Es decir, cada error <span class="math notranslate nohighlight">\(e_i\)</span> en cada <span class="math notranslate nohighlight">\(\bf{x_i}\)</span> tiene una distribución normal con media 0.</p></li>
 <li><p><strong>E</strong>qual variances: Los errores tienen la misma varianza <span class="math notranslate nohighlight">\(\sigma^2\)</span>. Es decir, Los errores <span class="math notranslate nohighlight">\(e_i\)</span> en cada <span class="math notranslate nohighlight">\(\bf{x_i}\)</span> tienen la misma varianza <span class="math notranslate nohighlight">\(\sigma^2\)</span>.</p></li>
 </ul>
@@ -4592,9 +4600,13 @@ F-statistic: 662.5 on 5 and 894 DF,  p-value: &lt; 2.2e-16
 <li><p>Continua x Continua</p></li>
 </ol>
 </section>
-<section id="modelo-de-efectos-mixtos">
-<h2><span class="section-number">16.8. </span>Modelo de efectos mixtos<a class="headerlink" href="#modelo-de-efectos-mixtos" title="Permalink to this heading">#</a></h2>
+<section id="modelo-de-regresion-de-efectos-mixtos-mixed-effects-regression-model">
+<h2><span class="section-number">16.8. </span>Modelo de regresión de efectos mixtos (mixed-effects regression model)<a class="headerlink" href="#modelo-de-regresion-de-efectos-mixtos-mixed-effects-regression-model" title="Permalink to this heading">#</a></h2>
 <p>(!!! Trabajo en curso, por favor sáltese esta sección por ahora !!!)</p>
+<p><strong>¿Qué es un modelo de regresión de efectos mixtos?</strong>
+Lo que hemos visto son todos modelos de regresión de <strong>efectos fijos</strong> (fixed-effects models). Es decir, los parámetros <span class="math notranslate nohighlight">\(b_j\)</span> no son variables aleatorias (no suponemos una distribución para ellos).</p>
+<p>¿Qué pasa si tenomos varias mediciones de cada persona y tenemos 100 o 1000 personas en los datos a modelar? ¿Qué problemas tenemos al utilizar modelos de efectos fijos? (O la regresión introducida anteriormente?)</p>
+<a class="reference internal image-reference" href="../../_images/Comparison_fixed_mixed.png"><img alt="../../_images/Comparison_fixed_mixed.png" src="../../_images/Comparison_fixed_mixed.png" style="width: 600px;" /></a>
 <p><strong>Fixed, random and mixed effects</strong></p>
 <ul class="simple">
 <li><p>fixed effects: b is some unknown (constant) coefficient vector</p></li>
@@ -4779,7 +4791,7 @@ b0 and b1 are unknown constants
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interaccion">16.7. Interacción</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-de-efectos-mixtos">16.8. Modelo de efectos mixtos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-de-regresion-de-efectos-mixtos-mixed-effects-regression-model">16.8. Modelo de regresión de efectos mixtos (mixed-effects regression model)</a></li>
 </ul>
   </nav></div>
 

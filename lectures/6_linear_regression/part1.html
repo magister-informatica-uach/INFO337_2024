@@ -2408,20 +2408,23 @@ Scipy versión: 1.9.1
 <h2><span class="section-number">15.1. </span>Definiendo regresión<a class="headerlink" href="#definiendo-regresion" title="Permalink to this heading">#</a></h2>
 <p><strong>Regresión</strong> se refiere a una familia de modelos estadísticos cuyo fin es encontrar relaciones entre variables. En general esta relación se modela como una función</p>
 <div class="math notranslate nohighlight">
-\[
-g: X \to Y,
-\]</div>
-<p>que mapea una variable a un conjunto de variables:</p>
+\[\begin{split}
+g: X \to Y\\
+g(x) = \mathbb{E}[Y|X=x] = \int y f(y|x) dy
+\end{split}\]</div>
+<p>Esta función mapea un conjunto de variables a una variable:</p>
 <ul class="simple">
 <li><p>La/s variable/s de entrada <span class="math notranslate nohighlight">\(X\)</span> se llama/n <strong>variable/s independiente/s</strong> (IV). También se suelen llamar <strong>predictores, características (features), atributos, regresores</strong>.</p></li>
 <li><p>La variable de salida <span class="math notranslate nohighlight">\(Y\)</span> se llama <strong>variable dependiente</strong> (DV), también se suele llamar <strong>respuesta</strong>.</p></li>
 </ul>
-<p>El objetivo es aprender <span class="math notranslate nohighlight">\(g\)</span> tal que podamos predecir <span class="math notranslate nohighlight">\(Y\)</span> dado <span class="math notranslate nohighlight">\(X\)</span>, es decir <span class="math notranslate nohighlight">\(\mathbb{E}[Y|X]\)</span></p>
+<p>El objetivo es estimar <span class="math notranslate nohighlight">\(g\)</span> a patir de datos de la forma:</p>
+<div class="math notranslate nohighlight">
+\[(Y_1, X_1), ..., (Y_N, X_N) \sim F_{X, Y}\]</div>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
 <p>La regresión se puede definir desde una perspectiva estadística como un caso particular de ajuste de modelos (estimación de parámetros). También se considera como parte del paradigma de aprendizaje supervisado junto a los modelos de clasificación.</p>
 </div>
-<p>Los métodos de regresión pueden clasificar como parámetricos o no paramétricos. En esta lección nos enfocaremos en los primeros.</p>
+<p>Los métodos de regresión pueden clasificar como <strong>parámetricos</strong> o no paramétricos. En esta lección nos enfocaremos en los primeros.</p>
 <div class="admonition seealso">
 <p class="admonition-title">Ver también</p>
 <p>Los modelos no paramétricos de regresión no tienen estructura predefinida y por ende son más flexibles pero más complejos de ajustar que sus contrapartes paramétricas. Algunos ejemplos son las splines, SVR (support vector regression) y los <a class="reference external" href="https://phuijse.github.io/BLNNbook/chapters/bayesian/gp1.html">procesos gaussianos</a>.</p>
@@ -2494,15 +2497,14 @@ g_b(x_i) = b_0 + \sum_{j=1}^D b_j x_{ij},
 <p>que tiene <span class="math notranslate nohighlight">\(M=D+1\)</span> parámetros. Esto corresponde a un hiperplano en <span class="math notranslate nohighlight">\(\mathbb{R}^M\)</span>.</p>
 <section id="ajustando-el-modelo-lineal-simple-matematicamente">
 <h3><span class="section-number">15.2.1. </span>Ajustando el modelo lineal simple: Matemáticamente<a class="headerlink" href="#ajustando-el-modelo-lineal-simple-matematicamente" title="Permalink to this heading">#</a></h3>
-<p>Asumiendo que tenemos <span class="math notranslate nohighlight">\(\{x_i, y_i\}_{i=1,\ldots,N}\)</span> observaciones <em>iid</em> de las variables unidimensionales <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span></p>
-<blockquote>
-<div><p>¿Cómo encontramos <span class="math notranslate nohighlight">\(b_0\)</span> y <span class="math notranslate nohighlight">\(b_1\)</span> tal que <span class="math notranslate nohighlight">\(y_i \approx b_0 + b_1 x_i, \forall i\)</span>?</p>
-</div></blockquote>
-<p>Asumimos un término de error que cumple:</p>
+<p>Asumiendo que tenemos <span class="math notranslate nohighlight">\(\{x_i, y_i\}_{i=1,\ldots,N}\)</span> observaciones de las variables unidimensionales <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span>, y <span class="math notranslate nohighlight">\(X\)</span> se considera dado, ¿cómo encontramos <span class="math notranslate nohighlight">\(b_0\)</span> y <span class="math notranslate nohighlight">\(b_1\)</span> tal que</p>
+<div class="math notranslate nohighlight">
+\[y_i \approx b_0 + b_1 x_i, \forall i \qquad?\]</div>
+<p>Asumimos un término de <strong>error</strong> o <strong>residuo</strong> que cumple:</p>
 <div class="math notranslate nohighlight">
 \[y_i = g_b(x_i) + e_i = b_0 + b_1 x_i + e_i, \forall i\]</div>
-<p>(donde <span class="math notranslate nohighlight">\(e_i \sim \cal N(0, \sigma^2)\)</span>, <span class="math notranslate nohighlight">\(e_i\)</span> es independiente de <span class="math notranslate nohighlight">\(x_i\)</span>, y los <span class="math notranslate nohighlight">\(e_i\)</span> son independientes entre sí mismos.)</p>
-<p>Así que el error o <strong>residuo</strong> para la i-ésima observaicón es:</p>
+<p>donde los <strong><span class="math notranslate nohighlight">\(e_i\)</span> son i.i.d</strong>. Cada <span class="math notranslate nohighlight">\(e_i \sim \cal N(0, \sigma^2)\)</span>, <span class="math notranslate nohighlight">\(e_i\)</span> es independiente de <span class="math notranslate nohighlight">\(x_i\)</span>, y los <strong><span class="math notranslate nohighlight">\(e_i\)</span> son independientes entre sí mismos</strong>.</p>
+<p>Así que el error o residuo para la i-ésima observaicón es:</p>
 <div class="math notranslate nohighlight">
 \[e_i = y_i - g_b(x_i) = y_i - \hat y_i = y_i - b_0 - b_1 x_i\]</div>
 <p>El error or residuo cuadrático para la i-ésima observaicón es:</p>
@@ -2515,14 +2517,19 @@ e_i^2 = (y_i - b_0 - b_1 x_i)^2,
 \[
 L = \sum_{i=1}^N e_i^2 = \sum_{i=1}^N (y_i - b_0 - b_1 x_i)^2,
 \]</div>
-<p>Luego podemos ajustar (entrenar) un modelo en base al siguiente criterio:</p>
+<p>Luego podemos ajustar (entrenar) un modelo en base al siguiente criterio de <strong>minimizar la suma de cuadrados residuales</strong>:</p>
 <div class="math notranslate nohighlight">
 \[
 \min_{b} L = \min_{b} \sum_{i=1}^N (y_i - b_0 - b_1 x_i)^2,
 \]</div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Desde un punto de vista estadístico, este criterio es razonable si las observaciones de entrenamiento (<span class="math notranslate nohighlight">\(x_i\)</span>, <span class="math notranslate nohighlight">\(y_i\)</span>) representan extracciones aleatorias independientes de su población. Pero, aunque las <span class="math notranslate nohighlight">\(x_i\)</span> no se hayan extraído aleatoriamente, el criterio sigue siendo válido si las <strong><span class="math notranslate nohighlight">\(y_i\)</span> son condicionalmente independientes dadas las entradas <span class="math notranslate nohighlight">\(x_i\)</span></strong>.</p>
+</div>
 <blockquote>
-<div><p>Cómo obtiene los valores de <span class="math notranslate nohighlight">\(b_0\)</span> y <span class="math notranslate nohighlight">\(b_1\)</span>?</p>
+<div><p>Los <span class="math notranslate nohighlight">\(y_i\)</span> tienen que ser i.i.d.? Los <span class="math notranslate nohighlight">\(x_i\)</span> tienen que ser i.i.d.?</p>
 </div></blockquote>
+<p><strong>Cómo obtiene los valores de <span class="math notranslate nohighlight">\(b_0\)</span> y <span class="math notranslate nohighlight">\(b_1\)</span>?</strong></p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 Demostración<div class="sd-summary-down docutils">
