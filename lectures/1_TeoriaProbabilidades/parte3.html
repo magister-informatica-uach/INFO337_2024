@@ -354,7 +354,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#esperanza">3.1. Esperanza</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#otras-medidas-de-tendencia-central">3.2. Otras medidas de tendencia central</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mediana-y-moda">3.2. Mediana y moda</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#varianza-covarianza-y-correlacion">3.3. Varianza, covarianza y correlación</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#varianza">3.3.1. Varianza</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#desviacion-estandar">3.3.2. Desviación estándar</a></li>
@@ -381,6 +381,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="estadisticos-principales">
 <h1><span class="section-number">3. </span>Estadísticos Principales<a class="headerlink" href="#estadisticos-principales" title="Permalink to this heading">#</a></h1>
+<p>¿Si eres el primero (la primera) en el mundo en crear estadísticas o ciencia de datos, ¿cuáles son las medidas mínimas que crearás para describir una distribución?</p>
 <section id="esperanza">
 <h2><span class="section-number">3.1. </span>Esperanza<a class="headerlink" href="#esperanza" title="Permalink to this heading">#</a></h2>
 <p>La <strong>esperanza</strong> o <strong>valor esperado</strong> o <strong>media</strong> de una v.a. <span class="math notranslate nohighlight">\(X\)</span> se denota <span class="math notranslate nohighlight">\(E[X]\)</span> o <span class="math notranslate nohighlight">\(\mu\)</span>. Es una medida de tendencia central. Se calcula como:</p>
@@ -405,7 +406,7 @@ E[X^n] &amp; = &amp;
 \end{array}\right .\\
 \end{array}\)</span></p>
 <ul class="simple">
-<li><p>Los momentos son ciertas medidas cuantitativas relacionadas con la forma del gráfico de la función de la distribución de probabilidad.</p></li>
+<li><p>Los <strong>momentos</strong> son ciertas medidas cuantitativas relacionadas con la forma del gráfico de la función de la distribución de probabilidad.</p></li>
 <li><p>La esperanza es el primer momento y se denota <span class="math notranslate nohighlight">\(\mu\)</span>.</p></li>
 <li><p>El <span class="math notranslate nohighlight">\(n\)</span>-ésimo <strong>momento centrado</strong> sobre la media es <span class="math notranslate nohighlight">\(\mu_n = E[(X − \mu)^n]\)</span>.</p></li>
 <li><p>El <span class="math notranslate nohighlight">\(n\)</span>-ésimo <strong>momento estándar</strong> es <span class="math notranslate nohighlight">\(\frac{\mu_n}{\sigma_n} = \frac{E[(X − \mu)^n]}{\sigma^n} = E[(\frac{X − \mu}{\sigma})^n]\)</span> (<span class="math notranslate nohighlight">\(\sigma\)</span> es la desviación estándar).</p></li>
@@ -424,13 +425,16 @@ E[aX+b] &amp; = &amp; aE[X] + b \\
 E[X + Y] &amp; = &amp; E[X] + E[Y]\\
 \end{array}\)</span></p>
 </section>
-<section id="otras-medidas-de-tendencia-central">
-<h2><span class="section-number">3.2. </span>Otras medidas de tendencia central<a class="headerlink" href="#otras-medidas-de-tendencia-central" title="Permalink to this heading">#</a></h2>
+<section id="mediana-y-moda">
+<h2><span class="section-number">3.2. </span>Mediana y moda<a class="headerlink" href="#mediana-y-moda" title="Permalink to this heading">#</a></h2>
+<p>Hay otras medidas para describir la tendencia central:</p>
 <p>La <strong>mediana</strong> es el valor de la variable de posición central en un conjunto de datos ordenados.</p>
 <p>La <strong>moda</strong> es el valor que aparece con mayor <strong>frecuencia</strong> en un conjunto de datos.</p>
 <p>Ambas son otras medidas de tendencia central.</p>
+<div class="toggle docutils container">
 <a class="reference internal image-reference" href="../../_images/mediana_moda.png"><img alt="../../_images/mediana_moda.png" src="../../_images/mediana_moda.png" style="width: 550px;" /></a>
 <p>Figura: Mediana, moda y media de diferentes distribuciones (<a class="reference external" href="https://epamatematicas.blogspot.com/2019/08/relacion-entre-la-media-la-mediana-y-la.html">fuente</a>)</p>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
 <p>De menudo se usa la media para informar la tendencia central. Pero no es una estadística robusta: está muy influida por los valores atípicos (outliers). En las distribuciones asimétricas, la mediana proporciona una mejor descripción de la tendencia central.</p>
@@ -440,7 +444,7 @@ E[X + Y] &amp; = &amp; E[X] + E[Y]\\
 <h2><span class="section-number">3.3. </span>Varianza, covarianza y correlación<a class="headerlink" href="#varianza-covarianza-y-correlacion" title="Permalink to this heading">#</a></h2>
 <section id="varianza">
 <h3><span class="section-number">3.3.1. </span>Varianza<a class="headerlink" href="#varianza" title="Permalink to this heading">#</a></h3>
-<p>La <strong>varianza</strong> (<span class="math notranslate nohighlight">\(\sigma^2\)</span>) mide la variación de la v.a. en torno a la esperanza o media (<span class="math notranslate nohighlight">\(E[X]\)</span> o <span class="math notranslate nohighlight">\(\mu\)</span>). Es una medida de dispersión. Se define como</p>
+<p>La <strong>varianza</strong> (<span class="math notranslate nohighlight">\(\sigma^2\)</span>) mide la variación de la v.a. en torno a la esperanza o media (<span class="math notranslate nohighlight">\(E[X]\)</span> o <span class="math notranslate nohighlight">\(\mu\)</span>). Es una medida de <strong>dispersión</strong>. Se define como</p>
 <p><span class="math notranslate nohighlight">\(\begin{array}{lll}
 Var(X) = E[(X-\mu)^2] &amp; = &amp; 
 \left\{\begin{array}{ll} \sum_x (x-\mu)^2 f(x) &amp; si\,X\, discreta\\
@@ -623,7 +627,7 @@ Var(X+Y) &amp; = &amp; Var(X) + Var(Y)\\
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#esperanza">3.1. Esperanza</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#otras-medidas-de-tendencia-central">3.2. Otras medidas de tendencia central</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mediana-y-moda">3.2. Mediana y moda</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#varianza-covarianza-y-correlacion">3.3. Varianza, covarianza y correlación</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#varianza">3.3.1. Varianza</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#desviacion-estandar">3.3.2. Desviación estándar</a></li>

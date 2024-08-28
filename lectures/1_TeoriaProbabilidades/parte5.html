@@ -372,11 +372,19 @@ document.write(`
 <section id="conceptos-basicos">
 <h2><span class="section-number">5.1. </span>Conceptos básicos<a class="headerlink" href="#conceptos-basicos" title="Permalink to this heading">#</a></h2>
 <p><strong>Muestra o muestra aleatoria:</strong></p>
-<p>Sean <span class="math notranslate nohighlight">\(X_1,\cdots,X_n\)</span> variables aleatorias i.i.d. de una distribución <span class="math notranslate nohighlight">\(F\)</span> (usabmos <span class="math notranslate nohighlight">\(F\)</span> para referirnos a cualquier distribución en esta lección), entonces los valores que toman dichas variables <span class="math notranslate nohighlight">\(\{x_1,\cdots,x_n\}\)</span> representan una muestra aleatoria de la distribución <span class="math notranslate nohighlight">\(F\)</span>.</p>
-<p><strong>Estadístico o estadístico muestral:</strong></p>
-<p>Es una variable aleatoria <span class="math notranslate nohighlight">\(Y\)</span> cuyo valor se puede determinar a partir de los valores <span class="math notranslate nohighlight">\(x_1, x_2 ..., x_n\)</span> de las v.a. <span class="math notranslate nohighlight">\(X_1, X_2, ... X_n\)</span> usando una función <span class="math notranslate nohighlight">\(T\)</span>:</p>
+<ul class="simple">
+<li><p>Población: la totalidad de las observaciones en las que estamos interesados.</p></li>
+<li><p>Muestra: un subconjunto de una población.</p></li>
+<li><p>Muestra aleatoria: una muestra dónde las observaciones se realicen de forma independiente y al azar. A menudo, nos referimos a la muestra aleatoria como muestra. Formalmente:</p></li>
+</ul>
+<p>Sean <span class="math notranslate nohighlight">\(X_1,\cdots,X_n\)</span> variables aleatorias independientes e idénticamente distribuidas (i.i.d.) de una distribución <span class="math notranslate nohighlight">\(F\)</span> <em>(usabmos <span class="math notranslate nohighlight">\(F\)</span> para referirnos a cualquier distribución en esta lección)</em>, entonces <span class="math notranslate nohighlight">\(\{X_1,\cdots,X_n\}\)</span> o los valores que toman <span class="math notranslate nohighlight">\(\{x_1,\cdots,x_n\}\)</span> representan una <strong>muestra aleatoria</strong> de tamaño <span class="math notranslate nohighlight">\(n\)</span>  de la distribución <span class="math notranslate nohighlight">\(F\)</span>. Su distribución de probabilidad conjunta es</p>
 <div class="math notranslate nohighlight">
-\[Y(\omega) = y = T(x_1,\cdots, x_n) \in \mathbb{R}\]</div>
+\[f (x_1 , x_2 ,...,x_n) = f (x_1 ) f (x_2 ) ... f (x_n)\]</div>
+<p><strong>Estadístico o estadístico muestral:</strong></p>
+<p>Es cualquier función de las variables aleatorias que forman una muestra aleatoria.</p>
+<p>Más formalmente, estadístico es una variable aleatoria <span class="math notranslate nohighlight">\(Y\)</span> cuyo valor se puede determinar a partir de los valores <span class="math notranslate nohighlight">\(x_1, x_2 ..., x_n\)</span> de las v.a. <span class="math notranslate nohighlight">\(X_1, X_2, ... X_n\)</span> usando una función <span class="math notranslate nohighlight">\(T\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ y = Y(\omega) = T(x_1,\cdots, x_n) \in \mathbb{R}\]</div>
 <p>Ejemplos: media muestral, varianza muestral.</p>
 <p><strong>Distribución muestral o distribución de muestreo (sampling distribution):</strong></p>
 <p>Es la distribución de probabilidad de un estadístico dado.
@@ -394,25 +402,20 @@ Entonces se cumple:</p>
 <div class="math notranslate nohighlight">
 \[E[\bar{X}] = \mu\]</div>
 <p>Por qué?</p>
-<div class="toggle docutils container">
-<div class="math notranslate nohighlight">
-\[E[\bar{X}]= E \left(\frac{1}{n}\sum_{i=1}^n X_i\right)
-  = \frac{1}{n} \sum_{i=1}^n E[X_i]
-  = \frac{1}{n} \sum_{i=1}^n \mu = \mu\]</div>
-</div>
 <p>con lo cual <span class="math notranslate nohighlight">\(\bar{X}\)</span> es un <em>estimador insesgado</em> de <span class="math notranslate nohighlight">\(\mu\)</span>. (Veamos el insesgadez de estimadores en el futuro)</p>
 <p>También se cumple:</p>
 <div class="math notranslate nohighlight">
 \[Var(\bar{X}) = \frac{\sigma^2}{n}\]</div>
-<p>Por qué?</p>
+<p>¿Por qué?</p>
 <div class="toggle docutils container">
-<div class="math notranslate nohighlight">
-\[Var(\bar{X})= Var \left(\frac{1}{n}\sum_{i=1}^n X_i\right)
-  = \frac{1}{n^2} \sum_{i=1}^n Var(X_i)
-  = \frac{1}{n^2} \sum_{i=1}^n \sigma^2 = \frac{\sigma^2}{n}\]</div>
+<p>Pista:  Utilizamos la propiedad:
+<span class="math notranslate nohighlight">\(\begin{array}{lll} 
+Var(\sum_i \limits X_i) &amp; = &amp; 
+\sum_i \limits Var(X_i) + \sum_i \limits \sum_{j\neq i} \limits Cov(X_i,X_j)
+\end{array}\)</span></p>
+<p>y la propiedad:</p>
+<p>Si <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span> son v.a. independientes, entonces Var(X+Y) = Var(X) + Var(Y)</p>
 </div>
-<p>Por qué <span class="math notranslate nohighlight">\(Var(\sum_{i=1}^n \limits X_i) = \sum_{i=1}^n \limits Var(X_i)\)</span>?</p>
-<p>Por qué <span class="math notranslate nohighlight">\(Var \left(\frac{1}{n}\sum_{i=1}^n \limits X_i\right) = \frac{1}{n^2} \sum_{i=1}^n \limits Var(X_i)\)</span>?</p>
 </section>
 <section id="varianza-muestral">
 <h2><span class="section-number">5.3. </span>Varianza muestral<a class="headerlink" href="#varianza-muestral" title="Permalink to this heading">#</a></h2>
@@ -425,10 +428,21 @@ Entonces se cumple:</p>
 <p>Se cumple:</p>
 <div class="math notranslate nohighlight">
 \[E[S^2] = \sigma^2\]</div>
-<p>Por qué?</p>
+<p><span class="math notranslate nohighlight">\(S^2\)</span> es un estimador insesgado de <span class="math notranslate nohighlight">\(\sigma^2\)</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p><strong>Estimador insesgado</strong></p>
+<p>Para un parámetro <span class="math notranslate nohighlight">\(\theta\)</span> y un estimador <span class="math notranslate nohighlight">\(\hat \theta\)</span>, si</p>
+<div class="math notranslate nohighlight">
+\[E[\hat \theta] = \theta\]</div>
+<p>entonces <span class="math notranslate nohighlight">\(\hat \theta\)</span> es un estimador <strong>insesgado</strong> de <span class="math notranslate nohighlight">\(\theta\)</span>. Es decir, la distribución de un estimador insesgado se centra en el parámetro verdadero.</p>
+</div>
+<blockquote>
+<div><p>Por qué <span class="math notranslate nohighlight">\(E[S^2] = \sigma^2\)</span>?</p>
+</div></blockquote>
 <div class="toggle docutils container">
 <div class="math notranslate nohighlight">
-\[ (n-1) S^2 = \sum_{i=1}^n(X_i - \bar{X})^2 = \sum_{i=1}^nX_i^2 - 2\bar{X}\sum_{i=1}^n X_i + n\bar{X}^2 = \sum_{i=1}^nX_i^2 - n\bar{X}^2
+\[ S^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i - \bar{X})^2 = \frac{1}{n-1}[\sum_{i=1}^nX_i^2 - 2\bar{X}\sum_{i=1}^n X_i + n\bar{X}^2] = \frac{1}{n-1}[\sum_{i=1}^nX_i^2 - n\bar{X}^2]
 \]</div>
 <p>Entonces:</p>
 <div class="math notranslate nohighlight">

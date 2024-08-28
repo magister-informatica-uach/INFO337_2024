@@ -380,19 +380,20 @@ document.write(`
 <p><span class="math notranslate nohighlight">\(\begin{array}{lll} 
 P(X=1) &amp; = &amp;p  \\
 P(X=0) &amp; = &amp; 1-p \\
-P(X = i) &amp; = &amp; p^i (1-p)^{1-i} \,, i=0,1\\
+P(X = x) &amp; = &amp; p^x (1-p)^{1-x} \,, x=0,1\\
 E[X] &amp; = &amp; p\\
 Var(X) &amp; = &amp; p(1-p)\\
 Asimetria(X) &amp; = &amp; \frac{1-2p}{\sqrt{p(1-p)}} = \frac{q-p}{\sqrt{pq}} (q=1-p)\\
 Curtosis(X) &amp; = &amp; \frac{1-3p+3p^2}{p(1-p)} = \frac{1-3pq}{pq} (q=1-p)\\
 \end{array}\)</span></p>
-<p>¿Se te ocurre algún ejemplo de esta distribución?</p>
+<p>¿Cómo se dibuja su función de masa de probabilidad?
+¿Se te ocurre algún ejemplo de esta distribución?</p>
 </section>
 <section id="distribucion-binomial">
 <h2><span class="section-number">4.2. </span>Distribución Binomial<a class="headerlink" href="#distribucion-binomial" title="Permalink to this heading">#</a></h2>
-<p>Suponga que se realizan <span class="math notranslate nohighlight">\(n\)</span>  ensayos independientes idénticos  Bernoulli  de parámetro <span class="math notranslate nohighlight">\(p\)</span>. La v.a. X que representa el número <span class="math notranslate nohighlight">\(k\)</span> de ensayos existosos entre los <span class="math notranslate nohighlight">\(n\)</span> ensayos realizados, se denomina Binomial y cumple:</p>
+<p>Suponga que se realizan <span class="math notranslate nohighlight">\(n\)</span>  ensayos independientes idénticos  Bernoulli  de parámetro <span class="math notranslate nohighlight">\(p\)</span>. La v.a. X que representa el número <span class="math notranslate nohighlight">\(x\)</span> de ensayos existosos entre los <span class="math notranslate nohighlight">\(n\)</span> ensayos realizados, se denomina Binomial y cumple:</p>
 <p><span class="math notranslate nohighlight">\(\begin{array}{lll} 
-P(X=k) &amp; = &amp; {n \choose k} p^k (1-p)^{n-k}, \qquad k=0,1,...n \\
+P(X=x) &amp; = &amp; {n \choose x} p^x (1-p)^{n-x}, \qquad x=0,1,...n \\
 E[X] &amp; = &amp; np\\
 Var(X) &amp; = &amp; np(1-p)\\
 Asimetria(X) &amp; = &amp; \frac{1-2p}{\sqrt{np(1-p)}} = \frac{q-p}{\sqrt{npq}} (q=1-p)\\
@@ -477,7 +478,7 @@ Curtosis(X) &amp; = &amp; 9 \\
 <h2><span class="section-number">4.4. </span>Distribución Normal o Gaussiana<a class="headerlink" href="#distribucion-normal-o-gaussiana" title="Permalink to this heading">#</a></h2>
 <p>Sea <span class="math notranslate nohighlight">\(X\)</span> v.a. continua, es normal de media <span class="math notranslate nohighlight">\(\mu\)</span> y varianza <span class="math notranslate nohighlight">\(\sigma^2\)</span> y se denota <span class="math notranslate nohighlight">\(\cal{N}(\mu,\sigma^2)\)</span> si su densidad de probabilidad cumple:</p>
 <p><span class="math notranslate nohighlight">\(\begin{array}{lll} 
-f(x) &amp; = &amp; \frac{1}{\sigma\sqrt{2\pi}} exp(\frac{-(x-\mu)^2}{2\sigma^2}),\qquad x \in \mathbb{R}\\
+f(x) &amp; = &amp; \frac{1}{\sigma\sqrt{2\pi}} exp(-\frac{(x-\mu)^2}{2\sigma^2}),\qquad x \in \mathbb{R}\\
 E[X] &amp;= &amp;\mu\\
 Var(X)&amp; =&amp; \sigma^2\\
 Asimetria(X) &amp; = &amp; 0\\
@@ -530,7 +531,7 @@ Curtosis(X) &amp; = &amp; 3 \\
 <h3><span class="section-number">4.4.1. </span>Distribución Normal Estándar (Estandarizada)<a class="headerlink" href="#distribucion-normal-estandar-estandarizada" title="Permalink to this heading">#</a></h3>
 <p><span class="math notranslate nohighlight">\(Z \sim \cal{N}(0,1)\)</span> si su densidad de probabilidad cumple:</p>
 <p><span class="math notranslate nohighlight">\(\begin{array}{lll} 
-f(x) &amp; = &amp; \frac{1}{\sqrt{2\pi}} exp(\frac{-x^2}{2}), \qquad x \in \mathbb{R}\\
+f(x) &amp; = &amp; \frac{1}{\sqrt{2\pi}} exp(-\frac{x^2}{2}), \qquad x \in \mathbb{R}\\
 E[X] &amp;= &amp;0\\
 Var(X)&amp; =&amp;1\\
 \end{array}\)</span></p>

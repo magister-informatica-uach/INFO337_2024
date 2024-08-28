@@ -638,18 +638,25 @@ X:&amp; \Omega \to \{0,1\}\\
 </section>
 <section id="variables-aleatorias-multidimensionales">
 <h2><span class="section-number">2.5. </span>Variables Aleatorias Multidimensionales<a class="headerlink" href="#variables-aleatorias-multidimensionales" title="Permalink to this heading">#</a></h2>
-<p>Se trata de funciones que asignan un vector multidimensional al resultado de un experimento aleatorio.
-Se denomina <strong>Vector Aleatorio Discreto</strong> si los valores son enteros multidimensionales:</p>
+<p>Se trata de funciones que asignan un vector multidimensional al resultado de un experimento aleatorio.</p>
+<p>¿Cómo es el mapeo (o la asignación) de una <strong>variable aleatoria multidimensional discreto</strong>?</p>
+<div class="toggle docutils container">
+<p>Se denomina <strong>vector aleatorio discreto</strong> si los valores del vector son enteros multidimensionales:</p>
 <p><span class="math notranslate nohighlight">\(\begin{array}{cl} {\bf X}:&amp; \Omega \to \mathbb Z^k\\
 &amp;\omega \to {\bf X}(\omega)=(X_1(\omega),\cdots,X_k(\omega)) = (n_1,\cdots,n_k)\\
 f: &amp;\mathbb Z^k \to [0, 1]
 \end{array}\)</span></p>
-<p>y <strong>Vector Aleatorio Continuo</strong> si los valores son reales multidimensionales:</p>
+<p>Ejemplos?</p>
+</div>
+<p>¿Cómo es el mapeo (o la asignación) de una <strong>variable aleatoria multidimensional continuo</strong>?</p>
+<div class="toggle docutils container">
+<p>Se denomina <strong>vector aleatorio continuo</strong> si los valores del vector son reales multidimensionales:</p>
 <p><span class="math notranslate nohighlight">\(\begin{array}{cl} {\bf X}:&amp; \Omega \to \mathbb R^k\\
 &amp;\omega \to {\bf X}(\omega)=(X_1(\omega),\cdots,X_k(\omega)) = (x_1,\cdots,x_k)\\
 f: &amp;\mathbb R^k \to \mathbb{R}
 \end{array}\)</span></p>
-<p><strong>Ejemplo</strong> (caso específico de la distribución exponencial bivariada)</p>
+</div>
+<p><strong>Ejemplo</strong></p>
 <p>Aquí es un ejemplo de un caso especifico de la distribución exponencial bivariada (cuando los dos variables aleatorias continuas son independentes).</p>
 <p>Sea</p>
 <p><span class="math notranslate nohighlight">\(\begin{array}{cl}
@@ -686,6 +693,7 @@ f: &amp;\mathbb R^k \to \mathbb{R}
 <img alt="../../_images/b0a68031d52eff94243d2d98f62f6d64c768f02ed75336e635ae8d1c7058e6f9.png" src="../../_images/b0a68031d52eff94243d2d98f62f6d64c768f02ed75336e635ae8d1c7058e6f9.png" />
 </div>
 </div>
+<p>Pruébalo en <a class="reference external" href="https://www.geogebra.org/calculator">GeoGebra</a>!</p>
 </section>
 <section id="distribucion-conjunta-y-independencia-estadistica">
 <h2><span class="section-number">2.6. </span>Distribución conjunta y independencia estadística<a class="headerlink" href="#distribucion-conjunta-y-independencia-estadistica" title="Permalink to this heading">#</a></h2>
@@ -699,12 +707,16 @@ f: &amp;\mathbb R^k \to \mathbb{R}
 <li><p><span class="math notranslate nohighlight">\(f_{X,Y}(x,y) = P(X=x,Y=y)\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(P[ (X, Y) \in A] = \sum_x \sum_y f_{X,Y}( x,y )\)</span>, para cualquier región <span class="math notranslate nohighlight">\(A\)</span> en el plano <span class="math notranslate nohighlight">\(xy\)</span></p></li>
 </ol>
+<a class="reference internal image-reference" href="../../_images/joint-prob-disc.png"><img alt="../../_images/joint-prob-disc.png" src="../../_images/joint-prob-disc.png" style="width: 450px;" /></a>
+<p><a class="reference external" href="https://stackoverflow.com/questions/51306907/visualization-of-bivariate-probability-distribution">(Fuente)</a></p>
 <p><strong>Definición (caso continuo)</strong>: La función <span class="math notranslate nohighlight">\(f_{X,Y}(x,y)\)</span> es una <strong>función de densidad conjunta</strong> de las v.a. continuas <span class="math notranslate nohighlight">\(X\)</span> y <span class="math notranslate nohighlight">\(Y\)</span>, si</p>
 <ol class="arabic simple">
 <li><p><span class="math notranslate nohighlight">\(f_{X,Y}(x, y) \geq 0\)</span> para toda <span class="math notranslate nohighlight">\((x, y)\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\int_x \int_y f_{X,Y}(x, y) dx dy = 1\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(P[ (X, Y) \in A] = \int\int_A f_{X,Y}( x,y ) dx dy\)</span>, para cualquier región <span class="math notranslate nohighlight">\(A\)</span> en el plano <span class="math notranslate nohighlight">\(xy\)</span></p></li>
 </ol>
+<a class="reference internal image-reference" href="../../_images/joint-prob.png"><img alt="../../_images/joint-prob.png" src="../../_images/joint-prob.png" style="width: 450px;" /></a>
+<p><a class="reference external" href="https://www.columbia.edu/~ad3217/joint_pmf_and_pdf/pdf.html">(Fuente)</a></p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
 <p>Aquí, el subíndice <span class="math notranslate nohighlight">\(X,Y\)</span> en <span class="math notranslate nohighlight">\(f_{X,Y}\)</span> es para indicar que la función es para v.a. <span class="math notranslate nohighlight">\(X\)</span> y <span class="math notranslate nohighlight">\(Y\)</span>. Pero se puede omitir cuando el contexto es claro. Esto es el caso para los subindices abajo también.</p>
@@ -713,8 +725,11 @@ f: &amp;\mathbb R^k \to \mathbb{R}
 <section id="distribucion-marginal">
 <h3><span class="section-number">2.6.2. </span>Distribución marginal<a class="headerlink" href="#distribucion-marginal" title="Permalink to this heading">#</a></h3>
 <p><strong>Definición</strong>: Las <strong>distribuciones marginales</strong> sólo de <span class="math notranslate nohighlight">\(X\)</span> y sólo de <span class="math notranslate nohighlight">\(Y\)</span> son</p>
-<p><span class="math notranslate nohighlight">\(f_X(x) = \sum_y f_{X, Y}(x, y)\)</span>, <span class="math notranslate nohighlight">\(f_Y(y) = \sum_x f_{X, Y}(x, y) \quad\)</span> para el caso discreto, y</p>
-<p><span class="math notranslate nohighlight">\(f_X(x) = \int_y f_{X, Y}(x, y) dx dy\)</span>, <span class="math notranslate nohighlight">\(f_Y(y) = \int_x f_{X, Y}(x, y) dxdy \quad\)</span> para el caso continuo.</p>
+<p><span class="math notranslate nohighlight">\(f_X(x) = \sum_y f_{X, Y}(x, y)\)</span></p>
+<p><span class="math notranslate nohighlight">\(f_Y(y) = \sum_x f_{X, Y}(x, y) \quad\)</span> para el caso discreto, y</p>
+<p><span class="math notranslate nohighlight">\(f_X(x) = \int_y f_{X, Y}(x, y) dx dy\)</span></p>
+<p><span class="math notranslate nohighlight">\(f_Y(y) = \int_x f_{X, Y}(x, y) dxdy \quad\)</span> para el caso continuo.</p>
+<p>¿Dónde podemos encontrar la distribución marginal en la primera figura anterior?</p>
 </section>
 <section id="distribucion-condicional">
 <h3><span class="section-number">2.6.3. </span>Distribución condicional<a class="headerlink" href="#distribucion-condicional" title="Permalink to this heading">#</a></h3>
