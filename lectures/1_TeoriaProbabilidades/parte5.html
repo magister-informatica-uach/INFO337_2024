@@ -401,20 +401,28 @@ document.write(`
 Entonces se cumple:</p>
 <div class="math notranslate nohighlight">
 \[E[\bar{X}] = \mu\]</div>
-<p>Por qué?</p>
 <p>con lo cual <span class="math notranslate nohighlight">\(\bar{X}\)</span> es un <em>estimador insesgado</em> de <span class="math notranslate nohighlight">\(\mu\)</span>. (Veamos el insesgadez de estimadores en el futuro)</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p><strong>Estimador insesgado</strong></p>
+<p>Para un parámetro <span class="math notranslate nohighlight">\(\theta\)</span> y un estimador <span class="math notranslate nohighlight">\(\hat \theta\)</span>, si</p>
+<div class="math notranslate nohighlight">
+\[E[\hat \theta] = \theta\]</div>
+<p>entonces <span class="math notranslate nohighlight">\(\hat \theta\)</span> es un estimador insesgado de <span class="math notranslate nohighlight">\(\theta\)</span>. Es decir, la distribución de un estimador insesgado se centra en el parámetro verdadero.</p>
+</div>
+<p>¿Por qué <span class="math notranslate nohighlight">\(E[\bar{X}] = \mu\)</span>?</p>
 <p>También se cumple:</p>
 <div class="math notranslate nohighlight">
 \[Var(\bar{X}) = \frac{\sigma^2}{n}\]</div>
 <p>¿Por qué?</p>
 <div class="toggle docutils container">
-<p>Pista:  Utilizamos la propiedad:
-<span class="math notranslate nohighlight">\(\begin{array}{lll} 
+<p>Pista:  Utilizamos la propiedad:</p>
+<p><span class="math notranslate nohighlight">\(\begin{array}{lll} 
 Var(\sum_i \limits X_i) &amp; = &amp; 
 \sum_i \limits Var(X_i) + \sum_i \limits \sum_{j\neq i} \limits Cov(X_i,X_j)
 \end{array}\)</span></p>
 <p>y la propiedad:</p>
-<p>Si <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span> son v.a. independientes, entonces Var(X+Y) = Var(X) + Var(Y)</p>
+<p>Si <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span> son v.a. independientes, entonces <span class="math notranslate nohighlight">\(Var(X+Y) = Var(X) + Var(Y)\)</span></p>
 </div>
 </section>
 <section id="varianza-muestral">
@@ -429,17 +437,7 @@ Var(\sum_i \limits X_i) &amp; = &amp;
 <div class="math notranslate nohighlight">
 \[E[S^2] = \sigma^2\]</div>
 <p><span class="math notranslate nohighlight">\(S^2\)</span> es un estimador insesgado de <span class="math notranslate nohighlight">\(\sigma^2\)</span>.</p>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p><strong>Estimador insesgado</strong></p>
-<p>Para un parámetro <span class="math notranslate nohighlight">\(\theta\)</span> y un estimador <span class="math notranslate nohighlight">\(\hat \theta\)</span>, si</p>
-<div class="math notranslate nohighlight">
-\[E[\hat \theta] = \theta\]</div>
-<p>entonces <span class="math notranslate nohighlight">\(\hat \theta\)</span> es un estimador <strong>insesgado</strong> de <span class="math notranslate nohighlight">\(\theta\)</span>. Es decir, la distribución de un estimador insesgado se centra en el parámetro verdadero.</p>
-</div>
-<blockquote>
-<div><p>Por qué <span class="math notranslate nohighlight">\(E[S^2] = \sigma^2\)</span>?</p>
-</div></blockquote>
+<p>Por qué <span class="math notranslate nohighlight">\(E[S^2] = \sigma^2\)</span>?</p>
 <div class="toggle docutils container">
 <div class="math notranslate nohighlight">
 \[ S^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i - \bar{X})^2 = \frac{1}{n-1}[\sum_{i=1}^nX_i^2 - 2\bar{X}\sum_{i=1}^n X_i + n\bar{X}^2] = \frac{1}{n-1}[\sum_{i=1}^nX_i^2 - n\bar{X}^2]
