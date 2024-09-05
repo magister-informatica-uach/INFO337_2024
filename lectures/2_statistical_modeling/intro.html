@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>7. Inferencia con Modelos Paramétricos y No Paramétricos &#8212; Herramientas estadísticas para la investigación</title>
+    <title>7. Inferencia estadística y tipos de modelamiento &#8212; Herramientas estadísticas para la investigación</title>
   
   
   
@@ -161,7 +161,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelamiento Estadístico</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. Inferencia con Modelos Paramétricos y No Paramétricos</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. Inferencia estadística y tipos de modelamiento</a></li>
 <li class="toctree-l1"><a class="reference internal" href="part1.html">8. Modelamiento Paramétrico con MLE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="part2.html">9. Modelamiento con métodos no-paramétricos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="part3.html">10. Modelamiento parámetrico Bayesiano</a></li>
@@ -341,7 +341,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Inferencia con Modelos Paramétricos y No Paramétricos</h1>
+    <h1>Inferencia estadística y tipos de modelamiento</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -352,8 +352,9 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-es-inferencia-estadistica">7.1. ¿Qué es inferencia estadística?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diferencias-entre-metodos-parametricos-y-no-parametricos">7.2. Diferencias entre métodos paramétricos y no-paramétricos</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-diferencia-entre-inferencia-frecuentista-y-bayesiana">7.3. La diferencia entre inferencia frecuentista y bayesiana</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-es-modelamiento">7.2. ¿Qué es modelamiento?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diferencias-entre-metodos-parametricos-y-no-parametricos">7.3. Diferencias entre métodos paramétricos y no-paramétricos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-diferencia-entre-inferencia-frecuentista-y-bayesiana">7.4. La diferencia entre inferencia frecuentista y bayesiana</a></li>
 </ul>
             </nav>
         </div>
@@ -365,15 +366,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="inferencia-con-modelos-parametricos-y-no-parametricos">
-<h1><span class="section-number">7. </span>Inferencia con Modelos Paramétricos y No Paramétricos<a class="headerlink" href="#inferencia-con-modelos-parametricos-y-no-parametricos" title="Permalink to this heading">#</a></h1>
-<p>Modelar es un paso clave en el proceso de la inferencia estadística. En esta secuencia de aprendizaje veremos como ajustar modelos paramétricos y no paramétricos a nuestros datos</p>
-<ul class="simple">
-<li><p>En el caso de modelamiento paramétrico nos enfocaremos en métodos frecuentistas: Estimación de máxima verosimilitud (MLE)</p></li>
-<li><p>Luego revisaremos técnicas de modelamiento no paramétrico: Histogramas y Estimación de densidad por kernels (KDE)</p></li>
-<li><p>Después de esto volveremos al caso paramétrico y extenderemos MLE utilizando priors: Estimación de Máximo a Posteriori (MAP)</p></li>
-<li><p>Finalmente presentaremos algunas ideas de modelamiento bayesiano, las cuales serán desarrolladas en profundidad al final de este curso</p></li>
-</ul>
+  <section class="tex2jax_ignore mathjax_ignore" id="inferencia-estadistica-y-tipos-de-modelamiento">
+<h1><span class="section-number">7. </span>Inferencia estadística y tipos de modelamiento<a class="headerlink" href="#inferencia-estadistica-y-tipos-de-modelamiento" title="Permalink to this heading">#</a></h1>
 <section id="que-es-inferencia-estadistica">
 <h2><span class="section-number">7.1. </span>¿Qué es inferencia estadística?<a class="headerlink" href="#que-es-inferencia-estadistica" title="Permalink to this heading">#</a></h2>
 <p><strong>Inferencia</strong>, en general, es extraer conclusiones a partir de los hechos a través de una premisa científica.</p>
@@ -385,9 +379,10 @@ document.write(`
 </ul>
 <p>Es decir,</p>
 <blockquote>
-<div><p>Inferencia estadística es extraer conclusiones de las propiedades de una población a través de una muestra de esta población.</p>
+<div><p><strong>Inferencia estadística</strong> es extraer conclusiones de las propiedades de una población a través de una muestra de esta población.</p>
 </div></blockquote>
-<p>Los siguientes son ejemplos de tareas típicas de inferencias estadística:</p>
+<p>¿Cuál es la diferencia entre estadística inferencial y estadística descriptiva?</p>
+<p>Los siguientes son ejemplos de tareas típicas de inferencia estadística:</p>
 <ul class="simple">
 <li><p><strong>Estimación de parámetros</strong>: ¿Cuál es el mejor estimado del parámetro de un modelo dado en base a los datos observados?</p></li>
 <li><p><strong>Estimación de confianza:</strong> ¿Qué tan confiable es nuestro estimador puntual de dicho parámetro?</p></li>
@@ -395,17 +390,31 @@ document.write(`
 </ul>
 <p>Veamos la primera tarea en este capítulo, y veamos las otras en el capítulo Pensamiento Estadístico.</p>
 </section>
+<section id="que-es-modelamiento">
+<h2><span class="section-number">7.2. </span>¿Qué es modelamiento?<a class="headerlink" href="#que-es-modelamiento" title="Permalink to this heading">#</a></h2>
+<p><strong>Modelamiento</strong> implica normalmente la estimación de parámetros (o la especificación de (hiper)parámetros). Modelamiento es un paso clave en el proceso de la inferencia estadística.</p>
+<p>En esta secuencia de aprendizaje veremos diferentes tipos de modelamiento:</p>
+<ul class="simple">
+<li><p>En el caso de modelamiento <strong>paramétrico</strong> nos enfocaremos en métodos <strong>frecuentistas</strong>: Estimación de máxima verosimilitud (MLE)</p></li>
+<li><p>Luego revisaremos técnicas de modelamiento <strong>no paramétrico</strong>: Histogramas y Estimación de densidad por kernels (KDE)</p></li>
+<li><p>Después de esto volveremos al caso paramétrico y extenderemos MLE utilizando <strong>priors</strong>: Estimación de Máximo a Posteriori (MAP)</p></li>
+<li><p>Finalmente presentaremos algunas ideas de modelamiento <strong>bayesiano</strong>, las cuales serán desarrolladas en profundidad al final de este curso</p></li>
+</ul>
+</section>
 <section id="diferencias-entre-metodos-parametricos-y-no-parametricos">
-<h2><span class="section-number">7.2. </span>Diferencias entre métodos paramétricos y no-paramétricos<a class="headerlink" href="#diferencias-entre-metodos-parametricos-y-no-parametricos" title="Permalink to this heading">#</a></h2>
-<p>En estadística se hace la distinción entre métodos parámetricos y no paramétricos. Los primeros son métodos que <strong>hacen supuestos sobre la distribución de probabilidad subyacente de los datos</strong>, por ejemplo</p>
-<blockquote>
-<div><p>“La población tiene una distribución normal”</p>
-</div></blockquote>
-<p>Los segundos en cambio no suponen una forma teórica específica para las distribuciones subyancentes, sin embargo si suelen hacer otros supuestos “menos fuertes”, por ejemplo</p>
-<blockquote>
-<div><p>“La distribución subyacente es continua” o “las observaciones son independientes e idénticamente distribuidos”</p>
-</div></blockquote>
-<p>Los métodos no parámetricos son entonces menos restrictivos pero suelen ser menos sencibles (menor potencia estadística) que sus contrapartes paramétricas</p>
+<h2><span class="section-number">7.3. </span>Diferencias entre métodos paramétricos y no-paramétricos<a class="headerlink" href="#diferencias-entre-metodos-parametricos-y-no-parametricos" title="Permalink to this heading">#</a></h2>
+<p>En estadística se hace la distinción entre métodos parámetricos y no paramétricos.</p>
+<p><strong>Métodos parámetricos:</strong></p>
+<p>Hacen supuestos sobre la distribución de probabilidad subyacente de los datos, por ejemplo</p>
+<ul class="simple">
+<li><p>“La población tiene una distribución normal”</p></li>
+</ul>
+<p><strong>Métodos no-paramétricos:</strong></p>
+<p>No suponen una forma teórica específica para las distribuciones subyancentes, sin embargo si suelen hacer otros supuestos “menos fuertes”, por ejemplo</p>
+<ul class="simple">
+<li><p>“La distribución subyacente es continua”</p></li>
+<li><p>“Las observaciones son independientes e idénticamente distribuidos”</p></li>
+</ul>
 <p>En el caso específico del modelamiento también se puede hacer la distinción anterior:</p>
 <p><strong>Modelos paramétricos:</strong></p>
 <ul class="simple">
@@ -433,11 +442,14 @@ document.write(`
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia</p>
-<p><em>No-paramétrico</em> no significa no hay parámetros; en cambio, significa que no hay un número fijo de parámetros incluso puede ser infinitos!</p>
+<ul class="simple">
+<li><p><em>No-paramétrico</em> no significa no hay parámetros; en cambio, significa que no hay un número fijo de parámetros incluso puede ser infinitos!</p></li>
+<li><p>A veces, a los parámetros de los modelos no-paramétricos se les llama <em>hiperparámetros</em>.</p></li>
+</ul>
 </div>
 </section>
 <section id="la-diferencia-entre-inferencia-frecuentista-y-bayesiana">
-<h2><span class="section-number">7.3. </span>La diferencia entre inferencia frecuentista y bayesiana<a class="headerlink" href="#la-diferencia-entre-inferencia-frecuentista-y-bayesiana" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">7.4. </span>La diferencia entre inferencia frecuentista y bayesiana<a class="headerlink" href="#la-diferencia-entre-inferencia-frecuentista-y-bayesiana" title="Permalink to this heading">#</a></h2>
 <p>En general, se reconocen dos paradigmas o perspectivas en inferencia estadística: Frecuentista (F) y Bayesiana (B). Existen diferencias conceptuales importantes entre ellas, por ejemplo</p>
 <p><strong>Definición de probabilidad:</strong></p>
 <ul class="simple">
@@ -521,8 +533,9 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-es-inferencia-estadistica">7.1. ¿Qué es inferencia estadística?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diferencias-entre-metodos-parametricos-y-no-parametricos">7.2. Diferencias entre métodos paramétricos y no-paramétricos</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-diferencia-entre-inferencia-frecuentista-y-bayesiana">7.3. La diferencia entre inferencia frecuentista y bayesiana</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-es-modelamiento">7.2. ¿Qué es modelamiento?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diferencias-entre-metodos-parametricos-y-no-parametricos">7.3. Diferencias entre métodos paramétricos y no-paramétricos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-diferencia-entre-inferencia-frecuentista-y-bayesiana">7.4. La diferencia entre inferencia frecuentista y bayesiana</a></li>
 </ul>
   </nav></div>
 

@@ -163,7 +163,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelamiento Estadístico</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../2_statistical_modeling/intro.html">7. Inferencia con Modelos Paramétricos y No Paramétricos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_statistical_modeling/intro.html">7. Inferencia estadística y tipos de modelamiento</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_statistical_modeling/part1.html">8. Modelamiento Paramétrico con MLE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_statistical_modeling/part2.html">9. Modelamiento con métodos no-paramétricos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_statistical_modeling/part3.html">10. Modelamiento parámetrico Bayesiano</a></li>
@@ -491,8 +491,9 @@ X:&amp; \Omega \to \{0,1\}\\
 <p class="admonition-title">Advertencia</p>
 <p>Tiene dos “cosas extrañas”!</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(f(x)\)</span> no es una probabilidad! <span class="math notranslate nohighlight">\(f(x)\)</span> podría ser mayor que 1, y tiene la restricción de que el área bajo la curva <span class="math notranslate nohighlight">\(f(x)\)</span> es 1. Describe qué tan <strong>relativamente posible</strong> es que una variable aleatoria continua tome un valor específico en comparación con otros valores (<strong>relative likelihood</strong>).</p></li>
-<li><p><span class="math notranslate nohighlight">\(P(X = x) = 0\)</span>. Es decir, la probabilidad de que una variable aleatoria continua tome cualquier valor específico es 0 (absolute likelihood). Para obtener una probabilidad significativa para una variable aleatoria continua, calculamos <strong>el área bajo la curva</strong> fdp para un rango de x.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f(x)\)</span> no es una probabilidad! <span class="math notranslate nohighlight">\(f(x)\)</span> puede entenderse como probabilidad por unidad de longitud, como indica el nombre “densidad”. El <strong>área bajo la curva</strong> de <span class="math notranslate nohighlight">\(f(x)\)</span> representa probabilidad. <span class="math notranslate nohighlight">\(f(x)\)</span> describe qué tan <strong>relativamente posible</strong> es que una variable aleatoria continua tome un valor específico en comparación con otros valores (relative likelihood).</p></li>
+<li><p><span class="math notranslate nohighlight">\(f(x)\)</span> podría ser mayor que 1, y tiene la restricción de que el área bajo la curva <span class="math notranslate nohighlight">\(f(x)\)</span> es 1.</p></li>
+<li><p><span class="math notranslate nohighlight">\(P(X = x) = 0\)</span>. Es decir, la probabilidad de que una variable aleatoria continua tome cualquier valor específico es 0 (absolute likelihood). Para obtener una probabilidad significativa para una variable aleatoria continua, calculamos el área bajo la curva fdp para un rango de x.</p></li>
 </ul>
 </div>
 <p>Aquí está un ejemplo de normal estándar:</p>

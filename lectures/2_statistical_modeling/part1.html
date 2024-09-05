@@ -69,7 +69,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
     <link rel="next" title="9. Modelamiento con métodos no-paramétricos" href="part2.html" />
-    <link rel="prev" title="7. Inferencia con Modelos Paramétricos y No Paramétricos" href="intro.html" />
+    <link rel="prev" title="7. Inferencia estadística y tipos de modelamiento" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="es"/>
   </head>
@@ -163,7 +163,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelamiento Estadístico</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="intro.html">7. Inferencia con Modelos Paramétricos y No Paramétricos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">7. Inferencia estadística y tipos de modelamiento</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">8. Modelamiento Paramétrico con MLE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="part2.html">9. Modelamiento con métodos no-paramétricos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="part3.html">10. Modelamiento parámetrico Bayesiano</a></li>
@@ -355,21 +355,22 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-verosimilitud">8.1. La verosimilitud</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimacion-de-maxima-verosimilitud-mle">8.2. Estimación de máxima verosimilitud (MLE)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-mle-para-la-media-de-una-distribucion-gaussiana">8.2.1. Ejemplo: MLE para la media de una distribución Gaussiana</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-mle-para-la-varianza-de-una-distribucion-gaussiana">8.2.2. Ejemplo: MLE para la varianza de una distribución Gaussiana</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-mle-para-una-mezcla-de-gaussianas">8.2.3. Ejemplo: MLE para una mezcla de Gaussianas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#log-verosimilitud">8.2.1. Log-verosimilitud</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-mle-para-la-media-de-una-distribucion-gaussiana">8.2.2. Ejemplo: MLE para la media de una distribución Gaussiana</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-mle-para-la-varianza-de-una-distribucion-gaussiana">8.2.3. Ejemplo: MLE para la varianza de una distribución Gaussiana</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-mle-para-una-mezcla-de-gaussianas">8.2.4. Ejemplo: MLE para una mezcla de Gaussianas</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-de-los-estimadores">8.3. Propiedades de los estimadores</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#insesgadez">8.3.1. Insesgadez</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consistencia">8.3.2. Consistencia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consistencia">8.3.1. Consistencia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#insesgadez">8.3.2. Insesgadez</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eficiencia">8.3.3. Eficiencia</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normalidad-asintotica">8.3.4. Normalidad asintótica</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-propiedad-sobre-insesgadez-de-los-mles">8.4. La propiedad sobre insesgadez de los MLEs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedadeds-de-los-mles">8.5. Propiedadeds de los MLEs</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-la-incertidumbre-del-mle-de-mu-para-una-distribucion-gaussiana">8.5.1. Ejemplo: La incertidumbre del MLE de <span class="math notranslate nohighlight">\(\mu\)</span> para una distribución Gaussiana</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-desviacion-estandar-del-mle-de-mu-para-una-distribucion-gaussiana">8.5.1. Ejemplo: Desviación estándar del MLE de <span class="math notranslate nohighlight">\(\mu\)</span> para una distribución Gaussiana</a></li>
 </ul>
 </li>
 </ul>
@@ -1013,15 +1014,12 @@ roTBs2RqAAAAAElFTkSuQmCC'
 <ol class="arabic simple">
 <li><p><strong>Proposición</strong>: Se propone un modelo paramétrico en base a un proceso exploratorio sobre los datos</p></li>
 <li><p><strong>Ajuste:</strong> Se encuentran los valores de los parámetros que mejor ajustan (fit) los datos</p></li>
-<li><p><strong>Modificación:</strong> Se estudian los errores del modelo y de ser necesario se proponen modificaciones que acomodan características importantes de los datos que hayan sido omitidas anteriormente. Luego se vuelve al punto 2.</p></li>
+<li><p><strong>Evaluación (y modificación):</strong> Se estudian los errores del modelo y de ser necesario se proponen modificaciones que acomodan características importantes de los datos que hayan sido omitidas anteriormente. Luego se vuelve al punto 2.</p></li>
 </ol>
 <p>En el paradigma frecuentista el paso 2 se resuelve típicamente utilizando la <strong>estimación de máxima verosimilitud (Maximum Likelihood Estimation, MLE)</strong>. Otro método frecuentista es el <a class="reference external" href="https://es.wikipedia.org/wiki/M%C3%A9todo_de_momentos_(estad%C3%ADstica)">método de los momentos</a>. En esta lección nos concentraremos exclusivamente en el MLE.</p>
 <section id="la-verosimilitud">
 <h2><span class="section-number">8.1. </span>La verosimilitud<a class="headerlink" href="#la-verosimilitud" title="Permalink to this heading">#</a></h2>
-<p>En términos simples,</p>
-<blockquote>
-<div><p>La verosimilitud expresa qué tan posible (relativamente) que el conjunto de datos observados sea para diferentes configuraciones del parámetro.</p>
-</div></blockquote>
+<p>En términos simples, la verosimilitud expresa qué tan posible (relativamente) que el conjunto de datos observados haya sido generado por un parámetro (o parámetros).</p>
 <p>Nos dice que tan bueno es nuestro modelo (con su parámetro) con respecto a los datos observados.</p>
 <p>Veamos ahora una definición matemática</p>
 <ul class="simple">
@@ -1036,7 +1034,15 @@ roTBs2RqAAAAAElFTkSuQmCC'
 \mathcal{L}(\theta) &amp;= f(x_1, x_2, \ldots, x_N ; \theta)
 \end{split}
 \]</div>
-<p>que es <strong>una función del parámetro <span class="math notranslate nohighlight">\(\theta\)</span></strong> (o el vector de parámetro), y tiene valor entre [0, <span class="math notranslate nohighlight">\(\infty\)</span>).</p>
+<p>¿Por qué usamos “;” en lugar de “|” en la función de densidad?</p>
+<p>Dado que nuestra meta es estimar el parámetro, ¿<span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span> es una función de <span class="math notranslate nohighlight">\(\{x_i\}_{i=1...N}\)</span> o del parámetro?</p>
+<div class="toggle docutils container">
+<p><span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span> es una <strong>función del parámetro <span class="math notranslate nohighlight">\(\theta\)</span></strong> (o el vector de parámetro).</p>
+</div>
+<p>¿Cuál es el rango de su valor?</p>
+<div class="toggle docutils container">
+<p><span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span> tiene valor entre [0, <span class="math notranslate nohighlight">\(\infty\)</span>).</p>
+</div>
 <blockquote>
 <div><p>La verosimilitud puede decirnos que tan posible (relativamente) es que <span class="math notranslate nohighlight">\(\{x_i\}_{i=1...N}\)</span> haya sido generado por la distribución <span class="math notranslate nohighlight">\(f\)</span> con parámetros <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
 </div></blockquote>
@@ -1048,7 +1054,8 @@ roTBs2RqAAAAAElFTkSuQmCC'
 <li><p>El valor de la verosimilitud en si mismo no tiene mucho significado, pero puede usarse para hacer comparaciones entre distintos valores del parámetro <span class="math notranslate nohighlight">\(\theta\)</span></p></li>
 </ul>
 </div>
-<p>Para esta lección, asumiremos que nuestras observaciones son <strong>independientes e idénticamente distribuidas (i.i.d.)</strong>. Con lo anterior podemos simplificar la expresión como</p>
+<p>Para esta lección, asumiremos que nuestras observaciones son <strong>independientes e idénticamente distribuidas (i.i.d.)</strong>. ¿Cómo podemos simplificar la expresión <span class="math notranslate nohighlight">\(f(x_1, x_2, \ldots, x_N ; \theta)\)</span>?</p>
+<div class="toggle docutils container">
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{split}
@@ -1056,6 +1063,7 @@ roTBs2RqAAAAAElFTkSuQmCC'
 &amp;= \prod_{i=1}^N f(x_i; \theta) 
 \end{split}
 \end{split}\]</div>
+</div>
 </section>
 <section id="estimacion-de-maxima-verosimilitud-mle">
 <h2><span class="section-number">8.2. </span>Estimación de máxima verosimilitud (MLE)<a class="headerlink" href="#estimacion-de-maxima-verosimilitud-mle" title="Permalink to this heading">#</a></h2>
@@ -1072,16 +1080,54 @@ roTBs2RqAAAAAElFTkSuQmCC'
 <p>Luego de esto podemos</p>
 <ul class="simple">
 <li><p><strong>3</strong> Determinar el intervalo de confianza de <span class="math notranslate nohighlight">\(\hat \theta\)</span> ya sea de forma analítica o numérica (bootstrap, etc)</p></li>
-<li><p><strong>4</strong> Evaluar y extraer conclusiones sobre nuestro modelo</p></li>
+<li><p><strong>4</strong> Evaluar el modelo y modificarlo si es necesario.</p></li>
 </ul>
 <div class="admonition important">
 <p class="admonition-title">Importante</p>
-<p>Un supuesto equivocado en el paso 1 invalidará nuestra inferencia. Siempre evalua que el método sea apropiado, compara con otros modelos y sugiere mejoras incrementales</p>
+<p>Un supuesto equivocado en el paso 1 invalidará nuestra inferencia. ¿Cómo podemos proponer/encontrar un buen modelo?</p>
+<div class="toggle docutils container">
+<ul class="simple">
+<li><p>Proponemos un modelo (o una distribución) en base a un proceso <strong>exploratorio</strong> sobre los datos</p></li>
+<li><p>Evalua que el método sea apropiado con algunas métricas o gráficos</p></li>
+<li><p>Compara con otros modelos</p></li>
+<li><p>Sugiere mejoras incrementales</p></li>
+</ul>
 </div>
+</div>
+<section id="log-verosimilitud">
+<h3><span class="section-number">8.2.1. </span>Log-verosimilitud<a class="headerlink" href="#log-verosimilitud" title="Permalink to this heading">#</a></h3>
+<p>En muchos casos es más práctico utilizar logaritmo de la verosimilitud (log-verosimilitud).</p>
+<p>¿Cómo se escribe log-verosimilitud y cómo simplificarla en el caso de i.i.d.?</p>
+<div class="toggle docutils container">
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{split}
+log(\mathcal{L}(\theta)) &amp;= log(f(x_1, x_2, \ldots, x_N ; \theta))\\
+&amp;= log(f(x_1; \theta) \cdot f(x_2; \theta) \cdot \ldots \cdot f(x_N; \theta))  \\
+&amp;= log(\prod_{i=1}^N f(x_i; \theta)) \\
+&amp;= \sum_{i=1}^N log f(x_i; \theta)
+\end{split}
+\end{split}\]</div>
+<p>En contexto de verosimilitud, <span class="math notranslate nohighlight">\(log\)</span> normalmente se refiere a <span class="math notranslate nohighlight">\(log_e\)</span> o <span class="math notranslate nohighlight">\(ln\)</span>.</p>
+</div>
+<p>¿Por qué usamos log-verosimilitud en lugar de verosimilitud en práctica?</p>
+<div class="toggle docutils container">
+<ul class="simple">
+<li><p>El logaritmo es una función monotónica.</p></li>
+<li><p>Es más fácil manejar la suma que la multiplicación.</p></li>
+<li><p>Mejor estabilidad numérica: al realizar una transformación logarítmica se pueden convertir decimales pequeños en valores más grandes que un ordenador con precisión finita puede manejar mejor.</p></li>
+<li><p>El logaritmo es particularmente conveniente para las distribuciones de <a class="reference external" href="https://en.wikipedia.org/wiki/Exponential_family">familia exponencial</a>.</p></li>
+</ul>
+</div>
+<p>¿Cuál es el rango de la log-verosimilitud?</p>
+</section>
 <section id="ejemplo-mle-para-la-media-de-una-distribucion-gaussiana">
-<h3><span class="section-number">8.2.1. </span>Ejemplo: MLE para la media de una distribución Gaussiana<a class="headerlink" href="#ejemplo-mle-para-la-media-de-una-distribucion-gaussiana" title="Permalink to this heading">#</a></h3>
-<p>Consideremos un conjunto de N mediciones <span class="math notranslate nohighlight">\(\{x_i\}_{i=1,\ldots, N}\)</span> obtenidas de un sensor y que todas fueron obtenidas bajo las mismas condiciones. El sensor que se utilizó para medir los datos tiene un error que sigue una distribución Gaussiana con varianza conocida <span class="math notranslate nohighlight">\(\sigma^2\)</span>.</p>
-<p>Si las condiciones son las mismas entonces las mediciones pueden verse como muestras ruidosas en torno a un valor verdadero (intrínseco) que denominaremos <span class="math notranslate nohighlight">\(\mu\)</span>:</p>
+<h3><span class="section-number">8.2.2. </span>Ejemplo: MLE para la media de una distribución Gaussiana<a class="headerlink" href="#ejemplo-mle-para-la-media-de-una-distribucion-gaussiana" title="Permalink to this heading">#</a></h3>
+<p>Consideremos un conjunto de N mediciones <span class="math notranslate nohighlight">\(\{x_i\}_{i=1,\ldots, N}\)</span> obtenidas de un sensor y que todas fueron obtenidas bajo las mismas condiciones y son independientes (i.i.d).</p>
+<p>Basado en un análisis exploratorio, suponemos que el sensor tiene un error que sigue una distribución Gaussiana con varianza conocida <span class="math notranslate nohighlight">\(\sigma^2\)</span>.</p>
+<p>¿Cómo podemos modelar los datos medidos por el sensor?</p>
+<div class="toggle docutils container">
+<p>Las mediciones pueden verse como muestras ruidosas en torno a un valor verdadero (intrínseco) que denominaremos <span class="math notranslate nohighlight">\(\mu\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
 x_i = \mu + \epsilon_i, \quad \epsilon_i \sim \mathcal{N}(0, \sigma^2),
@@ -1091,16 +1137,20 @@ x_i = \mu + \epsilon_i, \quad \epsilon_i \sim \mathcal{N}(0, \sigma^2),
 \[
 x_i  \sim \mathcal{N}(\mu,\sigma^2)
 \]</div>
-<p>Cuál es la verosimilitud de <span class="math notranslate nohighlight">\(\mu\)</span> dadas las mediciones y la varianza?</p>
+<div class="math notranslate nohighlight">
+\[
+f(x_i) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp  \left( -\frac{(x_i-\mu)^2}{2\sigma^2}\right)
+\]</div>
+</div>
+<p>¿Cuál es la verosimilitud de <span class="math notranslate nohighlight">\(\mu\)</span> dadas las mediciones <span class="math notranslate nohighlight">\(\{x_i\}_{i=1...N}\)</span> y la varianza <span class="math notranslate nohighlight">\(\sigma^2\)</span>?</p>
 <div class="toggle docutils container">
 <div class="math notranslate nohighlight">
 \[
 \mathcal{L}(\mu) = f(\{x_i\}_{i=1...N}; \mu, \sigma^2) = \prod_{i=1}^N f(x_i; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}^N} \prod_{i=1}^N  \exp  \left( -\frac{(x_i-\mu)^2}{2\sigma^2} \right)
 \]</div>
 </div>
-<p>Podemos encontrar el valor de <span class="math notranslate nohighlight">\(\mu\)</span> maximizando la expresión anterior</p>
-<p>En muchos casos es más práctico encontrar el máximo del <strong>logaritmo de la verosimilitud</strong>. El logaritmo es una función monotónica y su máximo es idéntico al de su argumento. Cuál es el rango de la log-verosimilitud?</p>
-<p>Lo anterior es particularmente conveniente en las distribuciones de <a class="reference external" href="https://en.wikipedia.org/wiki/Exponential_family">familia exponencial</a>. En el caso anterior de la distribución Gaussiana, cuál es la log-verosimilitud?</p>
+<p>Podemos encontrar el valor de <span class="math notranslate nohighlight">\(\mu\)</span> maximizando la expresión anterior. Pero es mejor maximizar la log-verosimilitud por las razones expuestas anteriormente.</p>
+<p>¿Cuál es la log-verosimilitud?</p>
 <div class="toggle docutils container">
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1112,9 +1162,11 @@ x_i  \sim \mathcal{N}(\mu,\sigma^2)
 \end{split}
 \end{split}\]</div>
 </div>
-<p>Cómo podemos maximizar la log-verosimilitud?</p>
+<p>¿Cómo encontrar el valor de <span class="math notranslate nohighlight">\(\mu\)</span> dado la log-verosimilitud?</p>
 <div class="toggle docutils container">
-<p>Podemos maximizar tomando su derivada e igualando a cero. Por qué?</p>
+<ul class="simple">
+<li><p>Podemos maximizar la log-verosimilitud tomando su derivada e igualando a cero. Por qué?</p></li>
+</ul>
 </div>
 <p>Puedes derivar el estimador?</p>
 <div class="toggle docutils container">
@@ -1130,11 +1182,14 @@ x_i  \sim \mathcal{N}(\mu,\sigma^2)
 </div>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>La media muestral es el MLE de la media para una distribución Gaussiana. También es el MLE de la media para varias distribuciones.</p>
+<ul class="simple">
+<li><p>La media muestral es el MLE de la media para una distribución Gaussiana. También es el MLE de la media para varias distribuciones.</p></li>
+<li><p>En la práctica, las librerías suelen minimizar la log-verosimilitud negativa (como función de pérdida/coste).</p></li>
+</ul>
 </div>
 </section>
 <section id="ejemplo-mle-para-la-varianza-de-una-distribucion-gaussiana">
-<h3><span class="section-number">8.2.2. </span>Ejemplo: MLE para la varianza de una distribución Gaussiana<a class="headerlink" href="#ejemplo-mle-para-la-varianza-de-una-distribucion-gaussiana" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.2.3. </span>Ejemplo: MLE para la varianza de una distribución Gaussiana<a class="headerlink" href="#ejemplo-mle-para-la-varianza-de-una-distribucion-gaussiana" title="Permalink to this heading">#</a></h3>
 <p>Supongamos ahora que no se conoce la varianza del sensor en el ejemplo anterior. Cuál es el MLE de la varianza?</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1156,7 +1211,30 @@ x_i  \sim \mathcal{N}(\mu,\sigma^2)
 \hat \sigma^2 = \frac{1}{N} \sum_{i=1}^N (x_i- \hat \mu)^2
 \]</div>
 </div>
-<p>El siguiente ejemplo muestra la evolución del MLE de estos parámetros a medida que se observan más datos:</p>
+</section>
+<section id="ejemplo-mle-para-una-mezcla-de-gaussianas">
+<h3><span class="section-number">8.2.4. </span>Ejemplo: MLE para una mezcla de Gaussianas<a class="headerlink" href="#ejemplo-mle-para-una-mezcla-de-gaussianas" title="Permalink to this heading">#</a></h3>
+<p>Imaginemos ahora que nuestros datos <em>iid</em> provienen de una mezcla finita de <span class="math notranslate nohighlight">\(K\)</span> distribuciones Gaussianas:</p>
+<div class="math notranslate nohighlight">
+\[
+f(x_i; \pi,\mu,\sigma^2) = \sum_{k=1}^K \pi_k \mathcal{N}(x_i; \mu_k, \sigma_k^2),
+\]</div>
+<p>donde <span class="math notranslate nohighlight">\(\sum_{k=1}^K \pi_k = 1\)</span> and <span class="math notranslate nohighlight">\(\pi_k \in [0, 1] ~~ \forall k\)</span></p>
+<p>La verosimilitud es</p>
+<div class="math notranslate nohighlight">
+\[
+\log \mathcal{L}(\pi,\mu,\sigma^2) = \sum_{i=1}^N \log \sum_{k=1}^K \pi_k \mathcal{N}(x_i; \mu_k, \sigma_k^2)
+\]</div>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<p>No se puede obtener una expresión analítica de los parámetros. En casos como este se utilizan métodos aproximados y/o iterativas, e.g. gradiente descendente o expectation maximization. Veremos más sobre esto en el futuro.</p>
+</div>
+</section>
+</section>
+<section id="propiedades-de-los-estimadores">
+<h2><span class="section-number">8.3. </span>Propiedades de los estimadores<a class="headerlink" href="#propiedades-de-los-estimadores" title="Permalink to this heading">#</a></h2>
+<p>Ahora, veamos las propieades de un estimador!</p>
+<p>En el ejemplo del sensor, ya hemos derivado las expresiones de estimadors MLE para la media y varianza de la districución Gaussiana. Veamos cómo estos MLEs cambiar a medida que se observan más datos!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># data from the sensor</span>
@@ -1205,31 +1283,23 @@ x_i  \sim \mathcal{N}(\mu,\sigma^2)
   }
 })(window);</script></div>
 </div>
-</section>
-<section id="ejemplo-mle-para-una-mezcla-de-gaussianas">
-<h3><span class="section-number">8.2.3. </span>Ejemplo: MLE para una mezcla de Gaussianas<a class="headerlink" href="#ejemplo-mle-para-una-mezcla-de-gaussianas" title="Permalink to this heading">#</a></h3>
-<p>Imaginemos ahora que nuestros datos <em>iid</em> provienen de una mezcla finita de <span class="math notranslate nohighlight">\(K\)</span> distribuciones Gaussianas:</p>
+<p>Lo que hemos observado es sobre la consistencia de un estimador.</p>
+<section id="consistencia">
+<h3><span class="section-number">8.3.1. </span>Consistencia<a class="headerlink" href="#consistencia" title="Permalink to this heading">#</a></h3>
+<p>Para un parámetro <span class="math notranslate nohighlight">\(\theta\)</span> y un estimador <span class="math notranslate nohighlight">\(\hat \theta\)</span>, si</p>
 <div class="math notranslate nohighlight">
-\[
-f(x_i; \pi,\mu,\sigma^2) = \sum_{k=1}^K \pi_k \mathcal{N}(x_i; \mu_k, \sigma_k^2),
-\]</div>
-<p>donde <span class="math notranslate nohighlight">\(\sum_{k=1}^K \pi_k = 1\)</span> and <span class="math notranslate nohighlight">\(\pi_k \in [0, 1] ~~ \forall k\)</span></p>
-<p>La verosimilitud es</p>
+\[\lim_{N \to \infty} P\left(| \hat \theta - \theta| &lt; \epsilon \right) = 1 \]</div>
+<p>para cualquier <span class="math notranslate nohighlight">\(\epsilon &gt;0\)</span> (<span class="math notranslate nohighlight">\(N\)</span>: tamaño de la muestra). O se escribe como</p>
 <div class="math notranslate nohighlight">
-\[
-\log \mathcal{L}(\pi,\mu,\sigma^2) = \sum_{i=1}^N \log \sum_{k=1}^K \pi_k \mathcal{N}(x_i; \mu_k, \sigma_k^2)
-\]</div>
-<div class="admonition error">
-<p class="admonition-title">Error</p>
-<p>No se puede obtener una expresión analítica de los parámetros. En casos como este se utilizan métodos aproximados o y/o iterativas, e.g. gradiente descendente o expectation maximization. Veremos más sobre esto en el futuro.</p>
-</div>
+\[\begin{split}\begin{array}{c}
+\hat \theta \overset{p}{\to} \theta \\
+(\hat \theta \text{ converge en probabilidad a } \theta \text{ cuando } N \to \infty)
+\end{array}\end{split}\]</div>
+<p>entonces <span class="math notranslate nohighlight">\(\hat \theta\)</span> es un estimador <strong>consistente</strong>. Es decir, un estimador consistente aproxima el valor del parámetro cuanto mayor es <span class="math notranslate nohighlight">\(N\)</span> (tamaño de la muestra).</p>
+<p>Hay otras propiedades para evaluar un estimador!</p>
 </section>
-</section>
-<section id="propiedades-de-los-estimadores">
-<h2><span class="section-number">8.3. </span>Propiedades de los estimadores<a class="headerlink" href="#propiedades-de-los-estimadores" title="Permalink to this heading">#</a></h2>
-<p>En general, se puede evaluar un estimador por las siguientes propiedades.</p>
 <section id="insesgadez">
-<h3><span class="section-number">8.3.1. </span>Insesgadez<a class="headerlink" href="#insesgadez" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.3.2. </span>Insesgadez<a class="headerlink" href="#insesgadez" title="Permalink to this heading">#</a></h3>
 <p>Para un parámetro <span class="math notranslate nohighlight">\(\theta\)</span> y un estimador <span class="math notranslate nohighlight">\(\hat \theta\)</span>, si</p>
 <div class="math notranslate nohighlight">
 \[E[\hat \theta] = \theta\]</div>
@@ -1238,27 +1308,12 @@ f(x_i; \pi,\mu,\sigma^2) = \sum_{k=1}^K \pi_k \mathcal{N}(x_i; \mu_k, \sigma_k^2
 <p class="admonition-title">Nota</p>
 <p>La distribución de un estimador es una distribución de muestreo. Un estimador es un estadístico cuyo valor se puede determinar a partir de los datos muestrales. Cuando un estadístico se usa para estimar un parámetro de la población, el estadístico se llama un estimator.</p>
 </div>
-</section>
-<section id="consistencia">
-<h3><span class="section-number">8.3.2. </span>Consistencia<a class="headerlink" href="#consistencia" title="Permalink to this heading">#</a></h3>
-<p>Para un parámetro <span class="math notranslate nohighlight">\(\theta\)</span> y un estimador <span class="math notranslate nohighlight">\(\hat \theta\)</span>, si</p>
-<div class="math notranslate nohighlight">
-\[\lim_{N \to \infty} P\left(| \hat \theta - \theta| &lt; \epsilon \right) = 1 \]</div>
-<p>para cualquier <span class="math notranslate nohighlight">\(\epsilon &gt;0\)</span>, o se escribe como</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{array}{c}
-\hat \theta \overset{p}{\to} \theta \\
-(\hat \theta \text{ converge en probabilidad a } \theta \text{ cuando } N \to \infty)
-\end{array}\end{split}\]</div>
-<p>entonces <span class="math notranslate nohighlight">\(\hat \theta\)</span> es un estimador <strong>consistente</strong>. Es decir, un estimador consistente aproxima el valor del parámetro cuanto mayor es <span class="math notranslate nohighlight">\(N\)</span> (tamaño de la muestra).</p>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
+<p><strong>Consistencia vs. Insesgadez</strong></p>
 <ul class="simple">
 <li><p>“Consistente” es diferente que “insesgado”. Un estimador puede ser consistente pero sesgado (ej el MLE estimador de varianza arriba), o inconsistente pero insesgado (ej <span class="math notranslate nohighlight">\(x_1\)</span> de <span class="math notranslate nohighlight">\(\{x_i\}\)</span> para estimar la media).</p></li>
 <li><p>Ambos se refieren a la distribución del estimador, pero “consistente” se define considerando cuando el tamaño de la muestra se vuelve grande, y “sesgado” se define considerando la esperanza del estimador dado cualquier tamaño de la muestra.</p></li>
 <li><p>La propiedad insesgado solía recibir mucha atención, pero en estos días se considera menos importante; muchos de los estimadores que usaremos son sesgados. Un requisito razonable para un estimador es que debe converger al valor del parámetro verdadero a medida que recopilamos más y más datos, es decir, debe ser consistente.</p></li>
 </ul>
-</div>
 </section>
 <section id="eficiencia">
 <h3><span class="section-number">8.3.3. </span>Eficiencia<a class="headerlink" href="#eficiencia" title="Permalink to this heading">#</a></h3>
@@ -1266,19 +1321,20 @@ f(x_i; \pi,\mu,\sigma^2) = \sum_{k=1}^K \pi_k \mathcal{N}(x_i; \mu_k, \sigma_k^2
 <p>Aquí consideramos la cota inferior de Cramér-Rao para los estimadores <strong>insesgados</strong>. El teorema de <a class="reference external" href="https://es.wikipedia.org/wiki/Cota_de_Cram%C3%A9r-Rao">la cota de Cramér-Rao</a> determina que la varianza de un estimador insesgado <span class="math notranslate nohighlight">\(\hat\theta\)</span> de un parámetro <span class="math notranslate nohighlight">\(\theta\)</span> tiene una cota inferior como el inverso de la información de Fisher:</p>
 <div class="math notranslate nohighlight">
 \[
-\sigma_{\hat\theta}^2 \geq  \frac{1}{{\cal I}_N(\theta)}
+Var(\hat\theta) = \sigma_{\hat\theta}^2 \geq  \frac{1}{{\cal I}_N(\theta)}
 \]</div>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\({\cal I}_N(\theta)\)</span> es <strong><a class="reference external" href="https://en.wikipedia.org/wiki/Fisher_information">la información de Fisher</a></strong> de una muestra con el tamaño <span class="math notranslate nohighlight">\(N\)</span>, y se puede calcular como la negativa esperanza de la segunda derivada de la log-verosimilitud de esta muestra con respecto a <span class="math notranslate nohighlight">\(\theta\)</span>:</p></li>
+<li><p><span class="math notranslate nohighlight">\({\cal I}_N(\theta)\)</span> es <strong><a class="reference external" href="https://en.wikipedia.org/wiki/Fisher_information">la información de Fisher</a></strong> de una muestra con el tamaño <span class="math notranslate nohighlight">\(N\)</span>, y se puede calcular basado en la negativa esperanza de la segunda derivada de la log-verosimilitud de cada observación <span class="math notranslate nohighlight">\(x\)</span> (o <span class="math notranslate nohighlight">\(x_i\)</span>) con respecto a <span class="math notranslate nohighlight">\(\theta\)</span> (bajo ciertas condiciones):</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[
-{\cal I}_N(\theta) =  - E\left[ \frac{d^2 \log \mathcal{L} (\theta)}{d\theta^2} \right] = - N \int \frac{d^2 \log f(x;\theta)}{d\theta^2} f(x;\theta) dx
+{\cal I}_N(\theta) =  - N \cdot E_{X;\theta}\left[ \frac{d^2 \log \mathcal{L} (\theta)}{d\theta^2} \right] = - N \int \frac{d^2 \log f(x;\theta)}{d\theta^2} f(x;\theta) dx
 \]</div>
 <ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(E_{X;\theta}\)</span> denota la esperanza con respecto a la densidad <span class="math notranslate nohighlight">\(f(x; \theta)\)</span>. Si no se indica, en lo que sigue, la esperanza se toma con respecto a <span class="math notranslate nohighlight">\(X\)</span>.</p></li>
 <li><p>La información de Fisher puede verse como la curvatura del gráfico de log-verosimilitud.</p></li>
-<li><p>En algunos casos, no existe un estimador insesgado que alcance la cota inferio.</p></li>
-<li><p>En algunos casos, un estimador sesgado puede tener menor varianza que la cota inferior de Cramér-Rao definida arriba definida para los estimadores insesgados.</p></li>
+<li><p>En algunos casos, no existe un estimador <em>insesgado</em> que alcance la cota inferio.</p></li>
+<li><p>En algunos casos, un estimador <em>sesgado</em> puede tener menor varianza que la cota inferior de Cramér-Rao definida arriba definida para los estimadores insesgados.</p></li>
 </ul>
 <p>Para un estimador sesgado, se aplica otra formula más general de la cota inferior de Cramér-Rao: <a class="reference external" href="https://en.wikipedia.org/wiki/Cram%C3%A9r%E2%80%93Rao_bound#General_scalar_case">General scalar case</a>.</p>
 </section>
@@ -1302,7 +1358,7 @@ f(x_i; \pi,\mu,\sigma^2) = \sum_{k=1}^K \pi_k \mathcal{N}(x_i; \mu_k, \sigma_k^2
 <section id="la-propiedad-sobre-insesgadez-de-los-mles">
 <h2><span class="section-number">8.4. </span>La propiedad sobre insesgadez de los MLEs<a class="headerlink" href="#la-propiedad-sobre-insesgadez-de-los-mles" title="Permalink to this heading">#</a></h2>
 <p>Veamos la propiedad sobre insesgadez de los MLEs primero. Continuamos el ejemplo de la distribución Gaussiana arriba. Preguntamos:</p>
-<p><strong>¿Es el MLE de <span class="math notranslate nohighlight">\(\mu\)</span> para la distribución Gaussiana insesgado?</strong></p>
+<p>¿Es el MLE de <span class="math notranslate nohighlight">\(\mu\)</span> para la distribución Gaussiana insesgado?</p>
 <div class="toggle docutils container">
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1313,7 +1369,7 @@ E[\hat \mu] &amp;= E \left[ \frac{1}{N} \sum_{i=1}^N x_i \right]   \\
 \end{split}\]</div>
 <p>La respuesta es SI.</p>
 </div>
-<p><strong>¿Es el MLE de <span class="math notranslate nohighlight">\(\sigma^2\)</span> para la distribución Gaussiana insesgado?</strong></p>
+<p>¿Es el MLE de <span class="math notranslate nohighlight">\(\sigma^2\)</span> para la distribución Gaussiana insesgado?</p>
 <div class="toggle docutils container">
 <p>Tenemos varias maneras de derivaciones. Aquí les muestra una manera. Puedes dar una derivación más simple?</p>
 <div class="math notranslate nohighlight">
@@ -1337,7 +1393,7 @@ E[\hat \sigma^2] &amp;= \frac{N-1}{N^2} E[\sum_{i=1}^N x_i^2] - \frac{1}{N^2} E[
 \end{split}\]</div>
 <p>La respuesta es NO.</p>
 </div>
-<p><strong>¿Es posible corregir este sesgo?</strong></p>
+<p>¿Es posible corregir este sesgo?</p>
 <div class="toggle docutils container">
 <p>Si. Si multiplicamos por <span class="math notranslate nohighlight">\(\frac{N}{N-1}\)</span> se obtiene el conocido <a class="reference external" href="https://en.wikipedia.org/wiki/Unbiased_estimation_of_standard_deviation">estimador insesgado de la varianza</a></p>
 <div class="math notranslate nohighlight">
@@ -1345,8 +1401,8 @@ E[\hat \sigma^2] &amp;= \frac{N-1}{N^2} E[\sum_{i=1}^N x_i^2] - \frac{1}{N^2} E[
 \hat \sigma_{u}^2 = \frac{N}{N-1} \hat \sigma^2 = \frac{1}{N-1} \sum_{i=1}^N (x_i- \hat\mu)^2
 \]</div>
 </div>
-<p>El estimador <span class="math notranslate nohighlight">\(\hat \sigma^2 = \frac{1}{N} \sum_{i=1}^N \limits (x_i- \bar{x})^2\)</span> también se llama varianza muestral sesgado (biased sample varianze).</p>
-<p>El estimador <span class="math notranslate nohighlight">\(\hat \sigma_{u}^2 = \frac{1}{N-1} \sum_{i=1}^N \limits (x_i- \bar{x})^2 = S^2\)</span> también se llama varianza muestral insesgado (unbiased sample varianze), o varianza muestral.</p>
+<p>El estimador <span class="math notranslate nohighlight">\(\hat \sigma^2 = \frac{1}{N} \sum_{i=1}^N \limits (x_i- \bar{x})^2\)</span> también se llama <strong>varianza muestral sesgado</strong> (biased sample varianze).</p>
+<p>El estimador <span class="math notranslate nohighlight">\(\hat \sigma_{u}^2 = \frac{1}{N-1} \sum_{i=1}^N \limits (x_i- \bar{x})^2 = S^2\)</span> también se llama <strong>varianza muestral insesgado</strong> (unbiased sample varianze), o <strong>varianza muestral</strong>.</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
 <p>En general, los MLEs no son estimadores insesgados. Pero, son asintóticamente insesgados, según su distribución asintótica que presentaremos próximamente.</p>
@@ -1354,7 +1410,7 @@ E[\hat \sigma^2] &amp;= \frac{N-1}{N^2} E[\sum_{i=1}^N x_i^2] - \frac{1}{N^2} E[
 </section>
 <section id="propiedadeds-de-los-mles">
 <h2><span class="section-number">8.5. </span>Propiedadeds de los MLEs<a class="headerlink" href="#propiedadeds-de-los-mles" title="Permalink to this heading">#</a></h2>
-<p>Asumiendo que los datos vienen de un modelo especificado (Gaussiana o no), entonces el MLE usualmente tiene los siguientes propiedades:</p>
+<p>MLE tiene otras propiedades! Asumiendo que los datos vienen de un modelo especificado (Gaussiana o no), entonces el MLE usualmente tiene los siguientes propiedades:</p>
 <ul class="simple">
 <li><p>Asintóticamente insesgado</p></li>
 <li><p>Consistente</p></li>
@@ -1380,12 +1436,18 @@ E[\hat \sigma^2] &amp;= \frac{N-1}{N^2} E[\sum_{i=1}^N x_i^2] - \frac{1}{N^2} E[
 <p class="admonition-title">Truco</p>
 <p>Según las propiedades, el MLE es un buen estimador, por lo menos en muestra grande. Aunque no sabemos qué tan grande la muestra debe ser, en general es bueno usar MLE si no sabemos mejores estimadores.</p>
 </div>
-<section id="ejemplo-la-incertidumbre-del-mle-de-mu-para-una-distribucion-gaussiana">
-<h3><span class="section-number">8.5.1. </span>Ejemplo: La incertidumbre del MLE de <span class="math notranslate nohighlight">\(\mu\)</span> para una distribución Gaussiana<a class="headerlink" href="#ejemplo-la-incertidumbre-del-mle-de-mu-para-una-distribucion-gaussiana" title="Permalink to this heading">#</a></h3>
-<p>Cuando hacemos la estimación de parámetros desde una muestra, es importante saber el incertidumbre de un estimador. Este medición de incertidumbre nos da una indicación de la <strong>presición</strong> de la estimación.</p>
-<p>Aquí, mostramos un ejemplo de la incertidumbre del <strong>estimador MLE <span class="math notranslate nohighlight">\(\hat \mu\)</span> de <span class="math notranslate nohighlight">\(\mu\)</span> para una distribución Gaussiana</strong> del ejemplo anterior. Para cuantificar la incertidumbre, tenemos dos pasos.</p>
-<p>(1) Primero, calculamos la varianza del estimador.</p>
-<p>Cuál es el valor de <span class="math notranslate nohighlight">\(Var(\hat \mu)\)</span>, dado que <span class="math notranslate nohighlight">\(\hat \mu = \frac{1}{N}\sum_{i=1}^N \limits x_i\)</span> (la media muestral)?</p>
+<section id="ejemplo-desviacion-estandar-del-mle-de-mu-para-una-distribucion-gaussiana">
+<h3><span class="section-number">8.5.1. </span>Ejemplo: Desviación estándar del MLE de <span class="math notranslate nohighlight">\(\mu\)</span> para una distribución Gaussiana<a class="headerlink" href="#ejemplo-desviacion-estandar-del-mle-de-mu-para-una-distribucion-gaussiana" title="Permalink to this heading">#</a></h3>
+<p>Cuando hacemos la estimación de parámetros desde una muestra, es importante saber el incertidumbre o presición de un estimador. Para cuantificar la incertidumbre o presición de un estimador, ¿qué podemos calcular?</p>
+<div class="toggle docutils container">
+<p>Desviación estándar del estimador!</p>
+</div>
+<p>Aquí, mostramos un ejemplo dell <strong>estimador MLE <span class="math notranslate nohighlight">\(\hat \mu\)</span> de <span class="math notranslate nohighlight">\(\mu\)</span> para una distribución Gaussiana</strong> del ejemplo anterior. Tenemos dos pasos.</p>
+<p>(1) En el primer paso</p>
+<div class="toggle docutils container">
+<p>Calculamos la varianza del estimador. Podemos obtener la varianza de a través de dos maneras!</p>
+<p>En la primera manera, ¿cuál es el valor de <span class="math notranslate nohighlight">\(Var(\hat \mu)\)</span> (o <span class="math notranslate nohighlight">\(\sigma^2_{\hat \mu}\)</span>), dado que <span class="math notranslate nohighlight">\(\hat \mu = \bar x = \frac{1}{N}\sum_{i=1}^N \limits x_i\)</span> (la media muestral)?</p>
+</div>
 <div class="toggle docutils container">
 <p>Para la varianza de <span class="math notranslate nohighlight">\(\hat \mu = \frac{1}{N} \sum_{i=1}^N \limits x_i\)</span>,</p>
 <div class="math notranslate nohighlight">
@@ -1394,7 +1456,10 @@ Var(\hat \mu) = Var(\frac{1}{N}\sum_{i=1}^N \limits x_i) &amp;= \frac{1}{N^2} ( 
 &amp;=  \frac{1}{N^2} ( N \sigma^2 ) \\
 &amp;=  \frac{\sigma^2}{N}
 \end{split}\end{split}\]</div>
-<p>Atención: Esta derivación se mantiene en general, incluso si <span class="math notranslate nohighlight">\(X_i\)</span> no sigue la distribución normal (Gaussiana).</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Esta derivación se mantiene en general para <span class="math notranslate nohighlight">\(\{x_i\}_{i=1...N}\)</span> i.i.d., incluso si <span class="math notranslate nohighlight">\(X_i\)</span> no sigue la distribución normal (Gaussiana).</p>
+</div>
 </div>
 <div class="toggle docutils container">
 <p>Por otro lado, podemos calcular la cota inferior de Crámer-Rao. Ya sabemos que <span class="math notranslate nohighlight">\(\hat \mu\)</span> es un estimador insesgado, y la verosimilitud es:</p>
@@ -1412,9 +1477,12 @@ Var(\hat \mu) = Var(\frac{1}{N}\sum_{i=1}^N \limits x_i) &amp;= \frac{1}{N^2} ( 
 &amp;= \frac{\sigma^2}{N}  
 \end{split}
 \end{split}\]</div>
-<p>Se puede ver que en este caso, la varianza del estimador MLE <span class="math notranslate nohighlight">\(\hat \mu\)</span> alcanza la cota inferior de Crámer-Rao (o la varianza mínima) de los estimadores insesgados en cualquier tamaño de muestra dado. Es decir, el estimador MLE <span class="math notranslate nohighlight">\(\hat \mu\)</span> para una distribución Gaussiana es eficiente. Podemos obtener la varianza de <span class="math notranslate nohighlight">\(\hat \mu\)</span> a través de dos maneras muestradas arriba.</p>
+<p>Se puede ver que en este caso, la varianza del estimador MLE <span class="math notranslate nohighlight">\(\hat \mu\)</span> alcanza la cota inferior de Crámer-Rao (o la varianza mínima) de los estimadores insesgados en cualquier tamaño de muestra dado. Es decir, el estimador MLE <span class="math notranslate nohighlight">\(\hat \mu\)</span> para una distribución Gaussiana es eficiente.</p>
+<p>Podemos obtener la varianza de <span class="math notranslate nohighlight">\(\hat \mu\)</span> a través de dos maneras muestradas arriba!</p>
 </div>
-<p>(2) En segundo paso, calculamos la raíz cuadrada de la varianze del estimador, que es el <a class="reference external" href="https://es.wikipedia.org/wiki/Error_est%C3%A1ndar">error estándar</a>, la <strong>desviación estándar de la distribución muestral</strong> de un estadístico muestral o estimador en nuestro contexto.</p>
+<p>(2) En el segundo paso</p>
+<div class="toggle docutils container">
+<p>Calculamos la raíz cuadrada de la varianze del estimador, que es el <a class="reference external" href="https://es.wikipedia.org/wiki/Error_est%C3%A1ndar">error estándar</a>, la <strong>desviación estándar de la distribución muestral</strong> de un estadístico muestral o estimador en nuestro contexto.</p>
 <p>Cuando el estimador (<span class="math notranslate nohighlight">\(\hat \mu\)</span>) es de la media, este error estándar (que es la desviación estándar de la media muestral) también se llama el <a class="reference external" href="https://es.wikipedia.org/wiki/Error_est%C3%A1ndar#Error_est%C3%A1ndar_de_la_media">error estándar de la media</a> <span class="math notranslate nohighlight">\(se(\hat \mu)\)</span>. Lo usamos para cuantificar la incertidumbre de <span class="math notranslate nohighlight">\(\hat \mu\)</span> (en el futuro, lo usaremos para estimar el intervalo de confianza).</p>
 <p>En general, supongamos que una muestra de N observaciones i.i.d. se toma de una distribución (Gaussiana o no) con una desviación estándar <span class="math notranslate nohighlight">\(\sigma\)</span> o varianza <span class="math notranslate nohighlight">\(\sigma^2\)</span>, la media muestral <span class="math notranslate nohighlight">\(\hat \mu\)</span> tendrá un error estándar de la media dado por:</p>
 <div class="math notranslate nohighlight">
@@ -1422,6 +1490,7 @@ Var(\hat \mu) = Var(\frac{1}{N}\sum_{i=1}^N \limits x_i) &amp;= \frac{1}{N^2} ( 
 se(\hat \mu) =  \sqrt{Var(\hat \mu)} = \sqrt{\frac{\sigma^2}{N}} = \frac{\sigma}{\sqrt{N}}  
 \]</div>
 <p>Ahora, veamos como cambia el MLE <span class="math notranslate nohighlight">\(\hat \mu\)</span> y su incertidumbre <span class="math notranslate nohighlight">\(se(\hat \mu)\)</span> para una distribución Gaussiana a medida que observamos más y más datos:</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate data</span>
@@ -1512,7 +1581,7 @@ se(\hat \mu) =  \sqrt{Var(\hat \mu)} = \sqrt{\frac{\sigma^2}{N}} = \frac{\sigma}
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">anterior</p>
-        <p class="prev-next-title"><span class="section-number">7. </span>Inferencia con Modelos Paramétricos y No Paramétricos</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Inferencia estadística y tipos de modelamiento</p>
       </div>
     </a>
     <a class="right-next"
@@ -1544,21 +1613,22 @@ se(\hat \mu) =  \sqrt{Var(\hat \mu)} = \sqrt{\frac{\sigma^2}{N}} = \frac{\sigma}
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-verosimilitud">8.1. La verosimilitud</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimacion-de-maxima-verosimilitud-mle">8.2. Estimación de máxima verosimilitud (MLE)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-mle-para-la-media-de-una-distribucion-gaussiana">8.2.1. Ejemplo: MLE para la media de una distribución Gaussiana</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-mle-para-la-varianza-de-una-distribucion-gaussiana">8.2.2. Ejemplo: MLE para la varianza de una distribución Gaussiana</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-mle-para-una-mezcla-de-gaussianas">8.2.3. Ejemplo: MLE para una mezcla de Gaussianas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#log-verosimilitud">8.2.1. Log-verosimilitud</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-mle-para-la-media-de-una-distribucion-gaussiana">8.2.2. Ejemplo: MLE para la media de una distribución Gaussiana</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-mle-para-la-varianza-de-una-distribucion-gaussiana">8.2.3. Ejemplo: MLE para la varianza de una distribución Gaussiana</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-mle-para-una-mezcla-de-gaussianas">8.2.4. Ejemplo: MLE para una mezcla de Gaussianas</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-de-los-estimadores">8.3. Propiedades de los estimadores</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#insesgadez">8.3.1. Insesgadez</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consistencia">8.3.2. Consistencia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consistencia">8.3.1. Consistencia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#insesgadez">8.3.2. Insesgadez</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eficiencia">8.3.3. Eficiencia</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normalidad-asintotica">8.3.4. Normalidad asintótica</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-propiedad-sobre-insesgadez-de-los-mles">8.4. La propiedad sobre insesgadez de los MLEs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedadeds-de-los-mles">8.5. Propiedadeds de los MLEs</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-la-incertidumbre-del-mle-de-mu-para-una-distribucion-gaussiana">8.5.1. Ejemplo: La incertidumbre del MLE de <span class="math notranslate nohighlight">\(\mu\)</span> para una distribución Gaussiana</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-desviacion-estandar-del-mle-de-mu-para-una-distribucion-gaussiana">8.5.1. Ejemplo: Desviación estándar del MLE de <span class="math notranslate nohighlight">\(\mu\)</span> para una distribución Gaussiana</a></li>
 </ul>
 </li>
 </ul>
