@@ -68,7 +68,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/1_TeoriaProbabilidades/parte6';</script>
     <link rel="index" title="Índice" href="../../genindex.html" />
     <link rel="search" title="Búsqueda" href="../../search.html" />
-    <link rel="next" title="7. Inferencia con Modelos Paramétricos y No Paramétricos" href="../2_statistical_modeling/intro.html" />
+    <link rel="next" title="7. Inferencia estadística y tipos de modelamiento" href="../2_statistical_modeling/intro.html" />
     <link rel="prev" title="5. Estadísticos Muestrales" href="parte5.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="es"/>
@@ -163,7 +163,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelamiento Estadístico</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../2_statistical_modeling/intro.html">7. Inferencia con Modelos Paramétricos y No Paramétricos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_statistical_modeling/intro.html">7. Inferencia estadística y tipos de modelamiento</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_statistical_modeling/part1.html">8. Modelamiento Paramétrico con MLE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_statistical_modeling/part2.html">9. Modelamiento con métodos no-paramétricos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_statistical_modeling/part3.html">10. Modelamiento parámetrico Bayesiano</a></li>
@@ -353,7 +353,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ley-debil-de-los-grandes-numeros">6.1. Ley débil de los grandes números</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#leyes-de-los-grandes-numeros">6.1. Leyes de los grandes números</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#teorema-del-limite-central">6.2. Teorema del Límite Central</a></li>
 </ul>
             </nav>
@@ -368,18 +368,16 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="teoremas-asintoticos">
 <h1><span class="section-number">6. </span>Teoremas Asintóticos<a class="headerlink" href="#teoremas-asintoticos" title="Permalink to this heading">#</a></h1>
-<section id="ley-debil-de-los-grandes-numeros">
-<h2><span class="section-number">6.1. </span>Ley débil de los grandes números<a class="headerlink" href="#ley-debil-de-los-grandes-numeros" title="Permalink to this heading">#</a></h2>
-<p>Antes, vimos la interpretación frecuentista de la probabilidad:</p>
-<ul class="simple">
-<li><p>Sea <span class="math notranslate nohighlight">\(n\)</span> el número de experimentos, y <span class="math notranslate nohighlight">\(n(A)\)</span> el número de veces que el evento <span class="math notranslate nohighlight">\(A\)</span> ocurre en la realización de esos experimentos, entonces <span class="math notranslate nohighlight">\(P(A) = \frac{n(A)}{n}\)</span>.</p></li>
-</ul>
-<p>Por qué podemos obtener probabilidad así?</p>
-<p><strong>La ley de los grandes números</strong> proporciona la prueba. Vincula el concepto abstracto de probabilidad con la frecuencia. Este teorema dice que la media de una muestra grande está cerca de la media de la distribución de la población.</p>
+<section id="leyes-de-los-grandes-numeros">
+<h2><span class="section-number">6.1. </span>Leyes de los grandes números<a class="headerlink" href="#leyes-de-los-grandes-numeros" title="Permalink to this heading">#</a></h2>
+<p><strong>Las leyes de los grandes números</strong> dicen que la media de una muestra grande está cerca de la media de la distribución de la población. Estas leyes son importantes porque garantizan resultados estables a largo plazo para las medias de algunos eventos aleatorios.</p>
+<p>Aquí veamos la <strong>ley débil de los grandes números</strong> primero.</p>
 <p>Sean <span class="math notranslate nohighlight">\(X_1,...X_n\)</span> v.a. independientes idénticamente distribuidas (i.i.d.) de media <span class="math notranslate nohighlight">\(\mu\)</span>. Entonces, <span class="math notranslate nohighlight">\(\overline{X}_n=\frac{1}{n}\sum_{i=1}^n X_i\)</span> cumple:</p>
 <div class="math notranslate nohighlight">
 \[\lim_{n \to \infty} P\left\{\middle | \overline{X}_n - \mu \,\middle | &lt; \epsilon \right\} = 1\]</div>
 <p>para cualquier <span class="math notranslate nohighlight">\(\epsilon &gt;0\)</span>.</p>
+<p>¿Cómo se entiende esto?</p>
+<div class="toggle docutils container">
 <p>Usualmente se escribe como</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{c} 
@@ -387,7 +385,23 @@ document.write(`
 (\overline{X}_n \text{ converge en probabilidad a X cuando } n \to \infty)
 \end{array}\end{split}\]</div>
 <p>Es decir, la distribución de la media muestral <span class="math notranslate nohighlight">\(\overline{X}_n\)</span> se concentra más alrededor de la verdadera media <span class="math notranslate nohighlight">\(\mu\)</span> a medida que <span class="math notranslate nohighlight">\(n\)</span> se hace grande.</p>
-<!-- <s>Sea $\{X_i\}_{i=1}^n$ un conjunto de $n$</s> --></section>
+</div>
+<p>Ahora, ¿puedes aplicar esta ley para explicar por qué podemos obtener la probabilidad utilizando la frecuencia?</p>
+<ul class="simple">
+<li><p>Sea <span class="math notranslate nohighlight">\(n\)</span> el número de experimentos, y <span class="math notranslate nohighlight">\(n(A)\)</span> el número de veces que el evento <span class="math notranslate nohighlight">\(A\)</span> ocurre en la realización de esos experimentos, entonces <span class="math notranslate nohighlight">\(P(A) = \frac{n(A)}{n}\)</span></p></li>
+</ul>
+<p>(Pista: en la ley arriba, cada <span class="math notranslate nohighlight">\(X_i\)</span> puede verse como una variable Bernoulli que indica si el evento <span class="math notranslate nohighlight">\(A\)</span> occure o no).</p>
+<p>En concreto, la explicación corresponde a la <a class="reference external" href="https://en.wikipedia.org/wiki/Law_of_large_numbers#Borel's_law_of_large_numbers">ley fuerte de Borel de los grandes números</a> que es un caso especial de las leyes más generales de los grandes números.</p>
+<p>Formalmente, si n(A) es el número de éxitos en los n experimentos Bernoulli repetidos independientes con la probabilidad de exito p, entonces,</p>
+<div class="math notranslate nohighlight">
+\[ P(\lim_{n \to \infty} \frac{n(A)}{n} = p) = 1\]</div>
+<p>Usualmente se escribe como:
+$<span class="math notranslate nohighlight">\(\begin{array}{c} 
+\frac{n(A)}{n} \overset{c.s.} {\to} p \\
+(\frac{n(A)}{n} \text{ converge casi seguramente, o con probabilidad 1 a p cuando } n \to \infty)
+\end{array}\)</span>$</p>
+<p>Esta ley vincula el concepto abstracto de probabilidad con la frecuencia, i.e., la proporción de veces que se espera que ocurra un evento (A) determinado es aproximadamente igual a la probabilidad de que ocurra en un ensayo concreto (o la probabilidad real/poblacional).</p>
+</section>
 <section id="teorema-del-limite-central">
 <h2><span class="section-number">6.2. </span>Teorema del Límite Central<a class="headerlink" href="#teorema-del-limite-central" title="Permalink to this heading">#</a></h2>
 <p>La ley de los grandes números dice que la distribución de <span class="math notranslate nohighlight">\(\overline{X}_n\)</span> se acumula cerca de <span class="math notranslate nohighlight">\(\mu\)</span>. Pero esto no es suficiente para ayudarnos a aproximar la distribución de probabilidad sobre <span class="math notranslate nohighlight">\(\overline{X}_n\)</span>. Para ello necesitamos el teorema del límite central.</p>
@@ -395,14 +409,26 @@ document.write(`
 <p>Sean <span class="math notranslate nohighlight">\(X_1,...X_n\)</span> v.a. i.i.d. de media <span class="math notranslate nohighlight">\(\mu\)</span> y varianza <span class="math notranslate nohighlight">\(\sigma^2\)</span>, entonces <span class="math notranslate nohighlight">\(\overline{X}_n=\frac{1}{n}\sum_{i=1}^n X_i\)</span> cumple:</p>
 <div class="math notranslate nohighlight">
 \[ \lim_{n \to \infty}P\left( \frac{\overline{X}_n - \mu}{\sqrt{\frac{\sigma^2}{n}}} \leq z\right) = \Phi(z)  \qquad Z \sim \cal{N}(0,1)\]</div>
+<p>¿Cómo se entiende esto?</p>
+<div class="toggle docutils container">
 <p>Usualmente se escribe como</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{c} 
 \frac{\overline{X}_n - \mu}{\sqrt{\frac{\sigma^2}{n}}}\overset{d}{\to} Z \\ \\
 (\frac{\overline{X}_n - \mu}{\sqrt{\frac{\sigma^2}{n}}} \text{ converge en distribución a Z cuando } n \to \infty)
 \end{array}\end{split}\]</div>
+<p>o</p>
+<div class="math notranslate nohighlight">
+\[\begin{array}{c} 
+\overline{X}_n \overset{d}{\to} \cal{N}(\mu,\frac{\sigma^2}{n})
+\end{array}\]</div>
 <p>Es decir que es posible aproximar la distribución de <span class="math notranslate nohighlight">\(\overline{X}_n\)</span> por <span class="math notranslate nohighlight">\({\cal{N}}(\mu,\frac{\sigma^2}{n})\)</span> que tiene la misma media y <span class="math notranslate nohighlight">\(\frac{1}{n}\)</span> de la varianza de la distribución de población.</span></p>
+</div>
 <p>Esta simulación puede ayudar a entenderlo: <a class="reference external" href="https://onlinestatbook.com/stat_sim/sampling_dist/">Simulation</a></p>
+<ul class="simple">
+<li><p>Ojo: hay un error en esta simulación, puedes identificalo?</p></li>
+<li><p>Esta <a class="reference external" href="https://onlinestatbook.com/2/sampling_distributions/clt_demo.html#video">video</a> (en la derecha de la página) demostra una simulación más correcta.</p></li>
+</ul>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
 <ul class="simple">
@@ -459,7 +485,7 @@ document.write(`
        title="siguiente página">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">siguiente</p>
-        <p class="prev-next-title"><span class="section-number">7. </span>Inferencia con Modelos Paramétricos y No Paramétricos</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Inferencia estadística y tipos de modelamiento</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -481,7 +507,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ley-debil-de-los-grandes-numeros">6.1. Ley débil de los grandes números</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#leyes-de-los-grandes-numeros">6.1. Leyes de los grandes números</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#teorema-del-limite-central">6.2. Teorema del Límite Central</a></li>
 </ul>
   </nav></div>
