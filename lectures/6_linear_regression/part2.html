@@ -163,7 +163,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelamiento Estadístico</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../2_statistical_modeling/intro.html">7. Inferencia con Modelos Paramétricos y No Paramétricos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_statistical_modeling/intro.html">7. Inferencia estadística y tipos de modelamiento</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_statistical_modeling/part1.html">8. Modelamiento Paramétrico con MLE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_statistical_modeling/part2.html">9. Modelamiento con métodos no-paramétricos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_statistical_modeling/part3.html">10. Modelamiento parámetrico Bayesiano</a></li>
@@ -389,7 +389,6 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interaccion">16.7. Interacción</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-de-regresion-de-efectos-mixtos-mixed-effects-regression-model">16.8. Modelo de regresión de efectos mixtos (mixed-effects regression model)</a></li>
 </ul>
             </nav>
         </div>
@@ -4600,92 +4599,6 @@ F-statistic: 662.5 on 5 and 894 DF,  p-value: &lt; 2.2e-16
 <li><p>Continua x Continua</p></li>
 </ol>
 </section>
-<section id="modelo-de-regresion-de-efectos-mixtos-mixed-effects-regression-model">
-<h2><span class="section-number">16.8. </span>Modelo de regresión de efectos mixtos (mixed-effects regression model)<a class="headerlink" href="#modelo-de-regresion-de-efectos-mixtos-mixed-effects-regression-model" title="Permalink to this heading">#</a></h2>
-<p>(!!! Trabajo en curso, por favor sáltese esta sección por ahora !!!)</p>
-<p><strong>¿Qué es un modelo de regresión de efectos mixtos?</strong>
-Lo que hemos visto son todos modelos de regresión de <strong>efectos fijos</strong> (fixed-effects models). Es decir, los parámetros <span class="math notranslate nohighlight">\(b_j\)</span> no son variables aleatorias (no suponemos una distribución para ellos).</p>
-<p>¿Qué pasa si tenomos varias mediciones de cada persona y tenemos 100 o 1000 personas en los datos a modelar? ¿Qué problemas tenemos al utilizar modelos de efectos fijos? (O la regresión introducida anteriormente?)</p>
-<a class="reference internal image-reference" href="../../_images/Comparison_fixed_mixed.png"><img alt="../../_images/Comparison_fixed_mixed.png" src="../../_images/Comparison_fixed_mixed.png" style="width: 600px;" /></a>
-<p><strong>Fixed, random and mixed effects</strong></p>
-<ul class="simple">
-<li><p>fixed effects: b is some unknown (constant) coefficient vector</p></li>
-<li><p>random effects: random variables in the population; Typically assume that random effects are zero-mean Gaussian; Typically want to estimate the variance parameter(s)</p></li>
-<li><p>mixed-effects model: Models with fixed and random effects are called mixed-effects models</p></li>
-</ul>
-<p><strong>Why random effects?</strong>
-Some advantages/reasons:</p>
-<ul class="simple">
-<li><p>Model correlated data: Random effects relate to assumed correlation structure for data;</p></li>
-<li><p>Allow fine-grained hypothesese of correlation structure:</p>
-<ul>
-<li><p>including different combinations of random effects can account for different correlation structures present in the data</p></li>
-<li><p>the mixed-e↵ect model allows for fine-grained hypotheses about the randome↵ects structure of the data</p></li>
-</ul>
-</li>
-<li><p>Allow generalization to unseen levels: a fitted mixed model provides straightforward predictions for unseen levels of random-e↵ect factors.</p></li>
-<li><p>Mixed-effect models are better able to directly model heteroskedasticity.</p></li>
-<li><p>mixed-e↵ect models tend to be better able to detect e↵ects as significant, without giving rise to inflated Type I error rates (see, e.g., Baayen, Davidson &amp; Bates, 2008).</p></li>
-</ul>
-<p>When to use random factor vs. fixed factor?</p>
-<p><strong>Parameters of mixed effect model</strong></p>
-<ul class="simple">
-<li><p>fixed effects parameters (e.g., b)</p></li>
-<li><p>random effects variance parameters (including covariance)</p></li>
-</ul>
-<p><strong>Case 1: random intercept model</strong>
-vi iid ∼ N(0, σ2 v ) is an unobserved random variable
-eij iid ∼ N(0, σ2 e) is an unobserved random variable
-Vi and eij are independent of one another
-b0 and b1 are unknown constants
-(yij |xij ) ∼ N(b0 + b1xij , σ2 Y ) where σ2 Y = σ2 v + σ2</p>
-<p>vi allows each subject to have unique regression intercept.</p>
-<p>Assumed covariance structure:</p>
-<p><strong>Case 2: random intercept and slope model</strong></p>
-<p>(yij |xij ) ∼ N(b0 + b1xij , σ2 Yij ) where σ2 Yij = σ2 0 + 2σ01xij + σ2 1x2 ij + σ2</p>
-<p><strong>Two estimation methods</strong></p>
-<ul class="simple">
-<li><p>There are two types of maximum likelihood (ML) estimation: Standard ML underestimates variance components ML Restricted ML (REML) provides consistent estimates</p></li>
-<li><p>The conventional wisdom seems to be that ML produces more accurate estimates of fixed regression parameters, whereas REML produces more accurate estimates of random variances (Twisk, 2006). &lt;- From DiscoverR</p></li>
-</ul>
-<p>Likelihood ratio test</p>
-<ul class="simple">
-<li><p>if you want to compare models you must use ML (REML=False)</p></li>
-</ul>
-<p><strong>Assumptions of mixed-effect model (for diagnosis)</strong></p>
-<ul class="simple">
-<li><p>Independence (different from fixed-effect regression)</p>
-<ul>
-<li><p>The assumption is relaxed to observations are independent of the other observations except where there is correlation specified by the random variable groups.  (e.g., data from different subjects are assumed independent.)</p></li>
-<li><p>There is also a new independence assumption for mixed models. This is the effects associated with the random variable groups are uncorrelated with the means of the fixed effect from the random variable groups. (??)</p></li>
-</ul>
-</li>
-</ul>
-<p>All other assumptions for mixed models are the same as the assumptions of the underlying model</p>
-<ul class="simple">
-<li><p>Linear: Y and X (set of predictors)</p></li>
-<li><p>Normal: Residual normal (examined at each combination of input x):</p>
-<ul>
-<li><p>Caution: the subscript may change meanings!</p></li>
-<li><p>~ N()…</p></li>
-</ul>
-</li>
-<li><p>Equal variance: (expressed above)</p></li>
-</ul>
-<p><strong>How to check assumptions</strong></p>
-<ul class="simple">
-<li><p>Linear: residual vs. fitted (mean at 0)</p></li>
-<li><p>Independence: ??</p></li>
-<li><p>Normal: residual vs. fitted; residual QQ plot</p></li>
-<li><p>Equal variance: residual vs. fitted</p></li>
-</ul>
-<p><strong>Ejemplo</strong></p>
-<p><strong>Reference</strong></p>
-<ul class="simple">
-<li><p>Theoretical: 1) U of Minnesota   2) R. Harald Baayen (for advantage)</p></li>
-<li><p>Data: 1) <a class="reference external" href="https://ladal.edu.au/regression.html#2_Mixed-Effects_Regression">https://ladal.edu.au/regression.html#2_Mixed-Effects_Regression</a>  2) additional on diagnostic: <a class="reference external" href="https://www.ssc.wisc.edu/sscc/pubs/MM/MM_DiagInfer.html">https://www.ssc.wisc.edu/sscc/pubs/MM/MM_DiagInfer.html</a></p></li>
-</ul>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -4791,7 +4704,6 @@ b0 and b1 are unknown constants
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interaccion">16.7. Interacción</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-de-regresion-de-efectos-mixtos-mixed-effects-regression-model">16.8. Modelo de regresión de efectos mixtos (mixed-effects regression model)</a></li>
 </ul>
   </nav></div>
 
