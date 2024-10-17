@@ -2481,7 +2481,7 @@ L = \| \bf y - \bf X \bf b \|^2 = (\bf y - \bf X \bf b)^T (\bf y - \bf X \bf b),
 <p class="admonition-title">Advertencia</p>
 <ul class="simple">
 <li><p>La solución de mínimos cuadrados sólo es válida si <span class="math notranslate nohighlight">\(\bf X^T \bf X\)</span> es invertible (no-singular).</p></li>
-<li><p>Los coeficientes se interpretan como el efecto de cada predictor en la respuesta, si todas las demás predictores se mantienen constantes. Esto es a menudo “ajustar para” o “controlar” los otras predictores. <a class="reference external" href="https://stats.stackexchange.com/questions/78828/is-there-a-difference-between-controlling-for-and-ignoring-other-variables-i">Aquí</a> es un ejemplo pare entender este punto.</p></li>
+<li><p>Los coeficientes se interpretan como el efecto de cada predictor en la respuesta, si todas las demás predictores se mantienen constantes. Esto es a menudo <strong>ajustar para</strong> o <strong>controlar</strong> los otras predictores. <a class="reference external" href="https://stats.stackexchange.com/questions/78828/is-there-a-difference-between-controlling-for-and-ignoring-other-variables-i">Aquí</a> es <strong>un ejemplo importante</strong> pare entender este punto (pon tu atención en las dos primeras cifras).</p></li>
 </ul>
 </div>
 <div class="admonition note">
@@ -2495,17 +2495,17 @@ L = \| \bf y - \bf X \bf b \|^2 = (\bf y - \bf X \bf b)^T (\bf y - \bf X \bf b),
 <h3><span class="section-number">16.2.1. </span>Conexión con MLE<a class="headerlink" href="#conexion-con-mle" title="Permalink to this heading">#</a></h3>
 <p>En la demonstración arriba, no usamos ningún supuesto distribucional ni <strong>máxima verosimilitud (MLE)</strong> que esta diseñado para estimar parámetros. Vamos aplicarlo aquí!</p>
 <p>Digamos que se tienen <span class="math notranslate nohighlight">\(\{\bf x_i,\)</span> <span class="math notranslate nohighlight">\(y_i\}_{i=1,\ldots,N}\)</span> observaciones de una variable dependiente unidimensional <span class="math notranslate nohighlight">\(Y\)</span> y una variable independiente <strong>D-dimensional</strong> <span class="math notranslate nohighlight">\(X\)</span>, y <span class="math notranslate nohighlight">\(X\)</span> se considera dado. Asumiremos que las mediciones <span class="math notranslate nohighlight">\(Y\)</span> corresponden a una combinación aditiva de un modelo y ruido con distribución Gaussiana centrado en cero, es decir:</p>
-<p><span class="math notranslate nohighlight">\(y_i = b_0 + \sum_{j=1}^D b_j x_{ij} + e_i = g_b(\bf{x_i})\)</span> + <span class="math notranslate nohighlight">\(e_i\)</span></p>
+<p><span class="math notranslate nohighlight">\(y_i = b_0 + \sum_{j=1}^D b_j x_{ij} + e_i = g_b(\bf{x_i}\)</span>) + <span class="math notranslate nohighlight">\(e_i\)</span></p>
 <p>Y tenemos los siguientes supuestos importantes sobre <span class="math notranslate nohighlight">\(e_i \)</span>:</p>
 <div class="admonition important">
 <p class="admonition-title">Importante</p>
 <p>Los <span class="math notranslate nohighlight">\(e_i\)</span> <strong>son i.i.d</strong>. Cada <span class="math notranslate nohighlight">\(e_i \sim \mathcal{N}(0, \sigma^2)\)</span>, <span class="math notranslate nohighlight">\(e_i\)</span> es independiente de <span class="math notranslate nohighlight">\(\bf{x_i}\)</span>, y los <strong><span class="math notranslate nohighlight">\(e_i\)</span> son independientes entre sí mismos</strong>.</p>
 </div>
-<p><span class="math notranslate nohighlight">\(e_i=y_i - g_b(\bf x_i)\)</span>=<span class="math notranslate nohighlight">\(y_i -\hat y_i\)</span> también se llama <strong>residuo</strong>.</p>
+<p><span class="math notranslate nohighlight">\(e_i=y_i - g_b(\bf x_i\)</span>)=<span class="math notranslate nohighlight">\(y_i -\hat y_i\)</span> también se llama <strong>residuo</strong>.</p>
 <p>Así que</p>
-<p><span class="math notranslate nohighlight">\(\text{dado } \bf x_i, \qquad y_i - g_b(\bf x_i) \)</span> <span class="math notranslate nohighlight">\(= e_i \sim \mathcal{N}(0, \sigma^2) \)</span></p>
+<p><span class="math notranslate nohighlight">\(\text{dado } \bf x_i\)</span>, <span class="math notranslate nohighlight">\(\qquad y_i - g_b(\)</span><span class="math notranslate nohighlight">\(\bf x_i\)</span><span class="math notranslate nohighlight">\() = e_i \sim \mathcal{N}(0, \sigma^2), \qquad y_i = g_b(\)</span><span class="math notranslate nohighlight">\(\bf x_i\)</span><span class="math notranslate nohighlight">\() + e_i\)</span></p>
 <p>Aquí, no hacemos supuestos sobre la distribucion de <span class="math notranslate nohighlight">\(\bf x_i\)</span> (podría ser arbitrario), y consideramos que <span class="math notranslate nohighlight">\( \bf x_i\)</span> es <strong>dado</strong>. Así que:</p>
-<p><span class="math notranslate nohighlight">\(y_i | \bf x_i \sim \mathcal{N}(g_b(\bf x_i)\)</span> <span class="math notranslate nohighlight">\(, \sigma^2)\)</span></p>
+<p><span class="math notranslate nohighlight">\(y_i | \bf x_i\)</span><span class="math notranslate nohighlight">\( \sim \mathcal{N}(g_b(\)</span><span class="math notranslate nohighlight">\(\bf x_i\)</span><span class="math notranslate nohighlight">\(), \sigma^2)\)</span></p>
 <blockquote>
 <div><p>Los <span class="math notranslate nohighlight">\(y_i\)</span> tienen que ser i.i.d.? Los <span class="math notranslate nohighlight">\(\bf x_i\)</span> tienen que ser i.i.d.?</p>
 </div></blockquote>
@@ -2633,7 +2633,7 @@ Demostración<div class="sd-summary-down docutils">
 <p>Construimos F-statistic por división:</p>
 <div class="math notranslate nohighlight">
 \[f = \frac{MSR}{MSE} = \cfrac{\cfrac{SST-SSE}{df_{SST}-df_{SSE}}}{\cfrac{SSE}{df_{SSE}}} =\frac{\frac{1}{D} [\sum\limits_{i=1}^{N}(y_i - \bar{y})^2 - \sum\limits_{i=1}^{N}(y_i - \hat{y_i})^2]}{\frac{1}{N-D-1}\sum\limits_{i=1}^{N}(y_i - \hat{y_i})^2}\]</div>
-<p>donde $<span class="math notranslate nohighlight">\( f \sim F_{D,N-D-1}\)</span>$</p>
+<p>donde <span class="math notranslate nohighlight">\( f \sim F_{D,N-D-1}\)</span>.</p>
 <p>Si queremos <span class="math notranslate nohighlight">\(SSE\)</span> pequeño y <span class="math notranslate nohighlight">\(SSR\)</span> grande, ¿qué queremos en <span class="math notranslate nohighlight">\(f\)</span>?</p>
 <p>Al final, tenemos la tabla del análisis de varianza en la regresión múltiple:</p>
 <table class="table">
@@ -2677,7 +2677,9 @@ TS = \frac{MSB}{MSE} = \frac{\frac{SS_B}{(m-1)}}{\frac{SS_W}{(nm-m)}}
 <a class="reference internal image-reference" href="../../_images/F-test_Py.png"><img alt="../../_images/F-test_Py.png" src="../../_images/F-test_Py.png" style="width: 450px;" /></a>
 <p>R:</p>
 <a class="reference internal image-reference" href="../../_images/F-test_r.png"><img alt="../../_images/F-test_r.png" src="../../_images/F-test_r.png" style="width: 450px;" /></a>
-<p><strong>Prob(F-statistic)</strong> o <strong>p-value</strong> corresponde al p-value del F-test del modelo completo. Significa que la probabilidad de tener un valor tan extremo como el valor que tenemos de <em>F-estadístico</em> es de 2,45e-07 (muy pequeño) bajo <span class="math notranslate nohighlight">\(H_0\)</span>. Rechazamos <span class="math notranslate nohighlight">\(H_0\)</span>. Tenemos pruebas (evidence) de que el modelo de regresión difiere de un modelo de sólo intersección (intercept-only model).</p>
+<blockquote>
+<div><p><strong>Prob(F-statistic)</strong> o <strong>p-value</strong> corresponde al p-value del F-test del modelo completo. Significa que la probabilidad de tener un valor tan extremo como el valor que tenemos de <em>F-estadístico</em> es de 2,45e-07 (muy pequeño) bajo <span class="math notranslate nohighlight">\(H_0\)</span>. Rechazamos <span class="math notranslate nohighlight">\(H_0\)</span>. Tenemos evidencia de que <strong>el modelo de regresión difiere de un modelo de sólo intersección (intercept-only model)</strong>.</p>
+</div></blockquote>
 <p><strong>Residual standard error</strong> en R corresponde a raíz cuadrada positiva del mean squared error MSE (error cuadrático medio).</p>
 <p>Informamos el F-test así:</p>
 <blockquote>
@@ -2721,6 +2723,8 @@ TS = \frac{MSB}{MSE} = \frac{\frac{SS_B}{(m-1)}}{\frac{SS_W}{(nm-m)}}
 <div class="math notranslate nohighlight">
 \[\mathcal{H}_1: b_i \neq 0\]</div>
 <p>donde <span class="math notranslate nohighlight">\(i=0, 1, ..., D\)</span>.</p>
+<p>La siguiente parte de la derivación de t-test es opcional.</p>
+<div class="toggle docutils container">
 <p>Dado los siguientes:</p>
 <ul class="simple">
 <li><p>El valor esperado y la varianza de <span class="math notranslate nohighlight">\(\bf{\hat b}\)</span> (ver arriba)</p></li>
@@ -2745,12 +2749,16 @@ TS = \frac{MSB}{MSE} = \frac{\frac{SS_B}{(m-1)}}{\frac{SS_W}{(nm-m)}}
 <div class="math notranslate nohighlight">
 \[\hat \sigma^2 \sim  \frac{\sigma^2}{(N-D-1)} \chi_{N-D-1}^2\]</div>
 <p>Con estos tenemos lo necesario para formular tests de hipótesis sobre <span class="math notranslate nohighlight">\(\bf{\hat b}\)</span>.</p>
+</div>
+<p><strong>(La seguiente parte es importante)</strong></p>
 <p>Ahora, identificamos t-test en Python y R (usando un ejemplo que vamos a estudiar en breve):</p>
 <p>Python:</p>
 <a class="reference internal image-reference" href="../../_images/t-test_py.png"><img alt="../../_images/t-test_py.png" src="../../_images/t-test_py.png" style="width: 430px;" /></a>
 <p>R:</p>
 <a class="reference internal image-reference" href="../../_images/t-test_R.png"><img alt="../../_images/t-test_R.png" src="../../_images/t-test_R.png" style="width: 380px;" /></a>
-<p><strong>P&gt;|t|</strong> o <strong>Pr(&gt;|t|)</strong> corresponde a los p-values de los t-tests. Cada uno significa que la probabilidad de tener un valor tan extremo como el valor que tenemos de <em>t</em> de un coeficiente bajo su <span class="math notranslate nohighlight">\(H_0\)</span>. Si <span class="math notranslate nohighlight">\(p&lt;\alpha\)</span> (normalmente, si <span class="math notranslate nohighlight">\(p&lt;0.05\)</span>), rechazamos el <span class="math notranslate nohighlight">\(H_0\)</span> y tenemos pruebas (evidence) de que el coeficiente no es cero, y decimos que este coeficiente es significativo.</p>
+<blockquote>
+<div><p><strong>P&gt;|t|</strong> o <strong>Pr(&gt;|t|)</strong> corresponde a los p-values de los t-tests. Cada uno significa que la probabilidad de tener un valor tan extremo como el valor que tenemos de <em>t</em> de un coeficiente bajo su <span class="math notranslate nohighlight">\(H_0\)</span>. Si <span class="math notranslate nohighlight">\(p&lt;\alpha\)</span> (normalmente, si <span class="math notranslate nohighlight">\(p&lt;0.05\)</span>), rechazamos el <span class="math notranslate nohighlight">\(H_0\)</span> y tenemos evidencia de que <strong>el coeficiente no es cero</strong>, y decimos que este coeficiente es <strong>significativo</strong>.</p>
+</div></blockquote>
 </section>
 </section>
 </section>
@@ -2782,7 +2790,7 @@ TS = \frac{MSB}{MSE} = \frac{\frac{SS_B}{(m-1)}}{\frac{SS_W}{(nm-m)}}
 <li><p>Cada error <span class="math notranslate nohighlight">\(e_i \sim \mathcal{N}(0, \sigma^2)\)</span>, <span class="math notranslate nohighlight">\(e_i\)</span> es independiente de <span class="math notranslate nohighlight">\(\bf{x_i}\)</span>, y los errores <span class="math notranslate nohighlight">\(e_i\)</span> son independientes entre sí mismos. Es decir, <span class="math notranslate nohighlight">\(\bf e \sim \mathcal{N_D}(0, \bf{I}\)</span> <span class="math notranslate nohighlight">\(\sigma^2)\)</span>.</p></li>
 </ul>
 <p><strong>¿Cómo examinar estos supuestos y supuestos?</strong></p>
-<p>Antes de ajustar el modelo, usamos:</p>
+<p>1) Antes de ajustar el modelo, usamos:</p>
 <ul class="simple">
 <li><p>Conocimiento de los datos:</p>
 <ul>
@@ -2809,7 +2817,7 @@ TS = \frac{MSB}{MSE} = \frac{\frac{SS_B}{(m-1)}}{\frac{SS_W}{(nm-m)}}
 <p class="admonition-title">Nota</p>
 <p>A veces, aunque <span class="math notranslate nohighlight">\(X_{.k}\)</span> y <span class="math notranslate nohighlight">\(Y\)</span> no tiene una clara relación según el coeficiente de correlación o gráfica de dispersión, <span class="math notranslate nohighlight">\(X_{.k}\)</span> puede ser un predictor significativo. Por qué?</p>
 </div>
-<p>Después de ajustar el modelo, examinamos los <strong>residuos</strong> con:</p>
+<p>2) Después de ajustar el modelo, examinamos los <strong>residuos</strong> con:</p>
 <ul class="simple">
 <li><p>Gráfica de dispersión entre <span class="math notranslate nohighlight">\(e_{i}\)</span> y <span class="math notranslate nohighlight">\(\hat y_i\)</span>:</p>
 <ul>
@@ -2824,14 +2832,14 @@ TS = \frac{MSB}{MSE} = \frac{\frac{SS_B}{(m-1)}}{\frac{SS_W}{(nm-m)}}
 <li><p>Estos son para ver si los residuos siguien una distribución normal con la media 0.</p></li>
 </ul>
 </li>
-<li><p>Gráfica de dispersión entre <span class="math notranslate nohighlight">\(e_{i}\)</span> y cada <span class="math notranslate nohighlight">\(x_{.k}\)</span> (opcional):</p>
+<li><p>[Optional] Gráfica de dispersión entre <span class="math notranslate nohighlight">\(e_{i}\)</span> y cada <span class="math notranslate nohighlight">\(x_{.k}\)</span>:</p>
 <ul>
 <li><p>El promedio (vertical) de los residuos en cada valor de <span class="math notranslate nohighlight">\(x_{.k}\)</span> permanece cerca de 0 a medida que escaneamos el gráfico de izquierda a derecha. (supuestos <strong>L</strong> y <strong>I</strong>)</p></li>
 <li><p>La dispersión (vertical) de los residuos permanece aproximadamente igual (constante) a medida que escaneamos el gráfico de izquierda a derecha (supuesto <strong>E</strong>)</p></li>
 <li><p>Si se violan, hay varias optiones: tranforma el predictor (e.g., <span class="math notranslate nohighlight">\(x^2\)</span>), transforma la respuesta (e.g., <span class="math notranslate nohighlight">\(logY\)</span>), etc.</p></li>
 </ul>
 </li>
-<li><p>Gráfica de dispersión entre <span class="math notranslate nohighlight">\(e_{i}\)</span> y tiempo o espacio (opcional):</p>
+<li><p>[Optional] Gráfica de dispersión entre <span class="math notranslate nohighlight">\(e_{i}\)</span> y tiempo o espacio:</p>
 <ul>
 <li><p>Esto es relevante solo si los datos se recogieron en el tiempo (o espacio) para la misma unidad.</p></li>
 <li><p>No hay un patrón no aleatorio sistemático (esto afirma el supuesto <strong>i</strong>).</p></li>
@@ -2843,7 +2851,7 @@ TS = \frac{MSB}{MSE} = \frac{\frac{SS_B}{(m-1)}}{\frac{SS_W}{(nm-m)}}
 <ul class="simple">
 <li><p>Variance inflation factor / VIF (opcional / depende):</p>
 <ul>
-<li><p><span class="math notranslate nohighlight">\(\displaystyle VIF_k = \frac{1}{1-R_k^2}\)</span> donde <span class="math notranslate nohighlight">\(R_k^2\)</span> es el <span class="math notranslate nohighlight">\(R^2\)</span> de una regresión donde uno predice <span class="math notranslate nohighlight">\(X_{.k}\)</span> por los otros predictores <span class="math notranslate nohighlight">\(X_{.j}\)</span>. La regla general es que el VIF superior a 5 sugiere multicolinealidad y justifica una mayor investigación, mientras que el VIF superior a 10 es signo de multicolinealidad grave que requieren corrección.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\displaystyle VIF_k = \frac{1}{1-R_k^2}\)</span> donde <span class="math notranslate nohighlight">\(R_k^2\)</span> es el <span class="math notranslate nohighlight">\(R^2\)</span> de una regresión donde uno predice <span class="math notranslate nohighlight">\(X_{.k}\)</span> por los otros predictores <span class="math notranslate nohighlight">\(X_{.j}\)</span>. La regla general es que el <strong>VIF superior a 5 sugiere multicolinealidad</strong> y justifica una mayor investigación, mientras que el <strong>VIF superior a 10</strong> es signo de <strong>multicolinealidad grave</strong> que requieren corrección.</p></li>
 </ul>
 </li>
 </ul>
@@ -2866,7 +2874,7 @@ TS = \frac{MSB}{MSE} = \frac{\frac{SS_B}{(m-1)}}{\frac{SS_W}{(nm-m)}}
 </ul>
 </li>
 <li><p>No todos valores atípicos o puntos con alto apalancamiento son influyentes. Para identificar datos influyentes, puedes consultar este <a class="reference external" href="https://online.stat.psu.edu/stat501/lesson/11">material</a>.</p></li>
-<li><p>Si exiten puntos influyentes, hay varias opciones:</p>
+<li><p><strong>Si exiten puntos influyentes, hay varias opciones</strong>:</p>
 <ul>
 <li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Winsorizing#:~:text=Winsorizing%20or%20winsorization%20is%20the,as%20clipping%20in%20signal%20processing.">Winsorizing</a> las variables y describa en sus informes</p></li>
 <li><p>Elimina estos puntos, pero solo si tienes una razón buena y objetiva. Si eliminas cualquier dato, justifique y describa en sus informes.</p></li>
@@ -3569,8 +3577,9 @@ F-statistic: 22.17 on 3 and 26 DF,  p-value: 2.451e-07
 </div>
 </div>
 </div>
-<p><strong>Gráfica de dispersión entre <span class="math notranslate nohighlight">\(e_{i}\)</span> y cada <span class="math notranslate nohighlight">\(x_{.k}\)</span></strong></p>
-<p>También podemos visualizar el residuo en función de las variables independientes (usamos sus valores originales aquí):</p>
+<p><strong>[Opcional] Gráfica de dispersión entre <span class="math notranslate nohighlight">\(e_{i}\)</span> y cada <span class="math notranslate nohighlight">\(x_{.k}\)</span></strong></p>
+<p>Este paso es opcional, pero es útil para identificar predictores “problemáticos” (e.g., necesitan transformaciones).</p>
+<p>Podemos visualizar el residuo en función de las variables independientes (usamos sus valores originales aquí).</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -3791,7 +3800,7 @@ Notes:
 <h3><span class="section-number">16.4.8. </span>Examina coeficientes<a class="headerlink" href="#examina-coeficientes" title="Permalink to this heading">#</a></h3>
 <p>Ahora podemos examinar los coeficientes. ¿Qué tan significativa es la contribución de cada predictor a la predicción controlando otros predictores?</p>
 <blockquote>
-<div><p>Basándonos en los p-values de t-tests de los coeficientes, se rechanza <span class="math notranslate nohighlight">\(H_0\)</span> que los coeficientes asociados a la temperatura e ingreso sean cero (i.e., sus coeficientes no son cero). No hay pruebas (evidence) suficientes para rechazar <span class="math notranslate nohighlight">\(H_0\)</span> para los coeficientes del precio y la intersección (i.e., sus coeficientes son cero).</p>
+<div><p>Basándonos en los p-values de t-tests de los coeficientes, se rechanza <span class="math notranslate nohighlight">\(H_0\)</span> que los coeficientes asociados a la temperatura e ingreso sean cero (i.e., sus coeficientes no son cero). No hay evidencia suficiente para rechazar <span class="math notranslate nohighlight">\(H_0\)</span> para los coeficientes del precio y la intersección (i.e., sus coeficientes son cero).</p>
 </div></blockquote>
 <p>Advertencia: la intersección es cero aquí porque hemos hacer la estandarización de la respuesta.</p>
 <p><strong>Puedes responder a las preguntas P1 y P2 (como la primera ronda)?</strong></p>
@@ -3852,9 +3861,9 @@ Notes:
 <p class="admonition-title">Advertencia</p>
 <p>A diferencia del <span class="math notranslate nohighlight">\(R^2\)</span>, el <span class="math notranslate nohighlight">\(R^2\)</span> ajustado no está acotado entre 0 y 1 y no debe interpretarse de manera similar a la medida del <span class="math notranslate nohighlight">\(R^2\)</span> (no refleja qué porcentaje de error se está explicando).</p>
 </div>
-<p>El modelo completo tiene el mejor <span class="math notranslate nohighlight">\(R_{adj}^2\)</span> (.687) que el modelo reducido aquí (.680). Si tenemos que selecionar un modelo y usamos <span class="math notranslate nohighlight">\(R_{adj}^2\)</span> para elegir (y preferimos un modelo más grande), podemos selecionar el modelo completo.</p>
+<p>El modelo completo tiene el mejor <span class="math notranslate nohighlight">\(R_{adj}^2\)</span> (.687) que el modelo reducido aquí (.680). Si tenemos que selecionar un modelo y usamos <span class="math notranslate nohighlight">\(R_{adj}^2\)</span> para elegir, podemos selecionar el modelo completo.</p>
 <p><strong>F-test lineal general</strong></p>
-<p>Sin embargo, muchas investigadores preferen un modelo más pequeño, dado que no hay diferencia estadística entre los models. En este caso, hacemos un <a class="reference external" href="https://online.stat.psu.edu/stat501/lesson/6/6.2">F-test lineal general</a> presentado anteriormente. Si rechazamos <span class="math notranslate nohighlight">\(H_0\)</span> (con <span class="math notranslate nohighlight">\(p\)</span>&lt;.05), rechazamos el modelo reducido en favor de el modelo completo (o más grande).</p>
+<p>Sin embargo, muchas investigadores preferen un modelo más pequeño, dado que no hay diferencia estadística entre los models. En este caso, hacemos un <a class="reference external" href="https://online.stat.psu.edu/stat501/lesson/6/6.2">F-test lineal general</a> presentado anteriormente. Si rechazamos <span class="math notranslate nohighlight">\(H_0\)</span> (con <span class="math notranslate nohighlight">\(p\)</span>&lt;.05), rechazamos el modelo reducido <strong>en favor de el modelo completo (o más grande)</strong>.</p>
 <p>Aquí, utilizamos <a class="reference external" href="https://www.statsmodels.org/dev/generated/statsmodels.stats.anova.anova_lm.html"><code class="docutils literal notranslate"><span class="pre">statsmodels.stats.anova.anova_lm</span></code></a> para hacer una comparación con F-test lineal general:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3943,7 +3952,7 @@ Notes:
 <section id="notas-finales-del-pipeline-basico">
 <h2><span class="section-number">16.5. </span>Notas finales del pipeline básico<a class="headerlink" href="#notas-finales-del-pipeline-basico" title="Permalink to this heading">#</a></h2>
 <p>Terminamos el pipeline básico, pero tu viaje comienza aquí :)</p>
-<p>Si solo te importa el rendimiento de predición y no te importan si el modelo tiene sentido, el valor o la significancia de los coeficiente, a menudo basta con comprobar algunas métricas de fitness o predictiveness (e.g., <span class="math notranslate nohighlight">\(R^2\)</span>, <span class="math notranslate nohighlight">\(R_{adj}^2\)</span>, AIC, BIC, RMSE, AUC).</p>
+<p>Si sólo te interesa el rendimiento de la predicción y no te importa si el modelo tiene sentido, no te importa el valor o la significancia de los coeficientes, a menudo basta con comprobar algunas métricas de adecuación (fitness) o predictividad (predictiveness), e.g., <span class="math notranslate nohighlight">\(R^2\)</span>, <span class="math notranslate nohighlight">\(R_{adj}^2\)</span>, AIC, BIC, RMSE, AUC, sin comprobar la violación de los supuestos, la multicolinealidad, etc. Pero en este curso queremos que utilices el pipieline completa :)</p>
 <p>Si tienes preguntas más abiertas, el pipeline se vuelve más complejo. Por ejemplo, para la pregunta</p>
 <blockquote>
 <div><p>¿Cúal es el mejor modelo de regresión para explicar el consumo de helados?</p>
@@ -3962,7 +3971,7 @@ Notes:
 <li><p>Regresicón polinómica</p></li>
 </ol>
 <p>Más adelante, veamos regresión lineal con funciones base y regularización y regresiones para respuestas discretas!</p>
-<p>Ahora, veamos algunos tópicos específicos (1, 2, 3), y usaremos R!</p>
+<p>Ahora, veamos algunos tópicos específicos (1, 2), y usaremos R!</p>
 </section>
 <section id="variables-categoricas">
 <h2><span class="section-number">16.6. </span>Variables categóricas<a class="headerlink" href="#variables-categoricas" title="Permalink to this heading">#</a></h2>
@@ -4140,7 +4149,7 @@ F-statistic: 14.39 on 1 and 649 DF,  p-value: 0.0001626
 <ol class=list-inline><li>'Action &amp; Adventure'</li><li>'Animation'</li><li>'Art House &amp; International'</li><li>'Comedy'</li><li>'Documentary'</li><li>'Drama'</li><li>'Horror'</li><li>'Musical &amp; Performing Arts'</li><li>'Mystery &amp; Suspense'</li><li>'Other'</li><li>'Science Fiction &amp; Fantasy'</li></ol>
 </div></div>
 </div>
-<p>Aquí, un variable de tipo <em>factor</em> en R es un conjunto de variables dummy. Una <strong>variable dummy</strong> es una variable binaria (1 o 0) para representar el efecto de una variable categórica. Para una variable categórica con <span class="math notranslate nohighlight">\(n\)</span> niveles, utilizamos <span class="math notranslate nohighlight">\(n-1\)</span> variables dummy. Por ejemplo, para una variable categórica SES (social economic status), creamos dos variables dummy, y el nivel que tiene 0s en todas las variables dummy es el grupo de referencia.</p>
+<p>Aquí, un variable de tipo <em>factor</em> en R es un conjunto de variables “dummy”. Una <strong>variable dummy</strong> es una variable binaria (1 o 0) para representar el efecto de una variable categórica. Para una variable categórica con <span class="math notranslate nohighlight">\(n\)</span> niveles, utilizamos <span class="math notranslate nohighlight">\(n-1\)</span> variables dummy. Por ejemplo, para una variable categórica SES (social economic status), creamos dos variables dummy, y el nivel que tiene 0s en todas las variables dummy es el grupo de referencia.</p>
 <p><a class="reference internal" href="../../_images/dummy.png"><img alt="../../_images/dummy.png" src="../../_images/dummy.png" style="width: 150px;" /></a> (<a class="reference external" href="https://www.youtube.com/watch?v=2Z8fhhs69N0">Fuente</a>)</p>
 <p>¿Por qué utilizamos <span class="math notranslate nohighlight">\(n-1\)</span> en lugar de <span class="math notranslate nohighlight">\(n\)</span> variables dummy?</p>
 <p>¿Cuántas variables dummy tenemos en el movie dataset?</p>
@@ -4182,8 +4191,8 @@ F-statistic: 18.91 on 10 and 640 DF,  p-value: &lt; 2.2e-16
 </div>
 </div>
 </div>
-<p>¿Qué significa el coeficiente 5.97077 del <em>Intercept</em>?
-¿Qué significa el coeficiente 5.97077 del <em>Intercept</em>?</p>
+<p>¿Qué significa el coeficiente 5.97 del <em>Intercept</em>?
+¿Qué significa el coeficiente -0.07 del <em>genreAnimation</em>?</p>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
 <p>No se cumple la normalidad de residual  (véase más abajo). El modelo debe modificarse. Por ahora, nos detenemos aquí sólo para aprender a procesar variables categóricas.</p>

@@ -163,7 +163,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelamiento Estadístico</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../2_statistical_modeling/intro.html">7. Inferencia con Modelos Paramétricos y No Paramétricos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_statistical_modeling/intro.html">7. Inferencia estadística y tipos de modelamiento</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_statistical_modeling/part1.html">8. Modelamiento Paramétrico con MLE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_statistical_modeling/part2.html">9. Modelamiento con métodos no-paramétricos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../2_statistical_modeling/part3.html">10. Modelamiento parámetrico Bayesiano</a></li>
@@ -2408,10 +2408,12 @@ Scipy versión: 1.9.1
 <h2><span class="section-number">15.1. </span>Definiendo regresión<a class="headerlink" href="#definiendo-regresion" title="Permalink to this heading">#</a></h2>
 <p><strong>Regresión</strong> se refiere a una familia de modelos estadísticos cuyo fin es encontrar relaciones entre variables. En general esta relación se modela como una función</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}
-g: X \to Y\\
-g(x) = \mathbb{E}[Y|X=x] = \int y f(y|x) dy
-\end{split}\]</div>
+\[
+g: X \to Y
+\]</div>
+<div class="math notranslate nohighlight">
+\[g(x) = \mathbb{E}[Y|X=x] = \int y f(y|x) dy
+\]</div>
 <p>Esta función mapea un conjunto de variables a una variable:</p>
 <ul class="simple">
 <li><p>La/s variable/s de entrada <span class="math notranslate nohighlight">\(X\)</span> se llama/n <strong>variable/s independiente/s</strong> (IV). También se suelen llamar <strong>predictores, características (features), atributos, regresores</strong>.</p></li>
@@ -2422,7 +2424,7 @@ g(x) = \mathbb{E}[Y|X=x] = \int y f(y|x) dy
 \[(Y_1, X_1), ..., (Y_N, X_N) \sim F_{X, Y}\]</div>
 <div class="admonition note">
 <p class="admonition-title">Nota</p>
-<p>La regresión se puede definir desde una perspectiva estadística como un caso particular de ajuste de modelos (estimación de parámetros). También se considera como parte del paradigma de aprendizaje supervisado junto a los modelos de clasificación.</p>
+<p>La regresión se puede definir desde una perspectiva estadística como un caso particular de ajuste de modelos (estimación de parámetros). También se considera como parte del paradigma de aprendizaje supervisado.</p>
 </div>
 <p>Los métodos de regresión pueden clasificar como <strong>parámetricos</strong> o no paramétricos. En esta lección nos enfocaremos en los primeros.</p>
 <div class="admonition seealso">
@@ -2500,9 +2502,12 @@ g_b(x_i) = b_0 + \sum_{j=1}^D b_j x_{ij},
 <p>Asumiendo que tenemos <span class="math notranslate nohighlight">\(\{x_i, y_i\}_{i=1,\ldots,N}\)</span> observaciones de las variables unidimensionales <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span>, y <span class="math notranslate nohighlight">\(X\)</span> se considera dado, ¿cómo encontramos <span class="math notranslate nohighlight">\(b_0\)</span> y <span class="math notranslate nohighlight">\(b_1\)</span> tal que</p>
 <div class="math notranslate nohighlight">
 \[y_i \approx b_0 + b_1 x_i, \forall i \qquad?\]</div>
+<p>El <strong>valor predicho</strong> por el modelo se denomina <span class="math notranslate nohighlight">\(\hat y_i\)</span>, y:</p>
+<div class="math notranslate nohighlight">
+\[\hat y_i = g_b(x_i)\]</div>
 <p>Asumimos un término de <strong>error</strong> o <strong>residuo</strong> que cumple:</p>
 <div class="math notranslate nohighlight">
-\[y_i = g_b(x_i) + e_i = b_0 + b_1 x_i + e_i, \forall i\]</div>
+\[y_i = \hat y_i + e_i = g_b(x_i) + e_i = b_0 + b_1 x_i + e_i, \forall i\]</div>
 <p>donde los <strong><span class="math notranslate nohighlight">\(e_i\)</span> son i.i.d</strong>. Cada <span class="math notranslate nohighlight">\(e_i \sim \cal N(0, \sigma^2)\)</span>, <span class="math notranslate nohighlight">\(e_i\)</span> es independiente de <span class="math notranslate nohighlight">\(x_i\)</span>, y los <strong><span class="math notranslate nohighlight">\(e_i\)</span> son independientes entre sí mismos</strong>.</p>
 <p>Así que el error o residuo para la i-ésima observaicón es:</p>
 <div class="math notranslate nohighlight">
