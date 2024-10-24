@@ -2776,7 +2776,7 @@ TS = \frac{MSB}{MSE} = \frac{\frac{SS_B}{(m-1)}}{\frac{SS_W}{(nm-m)}}
 </ul>
 <p><strong>Supuestos</strong> (“<a class="reference external" href="https://online.stat.psu.edu/stat501/lesson/7/7.3">LINE</a>” usando íngles):</p>
 <ul class="simple">
-<li><p><strong>L</strong>inear function: La relación entre <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span> es lineal: la media de la respuesta <span class="math notranslate nohighlight">\(E[y_i]\)</span>, en cada conjunto de valores de los predictores <span class="math notranslate nohighlight">\(\bf{x_i}\)</span> <span class="math notranslate nohighlight">\((x_{i1}, x_{i2} ... x_{iD})\)</span>, es una función lineal de los predictores.</p>
+<li><p><strong>L</strong>inear function: La relación entre <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span> es lineal: la media de la respuesta <span class="math notranslate nohighlight">\(E[y_i|\bf{x_i}]\)</span>, en cada conjunto de valores de los predictores <span class="math notranslate nohighlight">\(\bf{x_i}\)</span> <span class="math notranslate nohighlight">\((x_{i1}, x_{i2} ... x_{iD})\)</span>, es una función lineal de los predictores.</p>
 <ul>
 <li><p>Esto equivale a tener media 0 sobre los residuos <span class="math notranslate nohighlight">\(e_i\)</span> en cada <span class="math notranslate nohighlight">\(\bf{x_i}\)</span>.</p></li>
 </ul>
@@ -3558,13 +3558,24 @@ F-statistic: 22.17 on 3 and 26 DF,  p-value: 2.451e-07
 })(window);</script></div>
 </div>
 <p><strong>Normalidad</strong></p>
-<p>Aquí solo hacemos el Shapiro-Wilk test. Para un proceso completo, tienes que hacer</p>
+<p>Aquí sólo hacemos el Shapiro-Wilk test. Para un proceso completo, recomendamos los siguientes:</p>
 <ul class="simple">
-<li><p>histograma/densidad plot</p></li>
-<li><p>Q-Q plot (debes estandarizar los residuos primero) y</p></li>
-<li><p>Shapiro-Wilk test (mejor para <span class="math notranslate nohighlight">\(N&lt;50\)</span>) o  Kolmogorov–Smirnov test (mejor para  <span class="math notranslate nohighlight">\(N \ge 50\)</span>)</p></li>
+<li><p>Histograma/densidad plot</p></li>
+<li><p>Q-Q plot (tienes que dibujar la línea estandardizada; además, es mejor estandarizar los residuos primero)</p></li>
+<li><p>Shapiro-Wilk test (mejor que muchos otros tests cuando <span class="math notranslate nohighlight">\(N &lt; 50\)</span>, pero también functiona para <span class="math notranslate nohighlight">\(N \ge 50\)</span>)</p>
+<ul>
+<li><p>Hay controversia sobre Kolmogorov–Smirnov (KS) test:</p>
+<ul>
+<li><p>Algunos investigadores dijieron que KS test es mejor para <span class="math notranslate nohighlight">\(N \ge 50\)</span>. Pero una limitación es que KS test requiere que la distribución teórica esté completamente especificada. Así que cuando utilizamos KS test y no sabemos la esperanza y varianza del normal, tenemos que utilizar una variante, <a class="reference external" href="https://www.statsmodels.org/0.6.1/generated/statsmodels.stats.diagnostic.lillifors.html?highlight=lilliefors">Lilliefors test</a>, o <a class="reference external" href="https://www.statsmodels.org/stable/generated/statsmodels.stats.diagnostic.normal_ad.html">Anderson-Darling test</a>.</p></li>
+<li><p>Algunos investigadores dijieron que KS test tiene poca potencia y no debería considerarse seriamente para probar la normalidad. Además, no se recomienda cuando los parámetros se estiman a partir de los datos, independientemente del tamaño de la muestra. (<a class="reference external" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3693611/#A3505R11">Fuente</a>)</p></li>
 </ul>
-<p>e interpretarlos en tu tarea.</p>
+</li>
+<li><p>Algunos investigadores recomiendan Shapiro-Wilk test como la mejor opción para comprobar la normalidad de los datos (<a class="reference external" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3693611/#A3505R11">fuente</a>).</p></li>
+</ul>
+</li>
+</ul>
+<p>Ojo: hay variantes del procedimento para comprobar normalidad depende de cada investigador(a), e.g., <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.skewtest.html">sknewness test</a>, <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kurtosistest.html">kurtosis test</a>.</p>
+<p>Al final, hay que interpretar los resultados en tu tarea.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">scipy.stats.shapiro</span><span class="p">(</span><span class="n">resid</span><span class="p">)</span>
