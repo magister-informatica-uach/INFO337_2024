@@ -2802,8 +2802,9 @@ TS = \frac{MSB}{MSE} = \frac{\frac{SS_B}{(m-1)}}{\frac{SS_W}{(nm-m)}}
 </li>
 </ul>
 </li>
-<li><p>Gráfica de dispersión (scatter plot) entre <span class="math notranslate nohighlight">\(Y\)</span> y cada predictor <span class="math notranslate nohighlight">\(X_{.k}\)</span>: tiene que tener una relación lineal con un pendiente distinta de cero (aproximadamente) (supuesto <strong>L</strong>)</p>
+<li><p>Gráfica de dispersión (scatter plot) entre <span class="math notranslate nohighlight">\(Y\)</span> y cada predictor <span class="math notranslate nohighlight">\(X_{.k}\)</span>: sería ideal tener una relación lineal con un pendiente distinta de cero (aproximadamente) (supuesto <strong>L</strong>)</p>
 <ul>
+<li><p><strong>Ojo</strong>: A veces, aunque <span class="math notranslate nohighlight">\(X_{.k}\)</span> y <span class="math notranslate nohighlight">\(Y\)</span> no tiene una clara relación (p.ej. pendiente 0) según el coeficiente de correlación o gráfica de dispersión, <span class="math notranslate nohighlight">\(X_{.k}\)</span> puede ser un predictor significativo. ¿Por qué? <a class="reference external" href="https://stats.stackexchange.com/questions/78828/is-there-a-difference-between-controlling-for-and-ignoring-other-variables-i">Aquí</a> es un ejemplo importante pare entender este punto (pon tu atención en las dos primeras cifras).</p></li>
 <li><p>Si se viola, hay varias optiones: no usa el predictor, tranforma el predictor (e.g., <span class="math notranslate nohighlight">\(x^2\)</span> para hacer regresión polinómica), o transforma la respuesta (e.g., <span class="math notranslate nohighlight">\(logY\)</span>), etc.</p></li>
 </ul>
 </li>
@@ -2813,10 +2814,6 @@ TS = \frac{MSB}{MSE} = \frac{\frac{SS_B}{(m-1)}}{\frac{SS_W}{(nm-m)}}
 </ul>
 </li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>A veces, aunque <span class="math notranslate nohighlight">\(X_{.k}\)</span> y <span class="math notranslate nohighlight">\(Y\)</span> no tiene una clara relación según el coeficiente de correlación o gráfica de dispersión, <span class="math notranslate nohighlight">\(X_{.k}\)</span> puede ser un predictor significativo. Por qué?</p>
-</div>
 <p>2) Después de ajustar el modelo, examinamos los <strong>residuos</strong> con:</p>
 <ul class="simple">
 <li><p>Gráfica de dispersión entre <span class="math notranslate nohighlight">\(e_{i}\)</span> y <span class="math notranslate nohighlight">\(\hat y_i\)</span>:</p>
@@ -3088,6 +3085,17 @@ Temperature #unique: 23
 </div>
 </div>
 </div>
+<p>Sobre correlación (DV y IV, entre las IVs):</p>
+<ul class="simple">
+<li><p>Pearson |r| &gt;= 0.4 o Kendall |tau| &gt;= 0.26 normalmente corresponde a una correlación moderada.</p></li>
+<li><p>Si la multicolinealidad te importa, evite usar predictores que estén altamente correlacionados (e.g., Pearson</p></li>
+</ul>
+<blockquote>
+<div><p>0.9) al mismo tiempo en el modelo.</p>
+</div></blockquote>
+<ul class="simple">
+<li></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">df.corr</span><span class="p">()</span> <span class="c1">#pearson</span>
